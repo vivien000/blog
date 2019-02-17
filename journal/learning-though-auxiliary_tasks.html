@@ -1,0 +1,548 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <title>
+    
+      Learning through Auxiliary Tasks | Unsupervised Thoughts
+    
+  </title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/main.css">
+  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/syntax.css">
+  <!-- Use Atom -->
+  <!-- <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/rss-feed.xml" title="Unsupervised Thoughts" /> -->
+  <!-- Use RSS-2.0 -->
+  <link href="https://vivien000.github.io/blog/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Unsupervised Thoughts | A blog on machine learning"/>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <!-- Google Analytics -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2723281-4', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <!-- Use Jekyll SEO plugin -->
+  <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Learning through Auxiliary Tasks | Unsupervised Thoughts</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Learning through Auxiliary Tasks" />
+<meta name="author" content="Vivien" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Play, a seemingly futile activity, is ubiquitous in human cultures and very widespread in the animal kingdom, which suggests it serves an important purpose" />
+<meta property="og:description" content="Play, a seemingly futile activity, is ubiquitous in human cultures and very widespread in the animal kingdom, which suggests it serves an important purpose" />
+<link rel="canonical" href="http://localhost:4000/journal/learning-though-auxiliary_tasks.html" />
+<meta property="og:url" content="http://localhost:4000/journal/learning-though-auxiliary_tasks.html" />
+<meta property="og:site_name" content="Unsupervised Thoughts" />
+<meta property="og:image" content="http://localhost:4000/vase.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-02-17T00:00:00+01:00" />
+<script type="application/ld+json">
+{"description":"Play, a seemingly futile activity, is ubiquitous in human cultures and very widespread in the animal kingdom, which suggests it serves an important purpose","author":{"@type":"Person","name":"Vivien"},"@type":"BlogPosting","url":"http://localhost:4000/journal/learning-though-auxiliary_tasks.html","image":"http://localhost:4000/vase.jpg","headline":"Learning through Auxiliary Tasks","dateModified":"2019-02-17T00:00:00+01:00","datePublished":"2019-02-17T00:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/journal/learning-though-auxiliary_tasks.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+</head>
+
+
+<body>
+
+  <div class="container">
+    <header class="masthead">
+  <h3 class="masthead-title">
+    <a href="https://vivien000.github.io/blog/">Unsupervised Thoughts</a>
+    <small class="masthead-subtitle">A blog on machine learning</small>
+    <div class="menu">
+  <nav class="menu-content">
+    
+      <a href="https://vivien000.github.io/blog/menu/about.html">About</a>
+    
+  </nav>
+  <nav class="social-icons">
+    
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  </nav>
+</div>
+
+  </h3>
+</header>
+
+
+    <div class="post-container">
+      <h1>
+  Learning through Auxiliary Tasks
+</h1>
+
+
+  <img src="https://vivien000.github.io/blog/assets/img/vase.jpg">
+
+
+<div class="caption_cover_image">Play, a seemingly futile activity, is ubiquitous in human cultures and very widespread in the animal kingdom, which suggests it serves an important purpose</div>
+
+<p>In this post, I’d like to illustrate how <strong>auxiliary tasks</strong> can be beneficial for <strong>machine learning</strong>. I’ll first define this notion, provide examples and present how these tasks are usually incorporated in the mathematical formulation of <strong>deep learning</strong> problems. I’ll then propose an alternative approach I’ll illustrate through several experiments.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#auxiliary-tasks-in-machine-learning" id="markdown-toc-auxiliary-tasks-in-machine-learning">Auxiliary tasks in machine learning</a></li>
+  <li><a href="#standard-approach-for-deep-auxiliary-learning" id="markdown-toc-standard-approach-for-deep-auxiliary-learning">Standard approach for deep auxiliary learning</a></li>
+  <li><a href="#an-alternative-approach" id="markdown-toc-an-alternative-approach">An alternative approach</a></li>
+  <li><a href="#comparison-to-unweighted-and-weighted-cosine" id="markdown-toc-comparison-to-unweighted-and-weighted-cosine">Comparison to unweighted and weighted cosine</a></li>
+  <li><a href="#experiments" id="markdown-toc-experiments">Experiments</a>    <ul>
+      <li><a href="#toy-experiments" id="markdown-toc-toy-experiments">Toy experiments</a></li>
+      <li><a href="#experiments-on-a-real-dataset" id="markdown-toc-experiments-on-a-real-dataset">Experiments on a real dataset</a></li>
+      <li><a href="#experiments-on-a-synthetic-dataset" id="markdown-toc-experiments-on-a-synthetic-dataset">Experiments on a synthetic dataset</a></li>
+    </ul>
+  </li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+  <li><a href="#references" id="markdown-toc-references">References</a></li>
+</ul>
+
+<h1 id="auxiliary-tasks-in-machine-learning">Auxiliary tasks in machine learning</h1>
+
+<p>In machine learning, <strong>auxiliary tasks</strong> are tasks we try to accomplish with the sole objective of better performing one or several <strong>primary tasks</strong>. This situation, referred to here as <strong>auxiliary learning</strong>, contrasts with <strong>multitask learning</strong><sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>, for which we are genuinely interested in accomplishing well all tasks, and <strong>single task learning</strong>, for which only one task is considered.</p>
+
+<table>
+  <tr>
+    <th class="no_border"></th>
+    <th>Tasks performed during training</th>
+    <th>Tasks considered when assessing performance</th>
+  </tr>
+  <tr>
+    <td><b>Single task learning</b></td>
+    <td colspan="2">One task</td>
+  </tr>
+  <tr>
+    <td><b>Multitask learning</b></td>
+    <td colspan="2">Several tasks</td>
+  </tr>
+  <tr>
+    <td><b>Auxiliary learning</b></td>
+    <td>One or several primary tasks, one or several auxiliary tasks</td>
+    <td>Primary tasks</td>
+  </tr>
+</table>
+
+<div class="caption">Table 1. Auxiliary learning compared to single task learning and multitask learning</div>
+
+<p>Let’s look at a striking example <a href="#caruana1996using">(Caruana, Baluja, &amp; Mitchell, 1996)</a> based on the Medis Pneumonia Database. This database contains 14,199 cases of patients diagnosed with pneumonia and hospitalized. It includes:</p>
+<ul>
+  <li>30 basic measurements (e.g. pulse);</li>
+  <li>35 lab results (e.g. blood counts);</li>
+  <li>the indication whether each patient survived or died.</li>
+</ul>
+
+<p>Rich Caruana and his colleagues’ primary task was to identify patients that were more likely to survive and should then not be hospitalized. In this context, the lab results, available only after hospitalization, couldn’t be used as inputs. However, it was still possible to take advantage of them. Rich Caruana and his colleagues tried, as an auxiliary task, to predict the lab results based on the basic measurements. They thus reduced the error rate for their primary task by 5-10%.</p>
+
+<p>Auxiliary learning has often been successfully applied in other settings, such as in the examples below:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Domain</strong></td>
+      <td><strong>Primary task</strong></td>
+      <td><strong>Auxiliary tasks</strong></td>
+      <td><strong>Source</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Deep learning</strong></td>
+      <td>Training a deep neural network</td>
+      <td>Reconstructing corrupted versions of the neural network’s inputs and the activations of its hidden layers to learn useful features</td>
+      <td><a href="#vincent2008extracting">(Vincent, Larochelle, Bengio, &amp; Manzagol, 2008)</a></td>
+    </tr>
+    <tr>
+      <td><strong>Computer vision</strong></td>
+      <td>Identifying facial landmarks on face pictures</td>
+      <td>Estimating head pose and predicting facial attributes (“wearing glasses”, “smiling” and “gender”)</td>
+      <td><a href="#Zhang14faciallandmark">(Zhang, Luo, Loy, &amp; Tang, 2014)</a></td>
+    </tr>
+    <tr>
+      <td><strong>Computer vision</strong></td>
+      <td>Detecting objects in indoor scenes</td>
+      <td>Predicting scene labels and evaluating depth and surface orientation at pixel level</td>
+      <td><a href="#mordan2018revisiting">(Mordan, Thome, Henaff, &amp; Cord, 2018)</a></td>
+    </tr>
+    <tr>
+      <td><strong>Sequence modelling</strong></td>
+      <td>Training a recurrent neural network on very long sequences</td>
+      <td>Reconstructing or predicting short segments of the sequences</td>
+      <td><a href="#trinh2018learning">(Trinh, Dai, Luong, &amp; Le, 2018)</a></td>
+    </tr>
+    <tr>
+      <td><strong>Natural language processing</strong></td>
+      <td>Performing a natural language processing task</td>
+      <td>Predicting words based on their neighborhood to learn efficient word representations</td>
+      <td><a href="#mikolov2013distributed">(Mikolov, Sutskever, Chen, Corrado, &amp; Dean, 2013)</a></td>
+    </tr>
+    <tr>
+      <td><strong>Reinforcement learning</strong></td>
+      <td>Playing a video game</td>
+      <td>Modifying the image perceived by the agent and predicting short-term rewards</td>
+      <td><a href="#jaderberg2016reinforcement">(Jaderberg et al., 2016)</a></td>
+    </tr>
+    <tr>
+      <td><strong>Reinforcement learning</strong></td>
+      <td>Playing a video game</td>
+      <td>Predicting the future state based on the current state and the current action</td>
+      <td><a href="#burda2018large">(Burda et al., 2018)</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="caption">Table 2. Auxiliary learning has been successfully used in a variety of settings</div>
+
+<h1 id="standard-approach-for-deep-auxiliary-learning">Standard approach for deep auxiliary learning</h1>
+
+<p>For the sake of clarity, let’s consider only the case of a single primary task and a single auxiliary task (generalizing to an arbitrary number of primary and auxiliary tasks is straightforward). Let’s suppose further that these tasks correspond to the minimization of a <strong>primary loss</strong> <script type="math/tex">\mathcal{L}_{\text{primary}}</script> and an <strong>auxiliary loss</strong> <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script>.</p>
+
+<p>In the context of deep learning, the standard approach<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> is to use a single neural network for both tasks, with shared layers followed by task-specific layers, and to apply a gradient descent-based method to minimize the weighted sum of the two losses <script type="math/tex">\mathcal{L} = \mathcal{L}_{\text{primary}} + \lambda \mathcal{L}_{\text{auxiliary}}</script>.</p>
+
+<p>The corresponding gradient is <script type="math/tex">\nabla\mathcal{L} = \nabla\mathcal{L}_{\text{primary}} + \lambda \nabla\mathcal{L}_{\text{auxiliary}}</script>.</p>
+
+<p>The underlying intuition is that minimizing <script type="math/tex">\mathcal{L}</script> will lead to <strong>more meaningful representations in the shared layers</strong> and that these representations will be leveraged by the layers specific to the primary task.</p>
+
+<p>In the standard multitask approach, <script type="math/tex">\lambda</script> is a constant value<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>. Its purpose is to <strong>balance the primary task and the auxiliary task</strong>. <script type="math/tex">\lambda = 0</script> corresponds to single task learning whereas increasing values of <script type="math/tex">\lambda</script> gives more and more influence to the auxiliary task.</p>
+
+<p>Adding an auxiliary task may of course not be helpful for the primary task. It can even be harmful and avoiding such cases of <strong>negative transfer</strong> is a central challenge of multitask learning and auxiliary learning.</p>
+
+<h1 id="an-alternative-approach">An alternative approach</h1>
+
+<p><strong>The approach described above</strong> has provided very good empirical results. However, using a weighted average of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script> <strong>suggests we’d be willing to tolerate a higher value of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> if it helped sufficiently decrease <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script></strong>. On the contrary, reducing the auxiliary loss is only looked for to the extent this contributes to reducing the primary loss.</p>
+
+<p>To <strong>mitigate negative transfer and better reflect the fundamental asymmetry between the primary loss and the auxiliary loss</strong>, I try below substituting <script type="math/tex">\nabla\mathcal{L}</script> with:</p>
+
+<script type="math/tex; mode=display">G = \nabla\mathcal{L}_{\text{primary}} + \lambda G_{\text{auxiliary}}</script>
+
+<p>where:</p>
+
+<script type="math/tex; mode=display">G_{\text{auxiliary}} = \nabla\mathcal{L}_{\text{auxiliary}} - \min(0, \nabla\mathcal{L}_{\text{auxiliary}}.\frac{\nabla\mathcal{L}_{\text{primary}}}{||\nabla\mathcal{L}_{\text{primary}}||})\frac{\nabla\mathcal{L}_{\text{primary}}}{||\nabla\mathcal{L}_{\text{primary}}||}</script>
+
+<p><img src="/assets/img/projection.png" alt="Projection of the auxiliary loss gradient" /></p>
+<div class="caption">Figure 1. if \(\nabla\mathcal{L}_{\text{primary}}\) and \(\nabla\mathcal{L}_{\text{auxiliary}}\) form an obtuse angle, the component of \(\nabla\mathcal{L}_{\text{auxiliary}}\) collinear with \(\nabla\mathcal{L}_{\text{primary}}\) is cancelled to avoid increasing \(\mathcal{L}_{\text{primary}}\).If not, \(\nabla\mathcal{L}_{\text{auxiliary}}\) is kept as it is</div>
+
+<p>Otherwise said, <script type="math/tex">G_{\text{auxiliary}}</script> is the projection of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> on the half-space of vectors whose cosine with <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> is positive. If we haven’t already reached a critical point of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> (i.e. if <script type="math/tex">\nabla\mathcal{L}_{\text{primary}} \neq \mathbf{0}</script>), this ensures that <script type="math/tex">\mathcal{L}_{\text{primary}}</script> will decrease if the learning rate if small enough.</p>
+
+<h1 id="comparison-to-unweighted-and-weighted-cosine">Comparison to unweighted and weighted cosine</h1>
+
+<p>This approach, referred below as <strong>projection</strong>, is analogous to two methods, <strong>unweighted cosine</strong> and <strong>weighted cosine</strong>, recently proposed for the same purpose <a href="#du2018adapting">(Du, Czarnecki, Jayakumar, Pascanu, &amp; Lakshminarayanan, 2018)</a>. Yunshu Du,  Wojciech Czarnecki and their colleagues also suggest to adjust <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Method</strong></td>
+      <td><strong>Adjusted auxiliary loss gradient</strong> <script type="math/tex">G_{\text{auxiliary}}</script></td>
+    </tr>
+    <tr>
+      <td><strong>Unweighted cosine</strong></td>
+      <td><script type="math/tex">% <![CDATA[
+\left\{\begin{array}{lll}\nabla\mathcal{L}_{\text{auxiliary}}&\mbox{if }\cos(\nabla\mathcal{L}_{\text{primary}},\nabla\mathcal{L}_{\text{auxiliary}}) \geq 0 \\ 0&\mbox{if }\cos(\nabla\mathcal{L}_{\text{primary}},\nabla\mathcal{L}_{\text{auxiliary}}) < 0\end{array}\right. %]]></script></td>
+    </tr>
+    <tr>
+      <td><strong>Weighted cosine</strong></td>
+      <td><script type="math/tex">\max(0, \cos(\nabla\mathcal{L}_{\text{primary}},\nabla\mathcal{L}_{\text{auxiliary}})).\nabla\mathcal{L}_{\text{auxiliary}}</script></td>
+    </tr>
+    <tr>
+      <td><strong>Projection</strong></td>
+      <td><script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}} - \min(0, \nabla\mathcal{L}_{\text{auxiliary}}.\frac{\nabla\mathcal{L}_{\text{primary}}}{||\nabla\mathcal{L}_{\text{primary}}||}).\frac{\nabla\mathcal{L}_{\text{primary}}}{||\nabla\mathcal{L}_{\text{primary}}||}</script></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="caption">Table 3. Unweighted cosine and weighted cosine compared to the method proposed here</div>
+
+<p>If <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an acute angle, both <em>projection</em> and <em>unweighted cosine</em> leave <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> unchanged whereas <em>weighted cosine</em> reduces its norm by the cosine similarity of these vectors. In particular, <em>weighted cosine</em> strongly shrinks <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> when it becomes almost orthogonal to <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script>.</p>
+
+<p>If <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an obtuse angle, both <em>unweighted cosine</em> and <em>weighted cosine</em> just ignore <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>. In contrast, <em>projection</em> only negates the component of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> which is collinear to <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script>.</p>
+
+<p><img src="/assets/img/cosine.png" alt="Unweighted and weighted cosine" /></p>
+<div class="caption">Figure 2. \(\nabla\mathcal{L}_{\text{auxiliary}}\) transformed into \(G_{\text{auxiliary}}\) by unweighted cosine (red) and weighted cosine (purple)</div>
+
+<p>Even if <em>projection</em> and <em>unweighted/weighted cosine</em> are similar, their motivations are different:</p>
+
+<ul>
+  <li>
+    <p><a href="#du2018adapting">(Du, Czarnecki, Jayakumar, Pascanu, &amp; Lakshminarayanan, 2018)</a> explicitly tries to favor auxiliary tasks similar to the primary task. For example, <em>weighted cosine</em> completely ignores the auxiliary task when <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> are orthogonal.</p>
+  </li>
+  <li>
+    <p>In my intuition, an auxiliary task’s purpose is to bring a new perspective. It should nudge us towards interesting regions of the parameter space we wouldn’t have explored with only the primary task in focus. Therefore we can try to negate the component of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> which seems clearly harmful to our objective but we shouldn’t necessarily discards auxiliary tasks dissimilar to the primary task<sup id="fnref:5"><a href="#fn:5" class="footnote">4</a></sup>.</p>
+  </li>
+</ul>
+
+<h1 id="experiments">Experiments</h1>
+
+<p>Let’s now look at some experiments. They were performed with Tensorflow and you can find the corresponding notebooks and additional results on <a href="https://github.com/vivien000/auxiliary-learning">GitHub</a>.</p>
+
+<h2 id="toy-experiments">Toy experiments</h2>
+
+<p>We start with a minimalistic example to illustrate how substituting <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> with <script type="math/tex">G_{\text{auxiliary}}</script> gives priority to the primary task while still allowing progress on the auxiliary task.</p>
+
+<p>In the <strong>euclidean plane</strong> <script type="math/tex">\mathbb{R^2}</script>, we’ll try to find a point <script type="math/tex">(x, y)</script> that, <strong>above all, minimizes the square distance to the unit circle</strong> and, only if it doesn’t increase this distance, also <strong>minimizes the square distance to point (2, 0)</strong>.</p>
+
+<p>Otherwise said, <script type="math/tex">\mathcal{L}_{\text{primary}} = (\sqrt{x^2+y^2}-1)^2</script> and <script type="math/tex">\mathcal{L}_{\text{auxiliary}} = (x-2)^2+y^2</script>.</p>
+
+<p>This is a slight departure from the principle of auxiliary learning described above. Here we want to accomplish both the primary task and the auxiliary task even if the primary task is the absolute priority (performing the primary task alone would be too easy).</p>
+
+<p><strong>The solution of this problem is of course</strong> <script type="math/tex">(1, 0)</script> and we try to reach it by <strong>using a gradient descent-based algorithm</strong> starting from point <script type="math/tex">(0, 2)</script> with <script type="math/tex">\lambda = 0.1</script>.</p>
+
+<p><img src="/assets/img/trajectories_adam.gif" alt="Adam trajectories" /></p>
+<div class="caption">Figure 3. Trajectories with Adam</div>
+
+<p>We can see the corresponding trajectories with the <strong>Adam algorithm</strong> (learning rate: 0.01, <script type="math/tex">\beta_1=0.9, \beta_2=0.999</script>) on Figure 3 and observe that:</p>
+
+<ul>
+  <li>
+    <p>With <em>multitask</em>, the point converges to a location close to but different from (1, 0) because of the distraction the auxiliary task creates.</p>
+  </li>
+  <li>
+    <p>With <em>projection</em>, the point follows as expected the same trajectory as with <em>multitask</em> before reaching the disk of radius 1 and center (1, 0), i.e. as long as <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an acute angle. Afterwards, the point slightly deviates from the <em>multitask</em> trajectory to reach (1, 0).</p>
+  </li>
+  <li>
+    <p>The trajectory for <em>unweighted cosine</em> is also the same before reaching the disk of radius 1 and center (1, 0). Afterwards, the point abruptly changes course in the direction of the unit disk as the auxiliary task is ignored. When the point arrives at the unit disk, it starts oscillating around its edge. It’s then intermittently influenced by the auxiliary task and follows the unit circle until reaching (1, 0).</p>
+  </li>
+  <li>
+    <p>With <em>weighted cosine</em>, the point follows a more direct trajectory towards the unit circle. It then arrives close to the intersection between the unit circle and the circle of radius 1 and center (1, 0), i.e. a location where <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> are orthogonal. It stagnates there for a while because the auxiliary task is mostly ignored then converges to (1, 0) by following the unit circle.</p>
+  </li>
+</ul>
+
+<p>With this example, <strong><em>projection</em>, <em>unweighted cosine</em> and <em>weighted cosine</em> allow to find the correct solution but the convergence is notably quicker with <em>projection</em></strong> (this is also the case for <a href="/assets/img/trajectories_adam2.gif">other</a> <a href="/assets/img/trajectories_adam3.gif">starting</a> <a href="/assets/img/trajectories_adam4.gif">points</a>).</p>
+
+<p><img src="/assets/img/trajectories_vanilla_gd.gif" alt="Vanilla Gradient Descent trajectories" /></p>
+<div class="caption">Figure 4. Trajectories with vanilla gradient descent</div>
+
+<p>Figure 4 shows the trajectories with the <strong>vanilla gradient descent algorithm</strong> (learning rate: 0.01) and tells a different story. <strong>With <em>unweighted cosine</em> and <em>weighted cosine</em>, the point now stops on the unit circle far from (1, 0)</strong>. This is because, in the absence of momentum, it eventually stays on the side of the unit circle where <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an obtuse angle. The auxiliary task is then never taken into consideration anymore. A similar behavior can be seen with <a href="/assets/img/trajectories_vanilla_gd2.gif">other</a> <a href="/assets/img/trajectories_vanilla_gd3.gif">starting</a> <a href="/assets/img/trajectories_vanilla_gd4.gif">points</a>.</p>
+
+<p>In summary, the proposed method works as intended with these toy examples: it helps accomplish both the primary task and the auxiliary task while giving precedence to the former.</p>
+
+<h2 id="experiments-on-a-real-dataset">Experiments on a real dataset</h2>
+
+<p>The following experiments are based on the <strong><em>CelebA (or large-scale CelebFaces attributes) dataset</em></strong> <a href="#liu2015faceattributes">(Liu, Luo, Wang, &amp; Tang, 2015)</a> and inspired by <a href="#Zhang14faciallandmark">(Zhang, Luo, Loy, &amp; Tang, 2014)</a>. The CelebA dataset contains many face images annotated with 40 binary attributes such as <em>Attractive</em>, <em>Young</em>, <em>Eyeglasses</em> or <em>Black Hair</em>, and the locations of 5 facial landmarks : <em>left eye</em>, <em>right eye</em>, <em>left mouth corner</em>, <em>right mouth corner</em> and <em>nose</em>.</p>
+
+<p><img src="/assets/img/faces.png" alt="Example of a CelebA image" /></p>
+<div class="caption">Figure 5. Examples of CelebA images and their 40 x 40 downsampled gray-scale versions with green dots on the 5 facial landmarks</div>
+
+<p>The <strong>primary task</strong> for these experiments is to <strong>determine whether a face is attractive</strong> (or at least attractive in the annotators’ eyes) and the <strong>auxiliary task</strong> is to <strong>locate the facial landmarks</strong>. The corresponding losses are the cross entropy error function and the average quadratic error.</p>
+
+<p><img src="/assets/img/neural_network1.png" alt="Neural network for the real dataset" /></p>
+<div class="caption">Figure 6. Convolutional network with 4 convolutional layers interleaved with 3 max-pooling layers, a shared dense layer, and a final dense layer specific to each task</div>
+
+<p>The pictures were downsampled to <script type="math/tex">40\times40</script> and converted to gray-scale to make the tasks more challenging and reduce computation time. 10000 of them were included in the training set, the validation set and the test set. I used the neural network depicted on Figure 6 as in <a href="#Zhang14faciallandmark">(Zhang, Luo, Loy, &amp; Tang, 2014)</a> and trained it with the Adam algorithm and early stopping.</p>
+
+<p><img src="/assets/img/real_dataset_chart1.png" alt="AUC for single task, multitask and projection" /></p>
+<div class="caption">Figure 7. Testing AUC for <i>single task</i>, <i>multitask</i> and <i>projection</i> and 5 values of \(\lambda\) (10 runs for each combination). The bands around the lines on this chart and the next ones correspond to the 95% confidence interval</div>
+
+<p>Figure 7 shows the testing AUC for the primary task with <em>single task</em>, <em>multitask</em> and <em>projection</em> and various values of <script type="math/tex">\lambda</script>:</p>
+
+<ul>
+  <li>Unsurprisingly enough, the <em>multitask</em> and <em>projection</em> curves get close to the <em>single task</em> curve as the influence of the auxiliary task becomes marginal for low values of <script type="math/tex">\lambda</script>;</li>
+  <li><strong>The classification performance is better for <em>multitask</em> and <em>projection</em> than for <em>single task</em></strong> for intermediate values of <script type="math/tex">\lambda</script>. Moreover, <strong>the median testing AUC at the best <script type="math/tex">\lambda</script> value for <em>projection</em> is slightly but statistically significantly higher than the one for <em>multitask</em></strong> (<script type="math/tex">p = 0.005</script> with the Wilcoxon signed-rank test);</li>
+  <li>The classification performance deteriorates as the influence of the auxiliary task becomes excessive with high values of <script type="math/tex">\lambda</script>, especially for <em>multitask</em> which performs worse than <em>single task</em> for <script type="math/tex">\lambda = 30000</script>.</li>
+</ul>
+
+<p><img src="/assets/img/real_dataset_chart2.png" alt="AUC for all modes" /></p>
+<div class="caption">Figure 8. Testing AUC for <i>single task</i>, <i>multitask</i>, <i>projection</i>, <i>unweighted cosine</i> and <i>weighted cosine</i> and 5 values of \(\lambda\) (10 runs for each combination)</div>
+
+<p>We can compare these results with those for <em>unweighted cosine</em> and <em>weighted cosine</em> on Figure 8. The <em>unweighted cosine</em> curve and the <em>weighted cosine</em> curve are very close to respectively the <em>projection</em> curve and the <em>single task</em> curve for <script type="math/tex">\lambda \leq 10000</script>. However, their testing AUC drops for <script type="math/tex">\lambda = 30000</script>. We can note that the <em>weighted cosine</em> curve falls between the <em>single task</em> curve and the <em>unweighted cosine</em> curve, which comes as no surprise.</p>
+
+<h2 id="experiments-on-a-synthetic-dataset">Experiments on a synthetic dataset</h2>
+
+<p>The last series of experiments follows <a href="#DBLP:conf/icml/ChenBLR18">(Chen, Badrinarayanan, Lee, &amp; Rabinovich, 2018)</a> and uses a <strong>synthetic dataset to control the adequacy of the auxiliary task</strong>.</p>
+
+<p>Let:</p>
+<ul>
+  <li><script type="math/tex">f(B, \mathbf{x}) = \tanh(B\mathbf{x})</script> where <script type="math/tex">\tanh(\cdot)</script> acts element-wise, <script type="math/tex">\mathbf{x}</script> is a real-valued vector of length <script type="math/tex">250</script> and <script type="math/tex">B</script> is a <script type="math/tex">100 \times 250</script> real-valued matrix.</li>
+  <li><script type="math/tex">B_\mathbb{primary}</script>, <script type="math/tex">B</script> and <script type="math/tex">\epsilon</script> be constant <script type="math/tex">100 \times 250</script> real-valued matrices whose elements are drawn IID respectively from <script type="math/tex">\mathcal{N}(0, 10)</script>, <script type="math/tex">\mathcal{N}(0, 10)</script> and <script type="math/tex">\mathcal{N}(0, 3.5)</script>.</li>
+</ul>
+
+<p>The <strong>primary task</strong> and the <strong>auxiliary task</strong> consist in approximating respectively <script type="math/tex">f(B_\mathbb{primary},\cdot)</script> and <script type="math/tex">f(B_\mathbb{auxiliary},\cdot)</script> with the quadratic loss function where <script type="math/tex">B_\mathbb{auxiliary}</script> can be equal to:</p>
+<ul>
+  <li><script type="math/tex">B_\mathbb{primary}</script> (<strong>both tasks are the same</strong>)</li>
+  <li><script type="math/tex">B_\mathbb{primary} + \epsilon</script> (<strong>both tasks are similar</strong>)</li>
+  <li><script type="math/tex">B</script> (<strong>both tasks are unrelated</strong>)</li>
+</ul>
+
+<p>For the input data (i.e. <script type="math/tex">\mathbf{x}</script>), the training set, the validation set and the test set include respectively 1000, 1000 and 10000 vectors whose elements are generated IID from <script type="math/tex">\mathcal{N}(0, 1)</script>. Moreover and as opposed to the previous series of experiments, <strong>the training sets are distinct for the primary task and the auxiliary task</strong>. If these sets were the same, the auxiliary task wouldn’t add any value when <script type="math/tex">B_\mathbb{primary} = B_\mathbb{auxiliary}</script>.</p>
+
+<p><img src="/assets/img/neural_network2.png" alt="Neural network for the real dataset" /></p>
+<div class="caption">Figure 9. Multilayer perceptron with 4 shared layers and an output layer specific to each task, all of them being of size 100</div>
+
+<p>As <a href="#DBLP:conf/icml/ChenBLR18">(Chen, Badrinarayanan, Lee, &amp; Rabinovich, 2018)</a>, I used the vanilla neural network depicted on Figure 9, which I trained with the Adam algorithm and early stopping.</p>
+
+<p><img src="/assets/img/synthetic_dataset_chart1.png" alt="AUC for single task, multitask and projection" /></p>
+<div class="caption">Figure 10. Testing loss for <i>single task</i>, <i>multitask</i> and <i>projection</i> for 5 values of \(\lambda\) (20 runs for each combination)</div>
+
+<p>Figure 10 shows the results for <em>single task</em>, <em>multitask</em> and <em>projection</em> for various values of <script type="math/tex">\lambda</script>. <strong>The outcomes for <em>multitask</em> and <em>projection</em> are almost identical and fully consistent with the 3 situations for the auxiliary task</strong> (same task, similar task and unrelated task):</p>
+<ul>
+  <li>when the auxiliary task is the same as the primary task, it significantly contributes to the performance of the primary task for all 5 values of <script type="math/tex">\lambda</script>.</li>
+  <li>when the auxiliary task is similar to but different from the primary task, it helps for <script type="math/tex">\lambda \leq 1</script> but becomes neutral or harmful for <script type="math/tex">\lambda \geq 3</script>.</li>
+  <li>when the auxiliary task is unrelated to the primary task, it’s detrimental to the performance of the primary task for <script type="math/tex">\lambda \geq 0.3</script>.</li>
+</ul>
+
+<p>In contrast to the previous series of experiments, <strong>Figure 10 suggests <em>projection</em> has no added value compared to <em>multitask</em></strong>. This difference may result from the fact that <strong>the primary task and the auxiliary task don’t share here the same input data</strong>. As a consequence, at each optimization step, <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> is less related to <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> and might then be too noisy to help properly adjust it. Therefore I tried substituting <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> with an <strong>exponential moving average of <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script></strong> for adjusting <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>. With a smoothing constant <script type="math/tex">% <![CDATA[
+0 < \alpha \leq 1 %]]></script>, <script type="math/tex">G_{\text{auxiliary}}</script> is then given at each optimization step <script type="math/tex">t</script> by:</p>
+
+<script type="math/tex; mode=display">G_{\text{auxiliary}}(t) = \nabla\mathcal{L}_{\text{auxiliary}}(t) - \min(0, \nabla\mathcal{L}_{\text{auxiliary}}(t).\frac{M(t)}{||M(t)||})\frac{M(t)}{||M(t)||}</script>
+
+<p>with <script type="math/tex">M(0) = \nabla\mathcal{L}_{\text{primary}}(0)</script> and <script type="math/tex">M(t) = \alpha\nabla\mathcal{L}_{\text{primary}}(t) + (1-\alpha)M(t-1)</script> for <script type="math/tex">t > 0</script>.</p>
+
+<p><img src="/assets/img/synthetic_dataset_chart2.png" alt="AUC for all modes" /></p>
+<div class="caption">Figure 11. Testing loss for <i>single task</i>, <i>multitask</i> and <i>projection</i> for 5 values of \(\lambda\) and 3 values of \(\alpha\) (20 runs for each combination)</div>
+
+<p>Figure 11 shows the same results as Figure 10 for 3 values of <script type="math/tex">\alpha</script>. With <script type="math/tex">\alpha = 0.1</script> and even more <strong>with <script type="math/tex">\alpha = 0.01</script>, <em>projection</em> yields clearly better results compared to <em>multitask</em> for all 3 situations</strong><sup id="fnref:6"><a href="#fn:6" class="footnote">5</a></sup>. Figure 12 zooms in on the case <script type="math/tex">\alpha = 0.01</script>, for which <em>unweighted cosine</em> and <em>weighted cosine</em> provide better results than <em>multitask</em> and <em>projection</em> only when the primary task and the auxiliary task are unrelated.</p>
+
+<p><img src="/assets/img/synthetic_dataset_chart3.png" alt="AUC for various scales" /></p>
+<div class="caption">Figure 12. Testing loss for <i>single task</i>, <i>multitask</i>, <i>projection</i>, <i>unweighted cosine</i> and <i>weighted cosine</i> for 5 values of \(\lambda\) and \(\alpha = 0.01\) (20 runs for each combination)</div>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p><strong>Leveraging auxiliary tasks is an elegant way to improve learning</strong>, especially in the case of supervised learning with too few labelled examples or reinforcement learning with sparse rewards. However, auxiliary tasks may sometimes hurt the performance on the primary task.</p>
+
+<p>In this blog post, I proposed a <strong>simple and intuitive method to mitigate such risk of negative transfer</strong>. I tested it in a few basic scenarios, in which it brought <strong>moderate but statistically significant gains over the standard multitask approach</strong>. This is a promising start but more diverse and elaborate experimental settings would be necessary to draw general conclusions on this method’s relevance or compare it with its alternatives.</p>
+
+<p><em>Many thanks to the authors of the inspiring articles listed below and the developers of the great tools used for this post: <a href="https://www.tensorflow.org/">Tensorflow</a>, the <a href="https://www.scipy.org/">SciPy</a> ecosystem, <a href="https://www.scipy.org/">Seaborn</a>, <a href="https://colab.research.google.com">Google Colab</a>, <a href="https://github.com/HarisIqbal88/PlotNeuralNet">PlotNeuralNet</a> and <a href="https://jekyllrb.com/">Jekyll</a>.</em></p>
+
+<h1 id="references">References</h1>
+
+<ol class="bibliography"><li><span id="caruana1996using">Caruana, R., Baluja, S., &amp; Mitchell, T. (1996). Using the future to "sort out" the present: Rankprop and multitask learning for medical risk evaluation. In <i>Advances in neural information processing systems</i> (pp. 959–965).</span></li>
+<li><span id="vincent2008extracting">Vincent, P., Larochelle, H., Bengio, Y., &amp; Manzagol, P.-A. (2008). Extracting and composing robust features with denoising autoencoders. In <i>Proceedings of the 25th international conference on Machine learning</i> (pp. 1096–1103). ACM.</span></li>
+<li><span id="Zhang14faciallandmark">Zhang, Z., Luo, P., Loy, C. C., &amp; Tang, X. (2014). Facial landmark detection by deep multi-task learning. In <i>In ECCV. 94–108</i>.</span></li>
+<li><span id="mordan2018revisiting">Mordan, T., Thome, N., Henaff, G., &amp; Cord, M. (2018). Revisiting Multi-Task Learning with ROCK: a Deep Residual Auxiliary Block for Visual Detection. In <i>Advances in Neural Information Processing Systems</i> (pp. 1317–1329).</span></li>
+<li><span id="trinh2018learning">Trinh, T. H., Dai, A. M., Luong, T., &amp; Le, Q. V. (2018). Learning longer-term dependencies in rnns with auxiliary losses. <i>ArXiv Preprint ArXiv:1803.00144</i>.</span></li>
+<li><span id="mikolov2013distributed">Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S., &amp; Dean, J. (2013). Distributed representations of words and phrases and their compositionality. In <i>Advances in neural information processing systems</i> (pp. 3111–3119).</span></li>
+<li><span id="jaderberg2016reinforcement">Jaderberg, M., Mnih, V., Czarnecki, W. M., Schaul, T., Leibo, J. Z., Silver, D., &amp; Kavukcuoglu, K. (2016). Reinforcement learning with unsupervised auxiliary tasks. <i>ArXiv Preprint ArXiv:1611.05397</i>.</span></li>
+<li><span id="burda2018large">Burda, Y., Edwards, H., Pathak, D., Storkey, A., Darrell, T., &amp; Efros, A. A. (2018). Large-scale study of curiosity-driven learning. <i>ArXiv Preprint ArXiv:1808.04355</i>.</span></li>
+<li><span id="du2018adapting">Du, Y., Czarnecki, W. M., Jayakumar, S. M., Pascanu, R., &amp; Lakshminarayanan, B. (2018). Adapting auxiliary losses using gradient similarity. <i>ArXiv Preprint ArXiv:1812.02224</i>.</span></li>
+<li><span id="liu2015faceattributes">Liu, Z., Luo, P., Wang, X., &amp; Tang, X. (2015). Deep Learning Face Attributes in the Wild. In <i>Proceedings of International Conference on Computer Vision (ICCV)</i>.</span></li>
+<li><span id="DBLP:conf/icml/ChenBLR18">Chen, Z., Badrinarayanan, V., Lee, C.-Y., &amp; Rabinovich, A. (2018). GradNorm: Gradient Normalization for Adaptive Loss Balancing in Deep
+               Multitask Networks. In <i>Proceedings of the 35th International Conference on Machine Learning,
+               ICML 2018, Stockholmsmässan, Stockholm, Sweden, July
+               10-15, 2018</i> (pp. 793–802). Retrieved from http://proceedings.mlr.press/v80/chen18a.html</span></li></ol>
+
+<hr />
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>The terminology for auxiliary learning is somewhat unclear in the academic litterature. Auxiliary learning may or may not be included in multitask learning depending on the papers. In this post, I restrict multitask learning to the situations where all tasks are taken into account to assess the model’s performance. Consequently multitask learning is here disjoint from auxiliary learning. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>Sebastian Ruder presents this approach as well as other approaches in his very good <a href="http://ruder.io/multi-task/index.html">overview of multitask learning</a>. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p><script type="math/tex">\lambda</script> varies in certain methods not presented here. <strong>Transfer learning</strong> can be seen as a specific case for which <script type="math/tex">\lambda = \infty</script> in a first stage and <script type="math/tex">\lambda = 0</script> in a second stage. <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:5">
+      <p>As an extreme example, an auxiliary task identical to the primary task and yielding the same gradients would be unhelpful provided that the learning rate is appropriately tuned. <a href="#fnref:5" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:6">
+      <p>It may be surprising that <em>multitask</em> isn’t the best training mode when the primary task and the auxiliary task are the same. In fact, the situation isn’t fully symmetrical because the primary task helps train the corresponding task-specific last layer which isn’t affected by the auxiliary task. <a href="#fnref:6" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+<span class="post-date">
+  Written on
+  
+  February
+  17th,
+  2019
+  by
+  
+    Vivien
+  
+</span>
+
+<div class="post-date">Feel free to share!</div>
+  <div class="sharing-icons">
+    <a href="https://twitter.com/intent/tweet?text=Learning through Auxiliary Tasks&amp;url=https://vivien000.github.io/blog/journal/learning-though-auxiliary_tasks.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vivien000.github.io/blog/journal/learning-though-auxiliary_tasks.html&amp;title=Learning through Auxiliary Tasks" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+    <a href="https://plus.google.com/share?url=https://vivien000.github.io/blog/journal/learning-though-auxiliary_tasks.html" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+  </div>
+</div>
+
+
+
+  <section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = "unsupervisedthoughts";
+    var disqus_identifier = "/journal/learning-though-auxiliary_tasks.html";
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+    </div>
+
+    <footer class="footer">
+  
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  <div class="post-date"><a href="https://vivien000.github.io/blog/menu/about.html">Unsupervised Thoughts | A blog on machine learning by Vivien</a></div>
+</footer>
+
+
+  </div>
+
+</body>
+</html>
