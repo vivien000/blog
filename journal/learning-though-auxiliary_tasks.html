@@ -238,7 +238,7 @@
 
 <p>In the standard multitask approach, <script type="math/tex">\lambda</script> is a constant value<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>. Its purpose is to <strong>balance the primary task and the auxiliary task</strong>. <script type="math/tex">\lambda = 0</script> corresponds to single task learning whereas increasing values of <script type="math/tex">\lambda</script> gives more and more influence to the auxiliary task.</p>
 
-<p>Adding an auxiliary task may of course not be helpful for the primary task. It can even be harmful and avoiding such cases of <strong>negative transfer</strong> is a central challenge of multitask learning and auxiliary learning.</p>
+<p>Adding an auxiliary task may of course not be helpful for the primary task. It can even be harmful and avoiding such cases of <strong>negative transfer</strong> is a central challenge of auxiliary learning.</p>
 
 <h1 id="an-alternative-approach">An alternative approach</h1>
 
@@ -255,7 +255,7 @@
 <p><img src="https://vivien000.github.io/blog/assets/img/projection.png" alt="Projection of the auxiliary loss gradient" /></p>
 <div class="caption">Figure 1. if \(\nabla\mathcal{L}_{\text{primary}}\) and \(\nabla\mathcal{L}_{\text{auxiliary}}\) form an obtuse angle, the component of \(\nabla\mathcal{L}_{\text{auxiliary}}\) collinear with \(\nabla\mathcal{L}_{\text{primary}}\) is cancelled to avoid increasing \(\mathcal{L}_{\text{primary}}\).If not, \(\nabla\mathcal{L}_{\text{auxiliary}}\) is kept as it is</div>
 
-<p>Otherwise said, <script type="math/tex">G_{\text{auxiliary}}</script> is the projection of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> on the half-space of vectors whose cosine with <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> is positive. If we haven’t already reached a critical point of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> (i.e. if <script type="math/tex">\nabla\mathcal{L}_{\text{primary}} \neq \mathbf{0}</script>), this ensures that <script type="math/tex">\mathcal{L}_{\text{primary}}</script> will decrease if the learning rate if small enough.</p>
+<p>Otherwise said, <script type="math/tex">G_{\text{auxiliary}}</script> is the projection of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> on the half-space of vectors whose cosine similarity with <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> is positive. If we haven’t already reached a critical point of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> (i.e. if <script type="math/tex">\nabla\mathcal{L}_{\text{primary}} \neq \mathbf{0}</script>), this ensures that <script type="math/tex">\mathcal{L}_{\text{primary}}</script> will decrease if the learning rate if small enough.</p>
 
 <h1 id="comparison-to-unweighted-and-weighted-cosine">Comparison to unweighted and weighted cosine</h1>
 
@@ -299,7 +299,7 @@
     <p><a href="#du2018adapting">(Du, Czarnecki, Jayakumar, Pascanu, &amp; Lakshminarayanan, 2018)</a> explicitly tries to favor auxiliary tasks similar to the primary task. For example, <em>weighted cosine</em> completely ignores the auxiliary task when <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> are orthogonal.</p>
   </li>
   <li>
-    <p>In my intuition, an auxiliary task’s purpose is to bring a new perspective. It should nudge us towards interesting regions of the parameter space we wouldn’t have explored with only the primary task in focus. Therefore we can try to negate the component of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> which seems clearly harmful to our objective but we shouldn’t necessarily discards auxiliary tasks dissimilar to the primary task<sup id="fnref:5"><a href="#fn:5" class="footnote">4</a></sup>.</p>
+    <p>In my intuition, an auxiliary task’s purpose is to bring a new perspective. It should nudge us towards interesting regions of the parameter space we wouldn’t have explored with only the primary task in focus. Therefore we can try to negate the component of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> which seems clearly harmful to our objective but we shouldn’t necessarily discard auxiliary tasks dissimilar to the primary task<sup id="fnref:5"><a href="#fn:5" class="footnote">4</a></sup>.</p>
   </li>
 </ul>
 
@@ -311,7 +311,7 @@
 
 <p>We start with a minimalistic example to illustrate how substituting <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> with <script type="math/tex">G_{\text{auxiliary}}</script> gives priority to the primary task while still allowing progress on the auxiliary task.</p>
 
-<p>In the <strong>euclidean plane</strong> <script type="math/tex">\mathbb{R^2}</script>, we’ll try to find a point <script type="math/tex">(x, y)</script> that, <strong>above all, minimizes the square distance to the unit circle</strong> and, only if it doesn’t increase this distance, also <strong>minimizes the square distance to point (2, 0)</strong>.</p>
+<p>In the <strong>euclidean plane</strong> <script type="math/tex">\mathbb{R^2}</script>, we try to find a point <script type="math/tex">(x, y)</script> that, <strong>above all, minimizes the square distance to the unit circle</strong> and, only if it doesn’t increase this distance, also <strong>minimizes the square distance to point (2, 0)</strong>.</p>
 
 <p>Otherwise said, <script type="math/tex">\mathcal{L}_{\text{primary}} = (\sqrt{x^2+y^2}-1)^2</script> and <script type="math/tex">\mathcal{L}_{\text{auxiliary}} = (x-2)^2+y^2</script>.</p>
 
