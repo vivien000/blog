@@ -116,7 +116,7 @@
 
 <div class="caption_cover_image">Play, a seemingly futile activity, is ubiquitous in human cultures and very widespread in the animal kingdom, which suggests it serves an important purpose</div>
 
-<p>In this post, I’d like to illustrate how <strong>auxiliary tasks</strong> can be beneficial for <strong>machine learning</strong>. I’ll first define this notion, provide examples and present how these tasks are usually incorporated in the mathematical formulation of <strong>deep learning</strong> problems. I’ll then propose an alternative approach I’ll illustrate through several experiments.</p>
+<p>In this post, I’d like to illustrate how <strong>auxiliary tasks</strong> can be beneficial for <strong>machine learning</strong>. I’ll first define this notion, provide examples and show how these tasks are usually incorporated in the mathematical formulation of <strong>deep learning</strong> problems. I’ll then propose an alternative approach and present first experimental results for this approach.</p>
 
 <ul id="markdown-toc">
   <li><a href="#auxiliary-tasks-in-machine-learning" id="markdown-toc-auxiliary-tasks-in-machine-learning">Auxiliary tasks in machine learning</a></li>
@@ -285,7 +285,7 @@
 
 <div class="caption">Table 3. Unweighted cosine and weighted cosine compared to the method proposed here</div>
 
-<p>If <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an acute angle, both <em>projection</em> and <em>unweighted cosine</em> leave <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> unchanged whereas <em>weighted cosine</em> reduces its norm by the cosine similarity of these vectors. In particular, <em>weighted cosine</em> strongly shrinks <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> when it becomes almost orthogonal to <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script>.</p>
+<p>If <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an acute angle, both <em>projection</em> and <em>unweighted cosine</em> leave <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> unchanged whereas <em>weighted cosine</em> reduces its norm with the cosine similarity of these vectors. In particular, <em>weighted cosine</em> strongly shrinks <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> when it becomes almost orthogonal to <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script>.</p>
 
 <p>If <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an obtuse angle, both <em>unweighted cosine</em> and <em>weighted cosine</em> just ignore <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>. In contrast, <em>projection</em> only negates the component of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> which is collinear to <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script>.</p>
 
