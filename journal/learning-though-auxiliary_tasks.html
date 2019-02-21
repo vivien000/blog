@@ -238,24 +238,29 @@
 
 <p>In the standard multitask approach, <script type="math/tex">\lambda</script> is a constant value<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>. Its purpose is to <strong>balance the primary task and the auxiliary task</strong>. <script type="math/tex">\lambda = 0</script> corresponds to single task learning whereas increasing values of <script type="math/tex">\lambda</script> gives more and more influence to the auxiliary task.</p>
 
-<p>Adding an auxiliary task may of course not be helpful for the primary task. It can even be harmful and avoiding such cases of <strong>negative transfer</strong> is a central challenge of auxiliary learning.</p>
-
 <h1 id="an-alternative-approach">An alternative approach</h1>
 
-<p><strong>The approach described above</strong> has provided very good empirical results. However, using a weighted average of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script> <strong>suggests we’d be willing to tolerate a higher value of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> if it helped sufficiently decrease <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script></strong>. On the contrary, reducing the auxiliary loss is only looked for to the extent this contributes to reducing the primary loss.</p>
+<p>The approach described above has provided very good empirical results. However, an auxiliary task may be unhelpful or even harmful for the primary task. The latter case, which is called <strong>negative transfer</strong>, is a central challenge of auxiliary learning.</p>
 
-<p>To <strong>mitigate negative transfer and better reflect the fundamental asymmetry between the primary loss and the auxiliary loss</strong>, I try below substituting <script type="math/tex">\nabla\mathcal{L}</script> with:</p>
+<p><img src="https://vivien000.github.io/blog/assets/img/negative_transfer.png" alt="Negative transfer" /></p>
+<div class="caption">Figure 1. Left: a pathological example of negative transfer with an auxiliary task chosen so that \(\mathcal{L}_{\text{auxiliary}} = -\mathcal{L}_{\text{primary}}\). In this case, \(\nabla\mathcal{L} = 0\) (assuming \(\lambda = 1\)) and the network's parameters are never updated during gradient descent. Right: a less extreme situation in which \(\nabla\mathcal{L}_{\text{auxiliary}}\) still cancels a significant part of \(\nabla\mathcal{L}_{\text{primary}}\)</div>
+
+<p>Moreover, using a weighted average of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script> suggests we’d be willing to tolerate a higher value of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> if it helped sufficiently decrease <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script>. On the contrary, reducing the auxiliary loss is only looked for to the extent this contributes to reducing the primary loss.</p>
+
+<p>To <strong>mitigate negative transfer and better reflect the fundamental asymmetry between the primary loss and the auxiliary loss</strong>, I suggest below substituting <script type="math/tex">\nabla\mathcal{L}</script> with:</p>
 
 <script type="math/tex; mode=display">G = \nabla\mathcal{L}_{\text{primary}} + \lambda G_{\text{auxiliary}}</script>
 
-<p>where:</p>
+<p>where <script type="math/tex">G_{\text{auxiliary}}</script> is:</p>
+<ul>
+  <li>as close as possible to <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>, to preserve the insights brought by the auxiliary task;</li>
+  <li>closer to <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> than <script type="math/tex">-\nabla\mathcal{L}_{\text{primary}}</script>, to avoid following a direction detrimental to the primary task.</li>
+</ul>
 
-<script type="math/tex; mode=display">G_{\text{auxiliary}} = \nabla\mathcal{L}_{\text{auxiliary}} - \min(0, \nabla\mathcal{L}_{\text{auxiliary}}.\frac{\nabla\mathcal{L}_{\text{primary}}}{||\nabla\mathcal{L}_{\text{primary}}||})\frac{\nabla\mathcal{L}_{\text{primary}}}{||\nabla\mathcal{L}_{\text{primary}}||}</script>
+<p>Otherwise said, <strong><script type="math/tex">G_{\text{auxiliary}}</script> is the projection of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> on the half-space of vectors whose cosine similarity with <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> is positive</strong>. If a critical point of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> hasn’t been reached yet (i.e. if <script type="math/tex">\nabla\mathcal{L}_{\text{primary}} \neq \mathbf{0}</script>), this ensures that <script type="math/tex">\mathcal{L}_{\text{primary}}</script> will decrease if the learning rate if small enough.</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/projection.png" alt="Projection of the auxiliary loss gradient" /></p>
-<div class="caption">Figure 1. if \(\nabla\mathcal{L}_{\text{primary}}\) and \(\nabla\mathcal{L}_{\text{auxiliary}}\) form an obtuse angle, the component of \(\nabla\mathcal{L}_{\text{auxiliary}}\) collinear with \(\nabla\mathcal{L}_{\text{primary}}\) is cancelled to avoid increasing \(\mathcal{L}_{\text{primary}}\).If not, \(\nabla\mathcal{L}_{\text{auxiliary}}\) is kept as it is</div>
-
-<p>Otherwise said, <script type="math/tex">G_{\text{auxiliary}}</script> is the projection of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> on the half-space of vectors whose cosine similarity with <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> is positive. If we haven’t already reached a critical point of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> (i.e. if <script type="math/tex">\nabla\mathcal{L}_{\text{primary}} \neq \mathbf{0}</script>), this ensures that <script type="math/tex">\mathcal{L}_{\text{primary}}</script> will decrease if the learning rate if small enough.</p>
+<div class="caption">Figure 2. If \(\nabla\mathcal{L}_{\text{primary}}\) and \(\nabla\mathcal{L}_{\text{auxiliary}}\) form an obtuse angle, the component of \(\nabla\mathcal{L}_{\text{auxiliary}}\) parallel to \(\nabla\mathcal{L}_{\text{primary}}\) is cancelled to avoid increasing \(\mathcal{L}_{\text{primary}}\). If not, \(\nabla\mathcal{L}_{\text{auxiliary}}\) is kept as it is</div>
 
 <h1 id="comparison-to-unweighted-and-weighted-cosine">Comparison to unweighted and weighted cosine</h1>
 
@@ -290,7 +295,7 @@
 <p>If <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an obtuse angle, both <em>unweighted cosine</em> and <em>weighted cosine</em> just ignore <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>. In contrast, <em>projection</em> only negates the component of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> which is collinear to <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script>.</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/cosine.png" alt="Unweighted and weighted cosine" /></p>
-<div class="caption">Figure 2. \(\nabla\mathcal{L}_{\text{auxiliary}}\) transformed into \(G_{\text{auxiliary}}\) by unweighted cosine (red) and weighted cosine (purple)</div>
+<div class="caption">Figure 3. \(\nabla\mathcal{L}_{\text{auxiliary}}\) transformed into \(G_{\text{auxiliary}}\) by unweighted cosine (red) and weighted cosine (purple)</div>
 
 <p>Even if <em>projection</em> and <em>unweighted/weighted cosine</em> are similar, their motivations are different:</p>
 
@@ -320,9 +325,9 @@
 <p><strong>The solution of this problem is of course</strong> <script type="math/tex">(1, 0)</script> and we try to reach it by <strong>using a gradient descent-based algorithm</strong> starting from point <script type="math/tex">(0, 2)</script> with <script type="math/tex">\lambda = 0.1</script>.</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/trajectories_adam.gif" alt="Adam trajectories" /></p>
-<div class="caption">Figure 3. Trajectories with Adam</div>
+<div class="caption">Figure 4. Trajectories with Adam</div>
 
-<p>We can see the corresponding trajectories with the <strong>Adam algorithm</strong> (learning rate: 0.01, <script type="math/tex">\beta_1=0.9, \beta_2=0.999</script>) on Figure 3 and observe that:</p>
+<p>We can see the corresponding trajectories with the <strong>Adam algorithm</strong> (learning rate: 0.01, <script type="math/tex">\beta_1=0.9, \beta_2=0.999</script>) on Figure 4 and observe that:</p>
 
 <ul>
   <li>
@@ -342,9 +347,9 @@
 <p>With this example, <strong><em>projection</em>, <em>unweighted cosine</em> and <em>weighted cosine</em> allow to find the correct solution but the convergence is notably quicker with <em>projection</em></strong> (this is also the case for <a href="https://vivien000.github.io/blog/assets/img/trajectories_adam2.gif">other</a> <a href="https://vivien000.github.io/blog/assets/img/trajectories_adam3.gif">starting</a> <a href="https://vivien000.github.io/blog/assets/img/trajectories_adam4.gif">points</a>).</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/trajectories_vanilla_gd.gif" alt="Vanilla Gradient Descent trajectories" /></p>
-<div class="caption">Figure 4. Trajectories with vanilla gradient descent</div>
+<div class="caption">Figure 5. Trajectories with vanilla gradient descent</div>
 
-<p>Figure 4 shows the trajectories with the <strong>vanilla gradient descent algorithm</strong> (learning rate: 0.01) and tells a different story. <strong>With <em>unweighted cosine</em> and <em>weighted cosine</em>, the point now stops on the unit circle far from (1, 0)</strong>. This is because, in the absence of momentum, it eventually stays on the side of the unit circle where <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an obtuse angle. The auxiliary task is then never taken into consideration anymore. A similar behavior can be seen with <a href="https://vivien000.github.io/blog/assets/img/trajectories_vanilla_gd2.gif">other</a> <a href="https://vivien000.github.io/blog/assets/img/trajectories_vanilla_gd3.gif">starting</a> <a href="https://vivien000.github.io/blog/assets/img/trajectories_vanilla_gd4.gif">points</a>.</p>
+<p>Figure 5 shows the trajectories with the <strong>vanilla gradient descent algorithm</strong> (learning rate: 0.01) and tells a different story. <strong>With <em>unweighted cosine</em> and <em>weighted cosine</em>, the point now stops on the unit circle far from (1, 0)</strong>. This is because, in the absence of momentum, it eventually stays on the side of the unit circle where <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an obtuse angle. The auxiliary task is then never taken into consideration anymore. A similar behavior can be seen with <a href="https://vivien000.github.io/blog/assets/img/trajectories_vanilla_gd2.gif">other</a> <a href="https://vivien000.github.io/blog/assets/img/trajectories_vanilla_gd3.gif">starting</a> <a href="https://vivien000.github.io/blog/assets/img/trajectories_vanilla_gd4.gif">points</a>.</p>
 
 <p>In summary, the proposed method works as intended with these toy examples: it helps accomplish both the primary task and the auxiliary task while giving precedence to the former.</p>
 
@@ -353,19 +358,19 @@
 <p>The following experiments are based on the <strong><em>CelebA (or large-scale CelebFaces attributes) dataset</em></strong> <a href="#liu2015faceattributes">(Liu, Luo, Wang, &amp; Tang, 2015)</a> and inspired by <a href="#Zhang14faciallandmark">(Zhang, Luo, Loy, &amp; Tang, 2014)</a>. The CelebA dataset contains many face images annotated with 40 binary attributes such as <em>Attractive</em>, <em>Young</em>, <em>Eyeglasses</em> or <em>Black Hair</em>, and the locations of 5 facial landmarks : <em>left eye</em>, <em>right eye</em>, <em>left mouth corner</em>, <em>right mouth corner</em> and <em>nose</em>.</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/faces.png" alt="Example of a CelebA image" /></p>
-<div class="caption">Figure 5. Examples of CelebA images and their 40 x 40 downsampled gray-scale versions with green dots on the 5 facial landmarks</div>
+<div class="caption">Figure 6. Examples of CelebA images and their 40 x 40 downsampled gray-scale versions with green dots on the 5 facial landmarks</div>
 
 <p>The <strong>primary task</strong> for these experiments is to <strong>determine whether a face is attractive</strong> (or at least attractive in the annotators’ eyes) and the <strong>auxiliary task</strong> is to <strong>locate the facial landmarks</strong>. The corresponding losses are the cross entropy error function and the average quadratic error.</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/neural_network1.png" alt="Neural network for the real dataset" /></p>
-<div class="caption">Figure 6. Convolutional network with 4 convolutional layers interleaved with 3 max-pooling layers, a shared dense layer, and a final dense layer specific to each task</div>
+<div class="caption">Figure 7. Convolutional network with 4 convolutional layers interleaved with 3 max-pooling layers, a shared dense layer, and a final dense layer specific to each task</div>
 
-<p>The pictures were downsampled to <script type="math/tex">40\times40</script> and converted to gray-scale to make the tasks more challenging and reduce computation time. 10000 of them were included in the training set, the validation set and the test set. I used the neural network depicted on Figure 6 as in <a href="#Zhang14faciallandmark">(Zhang, Luo, Loy, &amp; Tang, 2014)</a> and trained it with the Adam algorithm and early stopping.</p>
+<p>The pictures were downsampled to <script type="math/tex">40\times40</script> and converted to gray-scale to make the tasks more challenging and reduce computation time. 10000 of them were included in the training set, the validation set and the test set. I used the neural network depicted on Figure 7 as in <a href="#Zhang14faciallandmark">(Zhang, Luo, Loy, &amp; Tang, 2014)</a> and trained it with the Adam algorithm and early stopping.</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/real_dataset_chart1.png" alt="AUC for single task, multitask and projection" /></p>
-<div class="caption">Figure 7. Testing AUC for <i>single task</i>, <i>multitask</i> and <i>projection</i> and 5 values of \(\lambda\) (10 runs for each combination). The bands around the lines on this chart and the next ones correspond to the 95% confidence interval</div>
+<div class="caption">Figure 8. Testing AUC for <i>single task</i>, <i>multitask</i> and <i>projection</i> and 5 values of \(\lambda\) (10 runs for each combination). The bands around the lines on this chart and the next ones correspond to the 95% confidence interval</div>
 
-<p>Figure 7 shows the testing AUC for the primary task with <em>single task</em>, <em>multitask</em> and <em>projection</em> and various values of <script type="math/tex">\lambda</script>:</p>
+<p>Figure 8 shows the testing AUC for the primary task with <em>single task</em>, <em>multitask</em> and <em>projection</em> and various values of <script type="math/tex">\lambda</script>:</p>
 
 <ul>
   <li>Unsurprisingly enough, the <em>multitask</em> and <em>projection</em> curves get close to the <em>single task</em> curve as the influence of the auxiliary task becomes marginal for low values of <script type="math/tex">\lambda</script>;</li>
@@ -374,9 +379,9 @@
 </ul>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/real_dataset_chart2.png" alt="AUC for all modes" /></p>
-<div class="caption">Figure 8. Testing AUC for <i>single task</i>, <i>multitask</i>, <i>projection</i>, <i>unweighted cosine</i> and <i>weighted cosine</i> and 5 values of \(\lambda\) (10 runs for each combination)</div>
+<div class="caption">Figure 9. Testing AUC for <i>single task</i>, <i>multitask</i>, <i>projection</i>, <i>unweighted cosine</i> and <i>weighted cosine</i> and 5 values of \(\lambda\) (10 runs for each combination)</div>
 
-<p>We can compare these results with those for <em>unweighted cosine</em> and <em>weighted cosine</em> on Figure 8. The <em>unweighted cosine</em> curve and the <em>weighted cosine</em> curve are very close to respectively the <em>projection</em> curve and the <em>single task</em> curve for <script type="math/tex">\lambda \leq 10000</script>. However, their testing AUC drops for <script type="math/tex">\lambda = 30000</script>. We can note that the <em>weighted cosine</em> curve falls between the <em>single task</em> curve and the <em>unweighted cosine</em> curve, which comes as no surprise.</p>
+<p>We can compare these results with those for <em>unweighted cosine</em> and <em>weighted cosine</em> on Figure 9. The <em>unweighted cosine</em> curve and the <em>weighted cosine</em> curve are very close to respectively the <em>projection</em> curve and the <em>single task</em> curve for <script type="math/tex">\lambda \leq 10000</script>. However, their testing AUC drops for <script type="math/tex">\lambda = 30000</script>. We can note that the <em>weighted cosine</em> curve falls between the <em>single task</em> curve and the <em>unweighted cosine</em> curve, which comes as no surprise.</p>
 
 <h2 id="experiments-on-a-synthetic-dataset">Experiments on a synthetic dataset</h2>
 
@@ -397,22 +402,22 @@
 
 <p>For the input data (i.e. <script type="math/tex">\mathbf{x}</script>), the training set, the validation set and the test set include respectively 1000, 1000 and 10000 vectors whose elements are generated IID from <script type="math/tex">\mathcal{N}(0, 1)</script>. Moreover and as opposed to the previous series of experiments, <strong>the training sets are distinct for the primary task and the auxiliary task</strong>. If these sets were the same, the auxiliary task wouldn’t add any value when <script type="math/tex">B_\mathbb{primary} = B_\mathbb{auxiliary}</script>.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/neural_network2.png" alt="Neural network for the real dataset" /></p>
-<div class="caption">Figure 9. Multilayer perceptron with 4 shared layers and an output layer specific to each task, all of them being of size 100</div>
+<p><img src="https://vivien000.github.io/blog/assets/img/neural_network2.png" alt="Neural network for the synthetic dataset" /></p>
+<div class="caption">Figure 10. Multilayer perceptron with 4 shared layers and an output layer specific to each task, all of them being of size 100</div>
 
-<p>As <a href="#DBLP:conf/icml/ChenBLR18">(Chen, Badrinarayanan, Lee, &amp; Rabinovich, 2018)</a>, I used the vanilla neural network depicted on Figure 9, which I trained with the Adam algorithm and early stopping.</p>
+<p>As <a href="#DBLP:conf/icml/ChenBLR18">(Chen, Badrinarayanan, Lee, &amp; Rabinovich, 2018)</a>, I used the vanilla neural network depicted on Figure 10, which I trained with the Adam algorithm and early stopping.</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/synthetic_dataset_chart1.png" alt="AUC for single task, multitask and projection" /></p>
-<div class="caption">Figure 10. Testing loss for <i>single task</i>, <i>multitask</i> and <i>projection</i> for 5 values of \(\lambda\) (20 runs for each combination)</div>
+<div class="caption">Figure 11. Testing loss for <i>single task</i>, <i>multitask</i> and <i>projection</i> for 5 values of \(\lambda\) (20 runs for each combination)</div>
 
-<p>Figure 10 shows the results for <em>single task</em>, <em>multitask</em> and <em>projection</em> for various values of <script type="math/tex">\lambda</script>. <strong>The outcomes for <em>multitask</em> and <em>projection</em> are almost identical and fully consistent with the 3 situations for the auxiliary task</strong> (same task, similar task and unrelated task):</p>
+<p>Figure 11 shows the results for <em>single task</em>, <em>multitask</em> and <em>projection</em> for various values of <script type="math/tex">\lambda</script>. <strong>The outcomes for <em>multitask</em> and <em>projection</em> are almost identical and fully consistent with the 3 situations for the auxiliary task</strong> (same task, similar task and unrelated task):</p>
 <ul>
   <li>when the auxiliary task is the same as the primary task, it significantly contributes to the performance of the primary task for all 5 values of <script type="math/tex">\lambda</script>.</li>
   <li>when the auxiliary task is similar to but different from the primary task, it helps for <script type="math/tex">\lambda \leq 1</script> but becomes neutral or harmful for <script type="math/tex">\lambda \geq 3</script>.</li>
   <li>when the auxiliary task is unrelated to the primary task, it’s detrimental to the performance of the primary task for <script type="math/tex">\lambda \geq 0.3</script>.</li>
 </ul>
 
-<p>In contrast to the previous series of experiments, <strong>Figure 10 suggests <em>projection</em> has no added value compared to <em>multitask</em></strong>. This difference may result from the fact that <strong>the primary task and the auxiliary task don’t share here the same input data</strong>. As a consequence, at each optimization step, <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> is less related to <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> and might then be too noisy to help properly adjust it. Therefore I tried substituting <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> with an <strong>exponential moving average of <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script></strong> for adjusting <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>. With a smoothing constant <script type="math/tex">% <![CDATA[
+<p>In contrast to the previous series of experiments, <strong>Figure 11 suggests <em>projection</em> has no added value compared to <em>multitask</em></strong>. This difference may result from the fact that <strong>the primary task and the auxiliary task don’t share here the same input data</strong>. As a consequence, at each optimization step, <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> is less related to <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> and might then be too noisy to help properly adjust it. Therefore I tried substituting <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> with an <strong>exponential moving average of <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script></strong> for adjusting <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>. With a smoothing constant <script type="math/tex">% <![CDATA[
 0 < \alpha \leq 1 %]]></script>, <script type="math/tex">G_{\text{auxiliary}}</script> is then given at each optimization step <script type="math/tex">t</script> by:</p>
 
 <script type="math/tex; mode=display">G_{\text{auxiliary}}(t) = \nabla\mathcal{L}_{\text{auxiliary}}(t) - \min(0, \nabla\mathcal{L}_{\text{auxiliary}}(t).\frac{M(t)}{||M(t)||})\frac{M(t)}{||M(t)||}</script>
@@ -420,12 +425,12 @@
 <p>with <script type="math/tex">M(0) = \nabla\mathcal{L}_{\text{primary}}(0)</script> and <script type="math/tex">M(t) = \alpha\nabla\mathcal{L}_{\text{primary}}(t) + (1-\alpha)M(t-1)</script> for <script type="math/tex">t > 0</script>.</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/synthetic_dataset_chart2.png" alt="AUC for all modes" /></p>
-<div class="caption">Figure 11. Testing loss for <i>single task</i>, <i>multitask</i> and <i>projection</i> for 5 values of \(\lambda\) and 3 values of \(\alpha\) (20 runs for each combination)</div>
+<div class="caption">Figure 12. Testing loss for <i>single task</i>, <i>multitask</i> and <i>projection</i> for 5 values of \(\lambda\) and 3 values of \(\alpha\) (20 runs for each combination)</div>
 
-<p>Figure 11 shows the same results as Figure 10 for 3 values of <script type="math/tex">\alpha</script>. With <script type="math/tex">\alpha = 0.1</script> and even more <strong>with <script type="math/tex">\alpha = 0.01</script>, <em>projection</em> yields clearly better results compared to <em>multitask</em> for all 3 situations</strong><sup id="fnref:6"><a href="#fn:6" class="footnote">5</a></sup>. Figure 12 zooms in on the case <script type="math/tex">\alpha = 0.01</script>, for which <em>unweighted cosine</em> and <em>weighted cosine</em> provide better results than <em>multitask</em> and <em>projection</em> only when the primary task and the auxiliary task are unrelated.</p>
+<p>Figure 12 shows the same results as Figure 11 for 3 values of <script type="math/tex">\alpha</script>. With <script type="math/tex">\alpha = 0.1</script> and even more <strong>with <script type="math/tex">\alpha = 0.01</script>, <em>projection</em> yields clearly better results compared to <em>multitask</em> for all 3 situations</strong><sup id="fnref:6"><a href="#fn:6" class="footnote">5</a></sup>. Figure 13 zooms in on the case <script type="math/tex">\alpha = 0.01</script>, for which <em>unweighted cosine</em> and <em>weighted cosine</em> provide better results than <em>multitask</em> and <em>projection</em> only when the primary task and the auxiliary task are unrelated.</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/synthetic_dataset_chart3.png" alt="AUC for various scales" /></p>
-<div class="caption">Figure 12. Testing loss for <i>single task</i>, <i>multitask</i>, <i>projection</i>, <i>unweighted cosine</i> and <i>weighted cosine</i> for 5 values of \(\lambda\) and \(\alpha = 0.01\) (20 runs for each combination)</div>
+<div class="caption">Figure 13. Testing loss for <i>single task</i>, <i>multitask</i>, <i>projection</i>, <i>unweighted cosine</i> and <i>weighted cosine</i> for 5 values of \(\lambda\) and \(\alpha = 0.01\) (20 runs for each combination)</div>
 
 <h1 id="conclusion">Conclusion</h1>
 
@@ -433,7 +438,7 @@
 
 <p>In this blog post, I proposed a <strong>simple and intuitive method to mitigate such risk of negative transfer</strong>. I tested it in a few basic scenarios, in which it brought <strong>moderate but statistically significant gains over the standard multitask approach</strong>. This is a promising start but more diverse and elaborate experimental settings would be necessary to draw general conclusions on this method’s relevance or compare it with its alternatives.</p>
 
-<p><em>Many thanks to the authors of the inspiring articles listed below and the developers of the great tools used for this post: <a href="https://www.tensorflow.org/">Tensorflow</a>, the <a href="https://www.scipy.org/">SciPy</a> ecosystem, <a href="https://www.scipy.org/">Seaborn</a>, <a href="https://colab.research.google.com">Google Colab</a>, <a href="https://github.com/HarisIqbal88/PlotNeuralNet">PlotNeuralNet</a> and <a href="https://jekyllrb.com/">Jekyll</a>.</em></p>
+<p><em>Many thanks to the authors of the inspiring articles listed below and the developers of the great tools used for this post: <a href="https://www.tensorflow.org/">Tensorflow</a>, the <a href="https://www.scipy.org/">SciPy</a> ecosystem, <a href="https://www.scipy.org/">Seaborn</a>, <a href="https://colab.research.google.com">Google Colab</a>, <a href="https://github.com/HarisIqbal88/PlotNeuralNet">PlotNeuralNet</a> and <a href="https://jekyllrb.com/">Jekyll</a>. Many thanks as well to Sebastian Ruder for his valuable feedback.</em></p>
 
 <h1 id="references">References</h1>
 
