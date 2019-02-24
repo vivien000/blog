@@ -236,7 +236,7 @@
 
 <p>The underlying intuition is that minimizing <script type="math/tex">\mathcal{L}</script> will lead to <strong>more meaningful representations in the shared layers</strong> and that these representations will be leveraged by the layers specific to the primary task.</p>
 
-<p>In the standard multitask approach, <script type="math/tex">\lambda</script> is a constant value<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>. Its purpose is to <strong>balance the primary task and the auxiliary task</strong>. <script type="math/tex">\lambda = 0</script> corresponds to single task learning whereas increasing values of <script type="math/tex">\lambda</script> gives more and more influence to the auxiliary task.</p>
+<p>In the standard multitask approach, <script type="math/tex">\lambda</script> is a constant value<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>. Its purpose is to <strong>balance the primary task and the auxiliary task</strong>. <script type="math/tex">\lambda = 0</script> corresponds to single task learning whereas increasing <script type="math/tex">\lambda</script> gives more and more influence to the auxiliary task.</p>
 
 <h1 id="an-alternative-approach">An alternative approach</h1>
 
@@ -247,7 +247,7 @@
 
 <p>Moreover, using a weighted average of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script> suggests we’d be willing to tolerate a higher value of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> if it helped sufficiently decrease <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script>. On the contrary, reducing the auxiliary loss is only looked for to the extent this contributes to reducing the primary loss.</p>
 
-<p>To <strong>mitigate negative transfer and better reflect the fundamental asymmetry between the primary loss and the auxiliary loss</strong>, I suggest below substituting <script type="math/tex">\nabla\mathcal{L}</script> with:</p>
+<p>To <strong>mitigate negative transfer and better reflect the fundamental asymmetry between the primary loss and the auxiliary loss</strong>, I suggest substituting <script type="math/tex">\nabla\mathcal{L}</script> with:</p>
 
 <script type="math/tex; mode=display">G = \nabla\mathcal{L}_{\text{primary}} + \lambda G_{\text{auxiliary}}</script>
 
