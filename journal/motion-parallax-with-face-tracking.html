@@ -12,12 +12,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
 
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <link rel="stylesheet" href="/assets/css/syntax.css">
+  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/main.css">
+  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/syntax.css">
   <!-- Use Atom -->
-  <!-- <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/rss-feed.xml" title="Unsupervised Thoughts" /> -->
+  <!-- <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/blog/rss-feed.xml" title="Unsupervised Thoughts" /> -->
   <!-- Use RSS-2.0 -->
-  <link href="/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Unsupervised Thoughts | A blog on machine learning"/>
+  <link href="https://vivien000.github.io/blog/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Unsupervised Thoughts | A blog on machine learning"/>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
@@ -49,17 +49,17 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Motion parallax is created by the apparent relative motion of objects when an observer moves. It’s one of the monocular cues that enable depth perception. I created a demo to simulate this phenomenon thanks to TensorFlow.js and three.js." />
 <meta property="og:description" content="Motion parallax is created by the apparent relative motion of objects when an observer moves. It’s one of the monocular cues that enable depth perception. I created a demo to simulate this phenomenon thanks to TensorFlow.js and three.js." />
-<link rel="canonical" href="http://localhost:4000/journal/motion-parallax-with-face-tracking.html" />
-<meta property="og:url" content="http://localhost:4000/journal/motion-parallax-with-face-tracking.html" />
+<link rel="canonical" href="http://localhost:4000/blog/journal/motion-parallax-with-face-tracking.html" />
+<meta property="og:url" content="http://localhost:4000/blog/journal/motion-parallax-with-face-tracking.html" />
 <meta property="og:site_name" content="Unsupervised Thoughts" />
-<meta property="og:image" content="http://localhost:4000/vangogh.png" />
+<meta property="og:image" content="http://localhost:4000/blog/vangogh.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-05-04T00:00:00+02:00" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="http://localhost:4000/vangogh.png" />
+<meta property="twitter:image" content="http://localhost:4000/blog/vangogh.png" />
 <meta property="twitter:title" content="Simulating Depth Perception with Face Tracking" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://localhost:4000/journal/motion-parallax-with-face-tracking.html","image":"http://localhost:4000/vangogh.png","headline":"Simulating Depth Perception with Face Tracking","dateModified":"2021-05-04T00:00:00+02:00","datePublished":"2021-05-04T00:00:00+02:00","author":{"@type":"Person","name":"Vivien"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/journal/motion-parallax-with-face-tracking.html"},"description":"Motion parallax is created by the apparent relative motion of objects when an observer moves. It’s one of the monocular cues that enable depth perception. I created a demo to simulate this phenomenon thanks to TensorFlow.js and three.js.","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","url":"http://localhost:4000/blog/journal/motion-parallax-with-face-tracking.html","image":"http://localhost:4000/blog/vangogh.png","headline":"Simulating Depth Perception with Face Tracking","dateModified":"2021-05-04T00:00:00+02:00","datePublished":"2021-05-04T00:00:00+02:00","author":{"@type":"Person","name":"Vivien"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/journal/motion-parallax-with-face-tracking.html"},"description":"Motion parallax is created by the apparent relative motion of objects when an observer moves. It’s one of the monocular cues that enable depth perception. I created a demo to simulate this phenomenon thanks to TensorFlow.js and three.js.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -71,12 +71,12 @@
   <div class="container">
     <header class="masthead">
   <h3 class="masthead-title">
-    <a href="/">Unsupervised Thoughts</a>
+    <a href="https://vivien000.github.io/blog/">Unsupervised Thoughts</a>
     <small class="masthead-subtitle">A blog on machine learning</small>
     <div class="menu">
   <nav class="menu-content">
     
-      <a href="/menu/about.html">About</a>
+      <a href="https://vivien000.github.io/blog/menu/about.html">About</a>
     
   </nav>
   <nav class="social-icons">
@@ -114,7 +114,7 @@
 </h1>
 
 
-  <img src="/assets/img/vangogh.png">
+  <img src="https://vivien000.github.io/blog/assets/img/vangogh.png">
 
 
 <p><strong>Motion parallax</strong> is created by the apparent relative motion of objects when an observer moves. It’s one of the <a href="https://en.wikipedia.org/wiki/Depth_perception#Monocular_cues">monocular cues</a> that enable depth perception. I created a <a href="https://vivien000.github.io/trompeloeil/">demo</a> to simulate this phenomenon thanks to <a href="https://www.tensorflow.org/js/models">TensorFlow.js</a> and <a href="https://threejs.org/">three.js</a>.</p>
@@ -131,7 +131,7 @@
 
 <p>If you want to try it by yourself, just launch the <a href="https://vivien000.github.io/trompeloeil/">demo</a> with <strong>Chrome, Firefox or Edge on your webcam-equipped laptop or desktop</strong> and wait a little. You can use the drop-down list or add <a href="https://vivien000.github.io/trompeloeil/?object=1">?object=1</a> or <a href="https://vivien000.github.io/trompeloeil/?object=2">?object=2</a> at the end of the URL to try other 3D models. The demo’s code is available on <a href="https://github.com/vivien000/trompeloeil">GitHub</a>.</p>
 
-<p><img src="/assets/img/parallax.gif" alt="Demo in action" /></p>
+<p><img src="https://vivien000.github.io/blog/assets/img/parallax.gif" alt="Demo in action" /></p>
 
 <h1 id="detecting-the-orientation-of-the-cameraface-axis">Detecting the orientation of the camera/face axis</h1>
 
@@ -159,7 +159,7 @@
 
 <p>I’m grateful to Jason Mayes and the TensorFlow Team for having selected this project as a <a href="https://twitter.com/TensorFlow/status/1347679140468543491">Tensorflow Community Spotlight winner</a>.</p>
 
-<p><img src="/assets/img/spotlight.png" alt="Spotlight" /></p>
+<p><img src="https://vivien000.github.io/blog/assets/img/spotlight.png" alt="Spotlight" /></p>
 
 <p>Credits for the 3D models:</p>
 
@@ -185,9 +185,9 @@
 
 <div class="post-date">Feel free to share!</div>
   <div class="sharing-icons">
-    <a href="https://twitter.com/intent/tweet?text=Simulating Depth Perception with Face Tracking&amp;url=/journal/motion-parallax-with-face-tracking.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=/journal/motion-parallax-with-face-tracking.html&amp;title=Simulating Depth Perception with Face Tracking" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-    <a href="https://plus.google.com/share?url=/journal/motion-parallax-with-face-tracking.html" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+    <a href="https://twitter.com/intent/tweet?text=Simulating Depth Perception with Face Tracking&amp;url=https://vivien000.github.io/blog/journal/motion-parallax-with-face-tracking.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vivien000.github.io/blog/journal/motion-parallax-with-face-tracking.html&amp;title=Simulating Depth Perception with Face Tracking" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+    <a href="https://plus.google.com/share?url=https://vivien000.github.io/blog/journal/motion-parallax-with-face-tracking.html" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
   </div>
 </div>
 
@@ -234,7 +234,7 @@
     <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
   
 
-  <div class="post-date"><a href="/menu/about.html">Unsupervised Thoughts | A blog on machine learning by Vivien</a></div>
+  <div class="post-date"><a href="https://vivien000.github.io/blog/menu/about.html">Unsupervised Thoughts | A blog on machine learning by Vivien</a></div>
 </footer>
 
 

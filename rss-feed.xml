@@ -3,8 +3,8 @@
 	<channel>
 		<title>Unsupervised Thoughts</title>
 		<description>A blog on machine learning</description>
-		<link></link>
-		<atom:link href="/rss-feed.xml" rel="self" type="application/rss+xml" />
+		<link>https://vivien000.github.io/blog</link>
+		<atom:link href="https://vivien000.github.io/blog/rss-feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
 				<title>Simulating Depth Perception with Face Tracking</title>
