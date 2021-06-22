@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <title>
+    
+      Simulating Depth Perception with Face Tracking | Unsupervised Thoughts
+    
+  </title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/syntax.css">
+  <!-- Use Atom -->
+  <!-- <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/rss-feed.xml" title="Unsupervised Thoughts" /> -->
+  <!-- Use RSS-2.0 -->
+  <link href="/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Unsupervised Thoughts | A blog on machine learning"/>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <!-- Google Analytics -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2723281-4', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <!-- Use Jekyll SEO plugin -->
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Simulating Depth Perception with Face Tracking | Unsupervised Thoughts</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Simulating Depth Perception with Face Tracking" />
+<meta name="author" content="Vivien" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Motion parallax is created by the apparent relative motion of objects when an observer moves. It’s one of the monocular cues that enable depth perception. I created a demo to simulate this phenomenon thanks to TensorFlow.js and three.js." />
+<meta property="og:description" content="Motion parallax is created by the apparent relative motion of objects when an observer moves. It’s one of the monocular cues that enable depth perception. I created a demo to simulate this phenomenon thanks to TensorFlow.js and three.js." />
+<link rel="canonical" href="http://localhost:4000/journal/motion-parallax-with-face-tracking.html" />
+<meta property="og:url" content="http://localhost:4000/journal/motion-parallax-with-face-tracking.html" />
+<meta property="og:site_name" content="Unsupervised Thoughts" />
+<meta property="og:image" content="http://localhost:4000/vangogh.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-04T00:00:00+02:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/vangogh.png" />
+<meta property="twitter:title" content="Simulating Depth Perception with Face Tracking" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/journal/motion-parallax-with-face-tracking.html","image":"http://localhost:4000/vangogh.png","headline":"Simulating Depth Perception with Face Tracking","dateModified":"2021-05-04T00:00:00+02:00","datePublished":"2021-05-04T00:00:00+02:00","author":{"@type":"Person","name":"Vivien"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/journal/motion-parallax-with-face-tracking.html"},"description":"Motion parallax is created by the apparent relative motion of objects when an observer moves. It’s one of the monocular cues that enable depth perception. I created a demo to simulate this phenomenon thanks to TensorFlow.js and three.js.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+</head>
+
+
+<body>
+
+  <div class="container">
+    <header class="masthead">
+  <h3 class="masthead-title">
+    <a href="/">Unsupervised Thoughts</a>
+    <small class="masthead-subtitle">A blog on machine learning</small>
+    <div class="menu">
+  <nav class="menu-content">
+    
+      <a href="/menu/about.html">About</a>
+    
+  </nav>
+  <nav class="social-icons">
+    
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  </nav>
+</div>
+
+  </h3>
+</header>
+
+
+    <div class="post-container">
+      <h1>
+  Simulating Depth Perception with Face Tracking
+</h1>
+
+
+  <img src="/assets/img/vangogh.png">
+
+
+<p><strong>Motion parallax</strong> is created by the apparent relative motion of objects when an observer moves. It’s one of the <a href="https://en.wikipedia.org/wiki/Depth_perception#Monocular_cues">monocular cues</a> that enable depth perception. I created a <a href="https://vivien000.github.io/trompeloeil/">demo</a> to simulate this phenomenon thanks to <a href="https://www.tensorflow.org/js/models">TensorFlow.js</a> and <a href="https://threejs.org/">three.js</a>.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#just-show-me-the-demo" id="markdown-toc-just-show-me-the-demo">Just show me the demo!</a></li>
+  <li><a href="#detecting-the-orientation-of-the-cameraface-axis" id="markdown-toc-detecting-the-orientation-of-the-cameraface-axis">Detecting the orientation of the camera/face axis</a></li>
+  <li><a href="#detecting-the-distance-between-the-face-and-the-camera" id="markdown-toc-detecting-the-distance-between-the-face-and-the-camera">Detecting the distance between the face and the camera</a></li>
+  <li><a href="#limitations" id="markdown-toc-limitations">Limitations</a></li>
+  <li><a href="#acknowledgements" id="markdown-toc-acknowledgements">Acknowledgements</a></li>
+</ul>
+
+<h1 id="just-show-me-the-demo">Just show me the demo!</h1>
+
+<p>If you want to try it by yourself, just launch the <a href="https://vivien000.github.io/trompeloeil/">demo</a> with <strong>Chrome, Firefox or Edge on your webcam-equipped laptop or desktop</strong> and wait a little. You can use the drop-down list or add <a href="https://vivien000.github.io/trompeloeil/?object=1">?object=1</a> or <a href="https://vivien000.github.io/trompeloeil/?object=2">?object=2</a> at the end of the URL to try other 3D models. The demo’s code is available on <a href="https://github.com/vivien000/trompeloeil">GitHub</a>.</p>
+
+<p><img src="/assets/img/parallax.gif" alt="Demo in action" /></p>
+
+<h1 id="detecting-the-orientation-of-the-cameraface-axis">Detecting the orientation of the camera/face axis</h1>
+
+<p>To achieve this, I take advantage of TensorFlow.JS’ <a href="https://github.com/tensorflow/tfjs-models/tree/master/face-landmarks-detection">Face Landmarks Detection model</a>, which provides the <strong>location of 468 face landmarks from the webcam’s video stream</strong>. I just keep a single one of them, which is located between the two eyes, and compute the corresponding azimuthal and polar angles. With these coordinates, I can then move a three.js camera and render the 3D scene from the proper angle.</p>
+
+<p>The resulting image is very stable, which suggests that the model’s predictions are pretty accurate. I also tried a <a href="https://github.com/tensorflow/tfjs-models/tree/master/blazeface">simpler and faster model</a> (and you can too by adding <a href="https://vivien000.github.io/trompeloeil/?blaze=true">?blaze=true</a>) but this makes the demo a bit too jittery.</p>
+
+<h1 id="detecting-the-distance-between-the-face-and-the-camera">Detecting the distance between the face and the camera</h1>
+
+<p>The Face Landmarks Detection model also optionally predicts the location and shape of the irises. Since the human iris’ size is <a href="https://google.github.io/mediapipe/solutions/iris#depth-from-iris">remarkably constant</a>, we can then estimate the distance between the camera and the eyes if we know the webcam’s focal length. This distance should be taken into account to determine the field of view of the three.js camera. However, this estimate is too noisy and I didn’t use it (but you can still see that by yourself with <a href="https://vivien000.github.io/trompeloeil/?distanceMethod=1">?distanceMethod=1</a>). I also <a href="https://vivien000.github.io/trompeloeil/?distanceMethod=2">tried</a> to use the distance from the facial landmark between the two eyes to one on the forehead (such distance should be globally invariant to facial expressions and left/right rotations of the head). This was a bit more stable but still unsatisfying. At the end of the day, I assumed that the distance between the observer’s face and the camera is constant.</p>
+
+<h1 id="limitations">Limitations</h1>
+
+<p>All <strong>this can only work for one observer</strong> since the screen can only display one picture at a time.</p>
+
+<p>Moreover, I should theoretically not just position the three.js camera where the observer’s face was detected. I should also warp the resulting image to account for the fact that the camera plane and the screen’s plane aren’t parallel. I didn’t do it but I don’t think it makes a big difference given the relatively narrow field of view of most webcams.</p>
+
+<p>Besides, it’d be more efficient to compute the predictions in a web worker. Unfortunately enough, I understand it’s only possible to use TensorFlow.js and WebGL in a worker when OffscreenCanvas is available, which is currently not the case for some browsers, e.g. <a href="https://caniuse.com/offscreencanvas">Firefox</a>.</p>
+
+<h1 id="acknowledgements">Acknowledgements</h1>
+
+<p>I was inspired by this <a href="https://youtu.be/Jd3-eiid-Uw">old demo</a> (2007!) from <a href="https://twitter.com/johnnychunglee">Johnny Lee</a>.</p>
+
+<p>Thanks to Google, the TensorFlow.JS community and the three.JS community for making available such cool libraries. I used <a href="https://discoverthreejs.com/">Discover three.js</a>, a great interactive book by <a href="https://twitter.com/lewy_blue">Lewy Blue</a>, to get started with three.js. Thanks also to my friend Fabien for his feedback.</p>
+
+<p>I’m grateful to Jason Mayes and the TensorFlow Team for having selected this project as a <a href="https://twitter.com/TensorFlow/status/1347679140468543491">Tensorflow Community Spotlight winner</a>.</p>
+
+<p><img src="/assets/img/spotlight.png" alt="Spotlight" /></p>
+
+<p>Credits for the 3D models:</p>
+
+<ul>
+  <li><a href="https://skfb.ly/6oZzr">Tie Interceptor</a> by <a href="https://sketchfab.com/SWU">StarWars-Universe</a> shared under a <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC Attribution-NonCommercial-ShareAlike license</a></li>
+  <li><a href="https://github.com/mrdoob/three.js/tree/dev/examples/models/gltf">Parrot</a> by <a href="https://threejs.org/">three.js</a> shared under the <a href="https://github.com/mrdoob/three.js/blob/dev/LICENSE">MIT license</a></li>
+  <li><a href="https://sketchfab.com/3d-models/van-gogh-3d-be055097ec1942269450952a3983098d">Van Gogh 3D</a> by <a href="https://sketchfab.com/federico.lorenzin">federico.lorenzin</a> shared under a <a href="https://creativecommons.org/licenses/by/4.0/">CC Attribution license</a></li>
+</ul>
+
+
+
+<span class="post-date">
+  Written on
+  
+  May
+  4th,
+  2021
+  by
+  
+    Vivien
+  
+</span>
+
+<div class="post-date">Feel free to share!</div>
+  <div class="sharing-icons">
+    <a href="https://twitter.com/intent/tweet?text=Simulating Depth Perception with Face Tracking&amp;url=/journal/motion-parallax-with-face-tracking.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=/journal/motion-parallax-with-face-tracking.html&amp;title=Simulating Depth Perception with Face Tracking" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+    <a href="https://plus.google.com/share?url=/journal/motion-parallax-with-face-tracking.html" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+  </div>
+</div>
+
+
+
+  <section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = "unsupervisedthoughts";
+    var disqus_identifier = "/journal/motion-parallax-with-face-tracking.html";
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+    </div>
+
+    <footer class="footer">
+  
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  <div class="post-date"><a href="/menu/about.html">Unsupervised Thoughts | A blog on machine learning by Vivien</a></div>
+</footer>
+
+
+  </div>
+
+</body>
+</html>

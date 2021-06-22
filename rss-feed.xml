@@ -3,8 +3,38 @@
 	<channel>
 		<title>Unsupervised Thoughts</title>
 		<description>A blog on machine learning</description>
-		<link>https://vivien000.github.io/blog</link>
-		<atom:link href="https://vivien000.github.io/blog/rss-feed.xml" rel="self" type="application/rss+xml" />
+		<link></link>
+		<atom:link href="/rss-feed.xml" rel="self" type="application/rss+xml" />
+		
+			<item>
+				<title>Simulating Depth Perception with Face Tracking</title>
+				
+					<dc:creator>Vivien</dc:creator>
+				
+				
+					<description>&lt;p&gt;&lt;strong&gt;Motion parallax&lt;/strong&gt; is created by the apparent relative motion of objects when an observer moves. It’s one of the &lt;a href=&quot;https://en.wikipedia.org/wiki/Depth_perception#Monocular_cues&quot;&gt;monocular cues&lt;/a&gt; that enable depth perception. I created a &lt;a href=&quot;https://vivien000.github.io/trompeloeil/&quot;&gt;demo&lt;/a&gt; to simulate this phenomenon thanks to &lt;a href=&quot;https://www.tensorflow.org/js/models&quot;&gt;TensorFlow.js&lt;/a&gt; and &lt;a href=&quot;https://threejs.org/&quot;&gt;three.js&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+				
+				<pubDate>Tue, 04 May 2021 00:00:00 +0200</pubDate>
+				<link>http://localhost:4000/journal/motion-parallax-with-face-tracking.html</link>
+				<guid isPermaLink="true">http://localhost:4000/journal/motion-parallax-with-face-tracking.html</guid>
+			</item>
+		
+			<item>
+				<title>What Are the Ethical Risks of Your AI Project?</title>
+				
+					<dc:creator>Vivien</dc:creator>
+				
+				
+					<description>&lt;div class=&quot;caption_cover_image&quot;&gt;How to prevent AI systems from causing unintended harms?&lt;/div&gt;
+
+</description>
+				
+				<pubDate>Fri, 20 Nov 2020 00:00:00 +0100</pubDate>
+				<link>http://localhost:4000/journal/ethical-risks-ai-project.html</link>
+				<guid isPermaLink="true">http://localhost:4000/journal/ethical-risks-ai-project.html</guid>
+			</item>
 		
 			<item>
 				<title>Learning through Auxiliary Tasks</title>
@@ -17,8 +47,8 @@
 </description>
 				
 				<pubDate>Sun, 17 Feb 2019 00:00:00 +0100</pubDate>
-				<link>https://vivien000.github.io/journal/learning-though-auxiliary_tasks.html</link>
-				<guid isPermaLink="true">https://vivien000.github.io/journal/learning-though-auxiliary_tasks.html</guid>
+				<link>http://localhost:4000/journal/learning-though-auxiliary_tasks.html</link>
+				<guid isPermaLink="true">http://localhost:4000/journal/learning-though-auxiliary_tasks.html</guid>
 			</item>
 		
 	</channel>

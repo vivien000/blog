@@ -1,0 +1,320 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <title>
+    
+      What Are the Ethical Risks of Your AI Project? | Unsupervised Thoughts
+    
+  </title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/syntax.css">
+  <!-- Use Atom -->
+  <!-- <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/rss-feed.xml" title="Unsupervised Thoughts" /> -->
+  <!-- Use RSS-2.0 -->
+  <link href="/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Unsupervised Thoughts | A blog on machine learning"/>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <!-- Google Analytics -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2723281-4', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <!-- Use Jekyll SEO plugin -->
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>What Are the Ethical Risks of Your AI Project? | Unsupervised Thoughts</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="What Are the Ethical Risks of Your AI Project?" />
+<meta name="author" content="Vivien" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How to prevent AI systems from causing unintended harms?" />
+<meta property="og:description" content="How to prevent AI systems from causing unintended harms?" />
+<link rel="canonical" href="http://localhost:4000/journal/ethical-risks-ai-project.html" />
+<meta property="og:url" content="http://localhost:4000/journal/ethical-risks-ai-project.html" />
+<meta property="og:site_name" content="Unsupervised Thoughts" />
+<meta property="og:image" content="http://localhost:4000/domino.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-20T00:00:00+01:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/domino.jpg" />
+<meta property="twitter:title" content="What Are the Ethical Risks of Your AI Project?" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/journal/ethical-risks-ai-project.html","image":"http://localhost:4000/domino.jpg","headline":"What Are the Ethical Risks of Your AI Project?","dateModified":"2020-11-20T00:00:00+01:00","datePublished":"2020-11-20T00:00:00+01:00","author":{"@type":"Person","name":"Vivien"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/journal/ethical-risks-ai-project.html"},"description":"How to prevent AI systems from causing unintended harms?","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+</head>
+
+
+<body>
+
+  <div class="container">
+    <header class="masthead">
+  <h3 class="masthead-title">
+    <a href="/">Unsupervised Thoughts</a>
+    <small class="masthead-subtitle">A blog on machine learning</small>
+    <div class="menu">
+  <nav class="menu-content">
+    
+      <a href="/menu/about.html">About</a>
+    
+  </nav>
+  <nav class="social-icons">
+    
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  </nav>
+</div>
+
+  </h3>
+</header>
+
+
+    <div class="post-container">
+      <h1>
+  What Are the Ethical Risks of Your AI Project?
+</h1>
+
+
+  <img src="/assets/img/domino.jpg">
+
+
+<div class="caption_cover_image">How to prevent AI systems from causing unintended harms?</div>
+
+<p>AI systems may cause unintended harms and their increasing adoption leads to additional risks and scrutiny. In this blog post, I present tools project teams can use to identify ethical concerns associated with their AI use cases. I first illustrate why this is so challenging, I then discuss various <strong>ethical checklists</strong> that were designed for this purpose, and I finally provide some recommendations on how to select such a checklist.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#identifying-potential-ethical-concerns-is-challenging" id="markdown-toc-identifying-potential-ethical-concerns-is-challenging">Identifying Potential Ethical Concerns Is Challenging</a></li>
+  <li><a href="#ethical-checklists-have-been-specifically-designed-for-ai-use-cases" id="markdown-toc-ethical-checklists-have-been-specifically-designed-for-ai-use-cases">Ethical Checklists Have Been Specifically Designed for AI Use Cases</a></li>
+  <li><a href="#how-to-choose-between-these-ethical-checklists" id="markdown-toc-how-to-choose-between-these-ethical-checklists">How to Choose Between These Ethical Checklists?</a></li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+  <li><a href="#bonus-comparison-of-the-ethical-checklists" id="markdown-toc-bonus-comparison-of-the-ethical-checklists">Bonus: Comparison of the Ethical Checklists</a></li>
+</ul>
+
+<p><em>This article has also been published on <a href="https://blog.dataiku.com/what-are-the-ethical-risks-of-your-ai-project">Dataiku’s blog</a></em>.</p>
+
+<h1 id="identifying-potential-ethical-concerns-is-challenging">Identifying Potential Ethical Concerns Is Challenging</h1>
+
+<p>Let’s start with <strong>two real-life examples</strong> to show the complexity of such assessment. Imagine first that you manage an online advertising campaign on Facebook to promote STEM careers. You want to reach both men and women so you set the same “maximum bid per click” (i.e., the maximum price you’re willing to pay for one click on the ad) for these groups. But then, something surprising happens: your ad ends up being shown more to men, and up to 45% more for the 35-44 age group. How come? Does the ad-serving algorithm simply reflect actual consumer behavior and maybe the fact that women click less on your ads? Or has the algorithm been contaminated by biased data which made it assume such a behavior?</p>
+
+<p>Through a field test in a similar context, two <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2852260">researchers</a> concluded that neither of these explanations was correct. Women tended to click more on the ads and the disparate number of impressions was uncorrelated with the likely level of institutional bias in the countries covered by the campaign. The real cause was the “economics of ad delivery” — since women are more valuable targets for advertisers, the ad was more likely to be outbid for female consumers.</p>
+
+<p>Let’s say now that you’re a machine learning engineer in charge of developing the recommendation engine of a streaming platform. How do you set the objective for your algorithm? After discussing with various internal stakeholders, it seems clear that you should maximize “engagement”, i.e. the time spent by users on your platform or the number of videos viewed. This metric is directly connected to your platform’s revenues. Thanks to the “wisdom of the crowd,” maximizing engagement also seems a way to promote the best quality content and provide a great user experience. However you soon realize the <a href="https://www.scientificamerican.com/article/youtubes-recommendation-algorithm-has-a-dark-side/">alarming</a> <a href="https://www.theatlantic.com/technology/archive/2019/02/reason-conspiracy-videos-work-so-well-youtube/583282/">consequences</a> of this simple choice. Given the “natural pattern of borderline content getting more engagement” (in <a href="https://www.facebook.com/notes/mark-zuckerberg/a-blueprint-for-content-governance-and-enforcement/10156443129621634/">Mark Zuckerberg’s words</a>), your recommendation engine now makes conspiracy or extremist videos more visible and soon enough, ill-intentioned users discover this trend and create purposely divisive content to generate revenues.</p>
+
+<p>These examples illustrate some of the challenges of anticipating the negative side effects of your AI projects:</p>
+
+<ul>
+  <li><strong>Harms can take many shapes</strong>. The first example relates to fairness whereas the second one concerns the social cohesion and the vitality of democratic life.</li>
+  <li><strong>Consequences may be indirect or occur only in specific circumstances</strong>. For instance, it wasn’t necessarily obvious that extremist or conspiracy videos needed to be specifically taken into consideration to understand the impact of the recommendation engine’s design.</li>
+  <li><strong>Technical expertise and domain expertise are both required</strong>. A data scientist may be unfamiliar with the subtleties of the online advertising market while an advertising expert may be unable to foresee the implications of technical choices for the algorithms.</li>
+  <li><strong>The root cause of the harm may be outside of the machine learning system per se</strong>. In the case of the targeted ads, the estimates of the click propensities were unbiased but it’s the use of these estimates in a wider socio-economic context which led to disparate treatment.</li>
+</ul>
+
+<h1 id="ethical-checklists-have-been-specifically-designed-for-ai-use-cases">Ethical Checklists Have Been Specifically Designed for AI Use Cases</h1>
+
+<p>Fortunately, several organizations published <strong>ethical checklists to guide practitioners through the identification of the potential ethical concerns of AI use cases</strong>. For example:</p>
+
+<ul>
+  <li>DJ Patil, Hilary Mason and Mike Loukides proposed a simple ethical checklist in an article entitled “<a href="https://www.oreilly.com/radar/of-oaths-and-checklists/">Of Oaths and Checklists</a>.”</li>
+  <li>A team of Microsoft researchers published an “<a href="https://www.microsoft.com/en-us/research/publication/co-designing-checklists-to-understand-organizational-challenges-and-opportunities-around-fairness-in-ai/">AI Fairness Checklist</a>,” which, as its name suggests, is restricted to fairness and discrimination issues.</li>
+  <li>David Leslie of the Turing Institute included a “stakeholder impact assessment” in “<a href="https://www.turing.ac.uk/research/publications/understanding-artificial-intelligence-ethics-and-safety">Understanding artificial intelligence ethics and safety</a>,” a guide for the responsible design and implementation of AI systems in the public sector.</li>
+  <li>The “High-Level Expert Group on Artificial Intelligence” set up by the European Commission published a comprehensive “<a href="https://ec.europa.eu/digital-single-market/en/news/assessment-list-trustworthy-artificial-intelligence-altai-self-assessment">Assessment List for Trustworthy Artificial Intelligence</a>” along with its “Ethics Guidelines for Trustworthy Artificial Intelligence.”</li>
+</ul>
+
+<p><img src="/assets/img/documents.png" alt="Examples of ethical checklists" /></p>
+
+<p>In a nutshell, these ethical checklists are just lists of questions to structure your assessment of the ethical aspects of your AI projects. They facilitate the communication between project team members and stakeholders, they contribute to harmonizing practices, and they help make and document decisions. Furthermore, their main benefit may simply be their cultural impact throughout your organization: by opening debates about the ethical implications of AI projects, they contribute to raise awareness on this topic and foster a questioning attitude.</p>
+
+<p>So, what questions are included in these ethical checklists? They of course differ from one another but some essential questions are often or always present:</p>
+
+<ul>
+  <li>What are the <strong>purpose and high-level objectives</strong> of the project? What are the metrics measuring the project’s success?</li>
+  <li>What <strong>persons</strong> will be <strong>affected by the project</strong>, directly or indirectly, and in normal or anomalous circumstances? How will they be affected?</li>
+  <li>What are the <strong>potential biases</strong> included in the data used to train models?</li>
+  <li>How can adversaries <strong>abuse</strong> the AI system?</li>
+  <li>What are the <strong>measures foreseen to address the ethical concerns</strong> of the project (e.g. to mitigate model bias, to protect personal data, etc.)?</li>
+  <li>How will the potential ethical impacts of the AI system be <strong>monitored once it is in production</strong>? How will anomalies and complaints be addressed?</li>
+</ul>
+
+<h1 id="how-to-choose-between-these-ethical-checklists">How to Choose Between These Ethical Checklists?</h1>
+
+<p>The ethical checklists share other important features. First, they are broad in scope and illustrate the complexity of the Responsible AI topic, as well as the need to combine various expertises and perspectives. In particular, they generally cover <strong>various categories of concerns</strong>:</p>
+
+<ul>
+  <li>Fairness (i.e., not performing differently for certain groups in ways considered undesirable)</li>
+  <li>Privacy (i.e., protecting personal information)</li>
+  <li>Safety and robustness (i.e., functioning reliably and accurately even under harsh conditions)</li>
+  <li>Security (i.e., not being abused by malicious actors)</li>
+  <li>Other societal impacts (e.g., impacts on jobs, society at large, or democracy)</li>
+</ul>
+
+<p>The ethical checklists also tend to touch upon <strong>all stages of the AI project lifecycle</strong>: the scoping of potential AI use cases, the exploratory analysis of datasets, the training of machine learning models, their inclusion in a broader IT system and the deployment and operation of such systems. For some of the ethical checklists, the questions are specifically adapted to each of these stages. In any case, the four checklists encourage their users to periodically revisit their answers.</p>
+
+<p>A final commonality between the checklists is that they do not provide an assessment or score that would tell you, for example, whether the identified ethical concerns are significant or whether your mitigation measures are adequate. This is adequate because these complex issues require fine-grained analyses and any kind of mechanical appraisal would probably be too coarse to help.</p>
+
+<p>If you’re now convinced that you should use such an ethical checklist to assess your use cases in a structured manner, the question becomes: which one to choose? There isn’t an obvious answer because none is clearly more appropriate than the others for all situations. With the various ethical checklists, the level of detail, the guidance, but also the “administrative burden” differ. For example, there are more pages in the fourth checklist above than there are questions in the first one! You then need to find the right balance between them, given the severity of the potential impacts of your use cases, the AI maturity of your internal stakeholders, and the culture of your organization, so that these ethical assessments stay meaningful and efficient. To help you with this choice, you can find a more detailed comparison of the four checklists at the end of this blog post.</p>
+
+<p>In any case, don’t hesitate to customize your ethical checklist to better take into account the lessons learned from its use and reflect the needs of your organization. For example, if your organization carries out Data Protection Impact Assessments (DPIA) under article 35 of the GDPR, you should align the two approaches to avoid redundancies or inconsistencies.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p><strong>Assessing potential ethical concerns</strong> for an AI use case is crucial given the significant risks of inadvertent harms. This should be done <strong>early in the project lifecycle</strong> and <strong>regularly reconsidered</strong> to take into account the progress made or context changes.</p>
+
+<p>You can use one of the ethical checklists that were designed for this purpose. They’ll give you a head start but <strong>it’ll still be up to you and your organization to draw the necessary conclusions</strong>. This requires leaders to be aware of the potential ethical implications of AI, as well as thoughtful processes to incorporate technical and business expertise, engage stakeholders, and make difficult decisions. Various practices have recently emerged to enable such deliberation, for example: <a href="https://www.accenture.com/us-en/insights/software-platforms/building-data-ai-ethics-committees">AI ethics committees</a>, <a href="https://www.europarl.europa.eu/RegData/etudes/STUD/2020/641507/EPRS_STU(2020)641507_EN.pdf">accountability reports</a>, and <a href="https://ainowinstitute.org/aiareport2018.pdf">public notice of existing and proposed uses of AI</a> by public agencies.</p>
+
+<p>More broadly, these ethical checklists should be part of a <strong>coherent Responsible AI framework</strong>, that would also include other methodological assets, such as <a href="https://arxiv.org/abs/1903.03425">ethics</a> <a href="https://www.nature.com/articles/s42256-019-0088-2">guidelines</a>, a template for <a href="https://ainowinstitute.org/aiareport2018.pdf">algorithmic impact assessments</a>, <a href="https://dl.acm.org/doi/abs/10.1145/3351095.3372873">an audit framework</a>, and templates to document <a href="https://arxiv.org/abs/1803.09010">datasets</a> and <a href="https://arxiv.org/abs/1810.03993">models</a>. If you’re interested in all this, make sure to follow the progress of the “<a href="https://oecd.ai/wonk/an-introduction-to-the-global-partnership-on-ais-work-on-responsible-ai">Responsible AI Working Group</a>” of the “<a href="https://oecd.ai/wonk/oecd-and-g7-artificial-intelligence-initiatives-side-by-side-for-responsible-ai">Global Partnership on AI</a>.” In December 2020, it will report on the results of its first project which aims at analyzing existing and potential Responsible AI initiatives and “recommend new initiatives and how they could, in practice, be implemented and contribute to promote the responsible development, use and governance of human-centered AI systems.”</p>
+
+<h1 id="bonus-comparison-of-the-ethical-checklists">Bonus: Comparison of the Ethical Checklists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Title</th>
+      <th style="text-align: center"><a href="https://ec.europa.eu/newsroom/dae/document.cfm?doc_id=68342">Ethics Guidelines for Trustworthy AI</a></th>
+      <th style="text-align: center"><a href="https://www.microsoft.com/en-us/research/publication/co-designing-checklists-to-understand-organizational-challenges-and-opportunities-around-fairness-in-ai/">AI Fairness Checklist</a></th>
+      <th style="text-align: center"><a href="https://www.oreilly.com/radar/of-oaths-and-checklists/">Of Oaths and Checklists</a></th>
+      <th style="text-align: center"><a href="https://www.turing.ac.uk/research/publications/understanding-artificial-intelligence-ethics-and-safety">Stakeholder Impact Assessment</a></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><strong>Authors</strong></td>
+      <td style="text-align: center">High-level expert group on AI set up by the European Commission</td>
+      <td style="text-align: center">M. Madaio et al. (Microsoft)</td>
+      <td style="text-align: center">DJ Patil, H. Mason and M. Loukides</td>
+      <td style="text-align: center">D. Leslie (Turing Institute)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Responsible AI Themes Covered</strong></td>
+      <td style="text-align: center">Human agency and oversight   Safety   Security   Privacy   Transparency   Fairness   Inclusion   Societal impacts   Accountability</td>
+      <td style="text-align: center">Fairness</td>
+      <td style="text-align: center">Fairness   Privacy   Security</td>
+      <td style="text-align: center">Safety   Privacy   Fairness   Inclusion   Societal impacts   Environmental sustainability</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Advantages</strong></td>
+      <td style="text-align: center">-Tested in the context of a wide public consultation   -Comprehensive and well explained   -Particularly adapted to the European context</td>
+      <td style="text-align: center">-Co-designed with machine learning practitioners   -Different questions at the various project milestones</td>
+      <td style="text-align: center">-Very concise and simple   -Yes/no questions which leave little room for ambiguity</td>
+      <td style="text-align: center">-Embedded in a comprehensive Responsible AI framework   -Different questions at the various project milestones</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Limitations</strong></td>
+      <td style="text-align: center">-Quite long   -Specific to the European context for certain questions</td>
+      <td style="text-align: center">-Quite long   -Restricted to fairness issues</td>
+      <td style="text-align: center">Limited guidance for inexperienced practitioners</td>
+      <td style="text-align: center">General questions which may be too high level for inexperienced practitioners</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<span class="post-date">
+  Written on
+  
+  November
+  20th,
+  2020
+  by
+  
+    Vivien
+  
+</span>
+
+<div class="post-date">Feel free to share!</div>
+  <div class="sharing-icons">
+    <a href="https://twitter.com/intent/tweet?text=What Are the Ethical Risks of Your AI Project?&amp;url=/journal/ethical-risks-ai-project.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=/journal/ethical-risks-ai-project.html&amp;title=What Are the Ethical Risks of Your AI Project?" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+    <a href="https://plus.google.com/share?url=/journal/ethical-risks-ai-project.html" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+  </div>
+</div>
+
+
+
+  <section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = "unsupervisedthoughts";
+    var disqus_identifier = "/journal/ethical-risks-ai-project.html";
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+    </div>
+
+    <footer class="footer">
+  
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  <div class="post-date"><a href="/menu/about.html">Unsupervised Thoughts | A blog on machine learning by Vivien</a></div>
+</footer>
+
+
+  </div>
+
+</body>
+</html>

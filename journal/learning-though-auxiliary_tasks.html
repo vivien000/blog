@@ -12,12 +12,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
 
-  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/main.css">
-  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/syntax.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/syntax.css">
   <!-- Use Atom -->
-  <!-- <link type="application/atom+xml" rel="alternate" href="https://vivien000.github.io/blog/rss-feed.xml" title="Unsupervised Thoughts" /> -->
+  <!-- <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/rss-feed.xml" title="Unsupervised Thoughts" /> -->
   <!-- Use RSS-2.0 -->
-  <link href="https://vivien000.github.io/blog/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Unsupervised Thoughts | A blog on machine learning"/>
+  <link href="/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Unsupervised Thoughts | A blog on machine learning"/>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
@@ -41,22 +41,25 @@
 
 
   <!-- Use Jekyll SEO plugin -->
-  <!-- Begin Jekyll SEO tag v2.5.0 -->
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>Learning through Auxiliary Tasks | Unsupervised Thoughts</title>
-<meta name="generator" content="Jekyll v3.8.5" />
+<meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="Learning through Auxiliary Tasks" />
 <meta name="author" content="Vivien" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Play, a seemingly futile activity, is ubiquitous in human cultures and very widespread in the animal kingdom, which suggests it serves an important purpose" />
 <meta property="og:description" content="Play, a seemingly futile activity, is ubiquitous in human cultures and very widespread in the animal kingdom, which suggests it serves an important purpose" />
-<link rel="canonical" href="https://vivien000.github.io/blog/journal/learning-though-auxiliary_tasks.html" />
-<meta property="og:url" content="https://vivien000.github.io/blog/journal/learning-though-auxiliary_tasks.html" />
+<link rel="canonical" href="http://localhost:4000/journal/learning-though-auxiliary_tasks.html" />
+<meta property="og:url" content="http://localhost:4000/journal/learning-though-auxiliary_tasks.html" />
 <meta property="og:site_name" content="Unsupervised Thoughts" />
-<meta property="og:image" content="https://vivien000.github.io/blog/vase.jpg" />
+<meta property="og:image" content="http://localhost:4000/vase.jpg" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-02-17T00:00:00+01:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/vase.jpg" />
+<meta property="twitter:title" content="Learning through Auxiliary Tasks" />
 <script type="application/ld+json">
-{"description":"Play, a seemingly futile activity, is ubiquitous in human cultures and very widespread in the animal kingdom, which suggests it serves an important purpose","author":{"@type":"Person","name":"Vivien"},"@type":"BlogPosting","url":"https://vivien000.github.io/blog/journal/learning-though-auxiliary_tasks.html","image":"https://vivien000.github.io/blog/vase.jpg","headline":"Learning through Auxiliary Tasks","dateModified":"2019-02-17T00:00:00+01:00","datePublished":"2019-02-17T00:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://vivien000.github.io/blog/journal/learning-though-auxiliary_tasks.html"},"@context":"http://schema.org"}</script>
+{"@type":"BlogPosting","url":"http://localhost:4000/journal/learning-though-auxiliary_tasks.html","image":"http://localhost:4000/vase.jpg","headline":"Learning through Auxiliary Tasks","dateModified":"2019-02-17T00:00:00+01:00","datePublished":"2019-02-17T00:00:00+01:00","author":{"@type":"Person","name":"Vivien"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/journal/learning-though-auxiliary_tasks.html"},"description":"Play, a seemingly futile activity, is ubiquitous in human cultures and very widespread in the animal kingdom, which suggests it serves an important purpose","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -68,12 +71,12 @@
   <div class="container">
     <header class="masthead">
   <h3 class="masthead-title">
-    <a href="https://vivien000.github.io/blog/">Unsupervised Thoughts</a>
+    <a href="/">Unsupervised Thoughts</a>
     <small class="masthead-subtitle">A blog on machine learning</small>
     <div class="menu">
   <nav class="menu-content">
     
-      <a href="https://vivien000.github.io/blog/menu/about.html">About</a>
+      <a href="/menu/about.html">About</a>
     
   </nav>
   <nav class="social-icons">
@@ -111,12 +114,10 @@
 </h1>
 
 
-  <img src="https://vivien000.github.io/blog/assets/img/vase.jpg">
+  <img src="/assets/img/vase.jpg">
 
 
 <div class="caption_cover_image">Play, a seemingly futile activity, is ubiquitous in human cultures and very widespread in the animal kingdom, which suggests it serves an important purpose</div>
-
-<p><strong>Update</strong>: this blog post was expanded into a <a href="https://github.com/vivien000/auxiliary-learning2/blob/master/auxiliary_tasks.pdf">paper</a> with more explanations and additional experiments.</p>
 
 <p>In this post, I’d like to illustrate how <strong>auxiliary tasks</strong> can be beneficial for <strong>machine learning</strong>. I’ll first define this notion, provide examples and show how these tasks are usually incorporated in the mathematical formulation of <strong>deep learning</strong> problems. I’ll then propose an alternative approach and present first experimental results for this approach.</p>
 
@@ -162,7 +163,7 @@
 
 <div class="caption">Table 1. Auxiliary learning compared to single task learning and multitask learning</div>
 
-<p>Let’s look at a striking example <a href="#caruana1996using">(Caruana, Baluja, &amp; Mitchell, 1996)</a> based on the Medis Pneumonia Database. This database contains 14,199 cases of patients diagnosed with pneumonia and hospitalized. It includes:</p>
+<p>Let’s look at a striking example <a class="citation" href="#caruana1996using">(Caruana et al., 1996)</a> based on the Medis Pneumonia Database. This database contains 14,199 cases of patients diagnosed with pneumonia and hospitalized. It includes:</p>
 <ul>
   <li>30 basic measurements (e.g. pulse);</li>
   <li>35 lab results (e.g. blood counts);</li>
@@ -185,43 +186,43 @@
       <td><strong>Deep learning</strong></td>
       <td>Training a deep neural network</td>
       <td>Reconstructing corrupted versions of the neural network’s inputs and the activations of its hidden layers to learn useful features</td>
-      <td><a href="#vincent2008extracting">(Vincent, Larochelle, Bengio, &amp; Manzagol, 2008)</a></td>
+      <td><a class="citation" href="#vincent2008extracting">(Vincent et al., 2008)</a></td>
     </tr>
     <tr>
       <td><strong>Computer vision</strong></td>
       <td>Identifying facial landmarks on face pictures</td>
       <td>Estimating head pose and predicting facial attributes (“wearing glasses”, “smiling” and “gender”)</td>
-      <td><a href="#Zhang14faciallandmark">(Zhang, Luo, Loy, &amp; Tang, 2014)</a></td>
+      <td><a class="citation" href="#Zhang14faciallandmark">(Zhang et al., 2014)</a></td>
     </tr>
     <tr>
       <td><strong>Computer vision</strong></td>
       <td>Detecting objects in indoor scenes</td>
       <td>Predicting scene labels and evaluating depth and surface orientation at pixel level</td>
-      <td><a href="#mordan2018revisiting">(Mordan, Thome, Henaff, &amp; Cord, 2018)</a></td>
+      <td><a class="citation" href="#mordan2018revisiting">(Mordan et al., 2018)</a></td>
     </tr>
     <tr>
       <td><strong>Sequence modelling</strong></td>
       <td>Training a recurrent neural network on very long sequences</td>
       <td>Reconstructing or predicting short segments of the sequences</td>
-      <td><a href="#trinh2018learning">(Trinh, Dai, Luong, &amp; Le, 2018)</a></td>
+      <td><a class="citation" href="#trinh2018learning">(Trinh et al., 2018)</a></td>
     </tr>
     <tr>
       <td><strong>Natural language processing</strong></td>
       <td>Performing a natural language processing task</td>
       <td>Predicting words based on their neighborhood to learn efficient word representations</td>
-      <td><a href="#mikolov2013distributed">(Mikolov, Sutskever, Chen, Corrado, &amp; Dean, 2013)</a></td>
+      <td><a class="citation" href="#mikolov2013distributed">(Mikolov et al., 2013)</a></td>
     </tr>
     <tr>
       <td><strong>Reinforcement learning</strong></td>
       <td>Playing a video game</td>
       <td>Modifying the image perceived by the agent and predicting short-term rewards</td>
-      <td><a href="#jaderberg2016reinforcement">(Jaderberg et al., 2016)</a></td>
+      <td><a class="citation" href="#jaderberg2016reinforcement">(Jaderberg et al., 2016)</a></td>
     </tr>
     <tr>
       <td><strong>Reinforcement learning</strong></td>
       <td>Playing a video game</td>
       <td>Predicting the future state based on the current state and the current action</td>
-      <td><a href="#burda2018large">(Burda et al., 2018)</a></td>
+      <td><a class="citation" href="#burda2018large">(Burda et al., 2018)</a></td>
     </tr>
   </tbody>
 </table>
@@ -244,7 +245,7 @@
 
 <p>The approach described above has provided very good empirical results. However, an auxiliary task may be unhelpful or even harmful for the primary task. The latter case, which is called <strong>negative transfer</strong>, is a central challenge of auxiliary learning.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/negative_transfer.png" alt="Negative transfer" /></p>
+<p><img src="/assets/img/negative_transfer.png" alt="Negative transfer" /></p>
 <div class="caption">Figure 1. Left: a pathological example of negative transfer with an auxiliary task chosen so that \(\mathcal{L}_{\text{auxiliary}} = -\mathcal{L}_{\text{primary}}\). In this case, \(\nabla\mathcal{L} = 0\) (assuming \(\lambda = 1\)) and the network's parameters are never updated during gradient descent. Right: a less extreme situation in which \(\nabla\mathcal{L}_{\text{auxiliary}}\) still cancels a significant part of \(\nabla\mathcal{L}_{\text{primary}}\)</div>
 
 <p>Moreover, using a weighted average of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script> suggests we’d be willing to tolerate a higher value of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> if it helped sufficiently decrease <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script>. On the contrary, reducing the auxiliary loss is only looked for to the extent this contributes to reducing the primary loss.</p>
@@ -261,12 +262,12 @@
 
 <p>Otherwise said, <strong><script type="math/tex">G_{\text{auxiliary}}</script> is the projection of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> on the half-space of vectors whose cosine similarity with <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> is positive</strong>. If a critical point of <script type="math/tex">\mathcal{L}_{\text{primary}}</script> hasn’t been reached yet (i.e. if <script type="math/tex">\nabla\mathcal{L}_{\text{primary}} \neq \mathbf{0}</script>), this ensures that <script type="math/tex">\mathcal{L}_{\text{primary}}</script> will decrease if the learning rate if small enough.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/projection.png" alt="Projection of the auxiliary loss gradient" /></p>
+<p><img src="/assets/img/projection.png" alt="Projection of the auxiliary loss gradient" /></p>
 <div class="caption">Figure 2. If \(\nabla\mathcal{L}_{\text{primary}}\) and \(\nabla\mathcal{L}_{\text{auxiliary}}\) form an obtuse angle, the component of \(\nabla\mathcal{L}_{\text{auxiliary}}\) parallel to \(\nabla\mathcal{L}_{\text{primary}}\) is cancelled to avoid increasing \(\mathcal{L}_{\text{primary}}\). If not, \(\nabla\mathcal{L}_{\text{auxiliary}}\) is kept as it is</div>
 
 <h1 id="comparison-to-unweighted-and-weighted-cosine">Comparison to unweighted and weighted cosine</h1>
 
-<p>This approach, referred below as <strong>projection</strong>, is analogous to two methods, <strong>unweighted cosine</strong> and <strong>weighted cosine</strong>, recently proposed for the same purpose <a href="#du2018adapting">(Du, Czarnecki, Jayakumar, Pascanu, &amp; Lakshminarayanan, 2018)</a>. Yunshu Du,  Wojciech Czarnecki and their colleagues also suggest to adjust <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>:</p>
+<p>This approach, referred below as <strong>projection</strong>, is analogous to two methods, <strong>unweighted cosine</strong> and <strong>weighted cosine</strong>, recently proposed for the same purpose <a class="citation" href="#du2018adapting">(Du et al., 2018)</a>. Yunshu Du,  Wojciech Czarnecki and their colleagues also suggest to adjust <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>:</p>
 
 <table>
   <tbody>
@@ -296,14 +297,14 @@
 
 <p>If <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an obtuse angle, both <em>unweighted cosine</em> and <em>weighted cosine</em> just ignore <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>. In contrast, <em>projection</em> only negates the component of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> which is collinear to <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script>.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/cosine.png" alt="Unweighted and weighted cosine" /></p>
+<p><img src="/assets/img/cosine.png" alt="Unweighted and weighted cosine" /></p>
 <div class="caption">Figure 3. \(\nabla\mathcal{L}_{\text{auxiliary}}\) transformed into \(G_{\text{auxiliary}}\) by unweighted cosine (red) and weighted cosine (purple)</div>
 
 <p>Even if <em>projection</em> and <em>unweighted/weighted cosine</em> are similar, their motivations are different:</p>
 
 <ul>
   <li>
-    <p><a href="#du2018adapting">(Du, Czarnecki, Jayakumar, Pascanu, &amp; Lakshminarayanan, 2018)</a> explicitly tries to favor auxiliary tasks similar to the primary task. For example, <em>weighted cosine</em> completely ignores the auxiliary task when <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> are orthogonal.</p>
+    <p><a class="citation" href="#du2018adapting">(Du et al., 2018)</a> explicitly tries to favor auxiliary tasks similar to the primary task. For example, <em>weighted cosine</em> completely ignores the auxiliary task when <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> are orthogonal.</p>
   </li>
   <li>
     <p>In my intuition, an auxiliary task’s purpose is to bring a new perspective. It should nudge us towards interesting regions of the parameter space we wouldn’t have explored with only the primary task in focus. Therefore we can try to negate the component of <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> which seems clearly harmful to our objective but we shouldn’t necessarily discard auxiliary tasks dissimilar to the primary task<sup id="fnref:5"><a href="#fn:5" class="footnote">4</a></sup>.</p>
@@ -326,7 +327,7 @@
 
 <p><strong>The solution of this problem is of course</strong> <script type="math/tex">(1, 0)</script> and we try to reach it by <strong>using a gradient descent-based algorithm</strong> starting from point <script type="math/tex">(0, 2)</script> with <script type="math/tex">\lambda = 0.1</script>.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/trajectories_adam.gif" alt="Adam trajectories" /></p>
+<p><img src="/assets/img/trajectories_adam.gif" alt="Adam trajectories" /></p>
 <div class="caption">Figure 4. Trajectories with Adam</div>
 
 <p>We can see the corresponding trajectories with the <strong>Adam algorithm</strong> (learning rate: 0.01, <script type="math/tex">\beta_1=0.9, \beta_2=0.999</script>) on Figure 4 and observe that:</p>
@@ -346,30 +347,30 @@
   </li>
 </ul>
 
-<p>With this example, <strong><em>projection</em>, <em>unweighted cosine</em> and <em>weighted cosine</em> allow to find the correct solution but the convergence is notably quicker with <em>projection</em></strong> (this is also the case for <a href="https://vivien000.github.io/blog/assets/img/trajectories_adam2.gif">other</a> <a href="https://vivien000.github.io/blog/assets/img/trajectories_adam3.gif">starting</a> <a href="https://vivien000.github.io/blog/assets/img/trajectories_adam4.gif">points</a>).</p>
+<p>With this example, <strong><em>projection</em>, <em>unweighted cosine</em> and <em>weighted cosine</em> allow to find the correct solution but the convergence is notably quicker with <em>projection</em></strong> (this is also the case for <a href="/assets/img/trajectories_adam2.gif">other</a> <a href="/assets/img/trajectories_adam3.gif">starting</a> <a href="/assets/img/trajectories_adam4.gif">points</a>).</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/trajectories_vanilla_gd.gif" alt="Vanilla Gradient Descent trajectories" /></p>
+<p><img src="/assets/img/trajectories_vanilla_gd.gif" alt="Vanilla Gradient Descent trajectories" /></p>
 <div class="caption">Figure 5. Trajectories with vanilla gradient descent</div>
 
-<p>Figure 5 shows the trajectories with the <strong>vanilla gradient descent algorithm</strong> (learning rate: 0.01) and tells a different story. <strong>With <em>unweighted cosine</em> and <em>weighted cosine</em>, the point now stops on the unit circle far from (1, 0)</strong>. This is because, in the absence of momentum, it eventually stays on the side of the unit circle where <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an obtuse angle. The auxiliary task is then never taken into consideration anymore. A similar behavior can be seen with <a href="https://vivien000.github.io/blog/assets/img/trajectories_vanilla_gd2.gif">other</a> <a href="https://vivien000.github.io/blog/assets/img/trajectories_vanilla_gd3.gif">starting</a> <a href="https://vivien000.github.io/blog/assets/img/trajectories_vanilla_gd4.gif">points</a>.</p>
+<p>Figure 5 shows the trajectories with the <strong>vanilla gradient descent algorithm</strong> (learning rate: 0.01) and tells a different story. <strong>With <em>unweighted cosine</em> and <em>weighted cosine</em>, the point now stops on the unit circle far from (1, 0)</strong>. This is because, in the absence of momentum, it eventually stays on the side of the unit circle where <script type="math/tex">\nabla\mathcal{L}_{\text{primary}}</script> and <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> form an obtuse angle. The auxiliary task is then never taken into consideration anymore. A similar behavior can be seen with <a href="/assets/img/trajectories_vanilla_gd2.gif">other</a> <a href="/assets/img/trajectories_vanilla_gd3.gif">starting</a> <a href="/assets/img/trajectories_vanilla_gd4.gif">points</a>.</p>
 
 <p>In summary, the proposed method works as intended with these toy examples: it helps accomplish both the primary task and the auxiliary task while giving precedence to the former.</p>
 
 <h2 id="experiments-on-a-real-dataset">Experiments on a real dataset</h2>
 
-<p>The following experiments are based on the <strong><em>CelebA (or large-scale CelebFaces attributes) dataset</em></strong> <a href="#liu2015faceattributes">(Liu, Luo, Wang, &amp; Tang, 2015)</a> and inspired by <a href="#Zhang14faciallandmark">(Zhang, Luo, Loy, &amp; Tang, 2014)</a>. The CelebA dataset contains many face images annotated with 40 binary attributes such as <em>Attractive</em>, <em>Young</em>, <em>Eyeglasses</em> or <em>Black Hair</em>, and the locations of 5 facial landmarks : <em>left eye</em>, <em>right eye</em>, <em>left mouth corner</em>, <em>right mouth corner</em> and <em>nose</em>.</p>
+<p>The following experiments are based on the <strong><em>CelebA (or large-scale CelebFaces attributes) dataset</em></strong> <a class="citation" href="#liu2015faceattributes">(Liu et al., 2015)</a> and inspired by <a class="citation" href="#Zhang14faciallandmark">(Zhang et al., 2014)</a>. The CelebA dataset contains many face images annotated with 40 binary attributes such as <em>Attractive</em>, <em>Young</em>, <em>Eyeglasses</em> or <em>Black Hair</em>, and the locations of 5 facial landmarks : <em>left eye</em>, <em>right eye</em>, <em>left mouth corner</em>, <em>right mouth corner</em> and <em>nose</em>.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/faces.png" alt="Example of a CelebA image" /></p>
+<p><img src="/assets/img/faces.png" alt="Example of a CelebA image" /></p>
 <div class="caption">Figure 6. Examples of CelebA images and their 40 x 40 downsampled gray-scale versions with green dots on the 5 facial landmarks</div>
 
 <p>The <strong>primary task</strong> for these experiments is to <strong>determine whether a face is attractive</strong> (or at least attractive in the annotators’ eyes) and the <strong>auxiliary task</strong> is to <strong>locate the facial landmarks</strong>. The corresponding losses are the cross entropy error function and the average quadratic error.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/neural_network1.png" alt="Neural network for the real dataset" /></p>
+<p><img src="/assets/img/neural_network1.png" alt="Neural network for the real dataset" /></p>
 <div class="caption">Figure 7. Convolutional network with 4 convolutional layers interleaved with 3 max-pooling layers, a shared dense layer, and a final dense layer specific to each task</div>
 
-<p>The pictures were downsampled to <script type="math/tex">40\times40</script> and converted to gray-scale to make the tasks more challenging and reduce computation time. 10000 of them were included in the training set, the validation set and the test set. I used the neural network depicted on Figure 7 as in <a href="#Zhang14faciallandmark">(Zhang, Luo, Loy, &amp; Tang, 2014)</a> and trained it with the Adam algorithm and early stopping.</p>
+<p>The pictures were downsampled to <script type="math/tex">40\times40</script> and converted to gray-scale to make the tasks more challenging and reduce computation time. 10000 of them were included in the training set, the validation set and the test set. I used the neural network depicted on Figure 7 as in <a class="citation" href="#Zhang14faciallandmark">(Zhang et al., 2014)</a> and trained it with the Adam algorithm and early stopping.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/real_dataset_chart1.png" alt="AUC for single task, multitask and projection" /></p>
+<p><img src="/assets/img/real_dataset_chart1.png" alt="AUC for single task, multitask and projection" /></p>
 <div class="caption">Figure 8. Testing AUC for <i>single task</i>, <i>multitask</i> and <i>projection</i> and 5 values of \(\lambda\) (10 runs for each combination). The bands around the lines on this chart and the next ones correspond to the 95% confidence interval</div>
 
 <p>Figure 8 shows the testing AUC for the primary task with <em>single task</em>, <em>multitask</em> and <em>projection</em> and various values of <script type="math/tex">\lambda</script>:</p>
@@ -380,14 +381,14 @@
   <li>The classification performance deteriorates as the influence of the auxiliary task becomes excessive with high values of <script type="math/tex">\lambda</script>, especially for <em>multitask</em> which performs worse than <em>single task</em> for <script type="math/tex">\lambda = 30000</script>.</li>
 </ul>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/real_dataset_chart2.png" alt="AUC for all modes" /></p>
+<p><img src="/assets/img/real_dataset_chart2.png" alt="AUC for all modes" /></p>
 <div class="caption">Figure 9. Testing AUC for <i>single task</i>, <i>multitask</i>, <i>projection</i>, <i>unweighted cosine</i> and <i>weighted cosine</i> and 5 values of \(\lambda\) (10 runs for each combination)</div>
 
 <p>We can compare these results with those for <em>unweighted cosine</em> and <em>weighted cosine</em> on Figure 9. The <em>unweighted cosine</em> curve and the <em>weighted cosine</em> curve are very close to respectively the <em>projection</em> curve and the <em>single task</em> curve for <script type="math/tex">\lambda \leq 10000</script>. However, their testing AUC drops for <script type="math/tex">\lambda = 30000</script>. We can note that the <em>weighted cosine</em> curve falls between the <em>single task</em> curve and the <em>unweighted cosine</em> curve, which comes as no surprise.</p>
 
 <h2 id="experiments-on-a-synthetic-dataset">Experiments on a synthetic dataset</h2>
 
-<p>The last series of experiments follows <a href="#DBLP:conf/icml/ChenBLR18">(Chen, Badrinarayanan, Lee, &amp; Rabinovich, 2018)</a> and uses a <strong>synthetic dataset to control the adequacy of the auxiliary task</strong>.</p>
+<p>The last series of experiments follows <a class="citation" href="#DBLP:conf/icml/ChenBLR18">(Chen et al., 2018)</a> and uses a <strong>synthetic dataset to control the adequacy of the auxiliary task</strong>.</p>
 
 <p>Let:</p>
 <ul>
@@ -404,12 +405,12 @@
 
 <p>For the input data (i.e. <script type="math/tex">\mathbf{x}</script>), the training set, the validation set and the test set include respectively 1000, 1000 and 10000 vectors whose elements are generated IID from <script type="math/tex">\mathcal{N}(0, 1)</script>. Moreover and as opposed to the previous series of experiments, <strong>the training sets are distinct for the primary task and the auxiliary task</strong>. If these sets were the same, the auxiliary task wouldn’t add any value when <script type="math/tex">B_\mathbb{primary} = B_\mathbb{auxiliary}</script>.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/neural_network2.png" alt="Neural network for the synthetic dataset" /></p>
+<p><img src="/assets/img/neural_network2.png" alt="Neural network for the synthetic dataset" /></p>
 <div class="caption">Figure 10. Multilayer perceptron with 4 shared layers and an output layer specific to each task, all of them being of size 100</div>
 
-<p>As <a href="#DBLP:conf/icml/ChenBLR18">(Chen, Badrinarayanan, Lee, &amp; Rabinovich, 2018)</a>, I used the vanilla neural network depicted on Figure 10, which I trained with the Adam algorithm and early stopping.</p>
+<p>As <a class="citation" href="#DBLP:conf/icml/ChenBLR18">(Chen et al., 2018)</a>, I used the vanilla neural network depicted on Figure 10, which I trained with the Adam algorithm and early stopping.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/synthetic_dataset_chart1.png" alt="AUC for single task, multitask and projection" /></p>
+<p><img src="/assets/img/synthetic_dataset_chart1.png" alt="AUC for single task, multitask and projection" /></p>
 <div class="caption">Figure 11. Testing loss for <i>single task</i>, <i>multitask</i> and <i>projection</i> for 5 values of \(\lambda\) (20 runs for each combination)</div>
 
 <p>Figure 11 shows the results for <em>single task</em>, <em>multitask</em> and <em>projection</em> for various values of <script type="math/tex">\lambda</script>. <strong>The outcomes for <em>multitask</em> and <em>projection</em> are almost identical and fully consistent with the 3 situations for the auxiliary task</strong> (same task, similar task and unrelated task):</p>
@@ -426,12 +427,12 @@
 
 <p>with <script type="math/tex">M(0) = \nabla\mathcal{L}_{\text{primary}}(0)</script> and <script type="math/tex">M(t) = \alpha\nabla\mathcal{L}_{\text{primary}}(t) + (1-\alpha)M(t-1)</script> for <script type="math/tex">t > 0</script>.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/synthetic_dataset_chart2.png" alt="AUC for all modes" /></p>
+<p><img src="/assets/img/synthetic_dataset_chart2.png" alt="AUC for all modes" /></p>
 <div class="caption">Figure 12. Testing loss for <i>single task</i>, <i>multitask</i> and <i>projection</i> for 5 values of \(\lambda\) and 3 values of \(\alpha\) (20 runs for each combination)</div>
 
 <p>Figure 12 shows the same results as Figure 11 for 3 values of <script type="math/tex">\alpha</script>. With <script type="math/tex">\alpha = 0.1</script> and even more <strong>with <script type="math/tex">\alpha = 0.01</script>, <em>projection</em> yields clearly better results compared to <em>multitask</em> for all 3 situations</strong><sup id="fnref:6"><a href="#fn:6" class="footnote">5</a></sup>. Figure 13 zooms in on the case <script type="math/tex">\alpha = 0.01</script>, for which <em>unweighted cosine</em> and <em>weighted cosine</em> provide better results than <em>multitask</em> and <em>projection</em> only when the primary task and the auxiliary task are unrelated.</p>
 
-<p><img src="https://vivien000.github.io/blog/assets/img/synthetic_dataset_chart3.png" alt="AUC for various scales" /></p>
+<p><img src="/assets/img/synthetic_dataset_chart3.png" alt="AUC for various scales" /></p>
 <div class="caption">Figure 13. Testing loss for <i>single task</i>, <i>multitask</i>, <i>projection</i>, <i>unweighted cosine</i> and <i>weighted cosine</i> for 5 values of \(\lambda\) and \(\alpha = 0.01\) (20 runs for each combination)</div>
 
 <h1 id="conclusion">Conclusion</h1>
@@ -444,20 +445,20 @@
 
 <h1 id="references">References</h1>
 
-<ol class="bibliography"><li><span id="caruana1996using">Caruana, R., Baluja, S., &amp; Mitchell, T. (1996). Using the future to "sort out" the present: Rankprop and multitask learning for medical risk evaluation. In <i>Advances in neural information processing systems</i> (pp. 959–965).</span></li>
-<li><span id="vincent2008extracting">Vincent, P., Larochelle, H., Bengio, Y., &amp; Manzagol, P.-A. (2008). Extracting and composing robust features with denoising autoencoders. In <i>Proceedings of the 25th international conference on Machine learning</i> (pp. 1096–1103). ACM.</span></li>
-<li><span id="Zhang14faciallandmark">Zhang, Z., Luo, P., Loy, C. C., &amp; Tang, X. (2014). Facial landmark detection by deep multi-task learning. In <i>In ECCV. 94–108</i>.</span></li>
-<li><span id="mordan2018revisiting">Mordan, T., Thome, N., Henaff, G., &amp; Cord, M. (2018). Revisiting Multi-Task Learning with ROCK: a Deep Residual Auxiliary Block for Visual Detection. In <i>Advances in Neural Information Processing Systems</i> (pp. 1317–1329).</span></li>
+<ol class="bibliography"><li><span id="caruana1996using">Caruana, R., Baluja, S., &amp; Mitchell, T. (1996). Using the future to "sort out" the present: Rankprop and multitask learning for medical risk evaluation. <i>Advances in Neural Information Processing Systems</i>, 959–965.</span></li>
+<li><span id="vincent2008extracting">Vincent, P., Larochelle, H., Bengio, Y., &amp; Manzagol, P.-A. (2008). Extracting and composing robust features with denoising autoencoders. <i>Proceedings of the 25th International Conference on Machine Learning</i>, 1096–1103.</span></li>
+<li><span id="Zhang14faciallandmark">Zhang, Z., Luo, P., Loy, C. C., &amp; Tang, X. (2014). Facial landmark detection by deep multi-task learning. <i>In ECCV. 94–108</i>.</span></li>
+<li><span id="mordan2018revisiting">Mordan, T., Thome, N., Henaff, G., &amp; Cord, M. (2018). Revisiting Multi-Task Learning with ROCK: a Deep Residual Auxiliary Block for Visual Detection. <i>Advances in Neural Information Processing Systems</i>, 1317–1329.</span></li>
 <li><span id="trinh2018learning">Trinh, T. H., Dai, A. M., Luong, T., &amp; Le, Q. V. (2018). Learning longer-term dependencies in rnns with auxiliary losses. <i>ArXiv Preprint ArXiv:1803.00144</i>.</span></li>
-<li><span id="mikolov2013distributed">Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S., &amp; Dean, J. (2013). Distributed representations of words and phrases and their compositionality. In <i>Advances in neural information processing systems</i> (pp. 3111–3119).</span></li>
+<li><span id="mikolov2013distributed">Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S., &amp; Dean, J. (2013). Distributed representations of words and phrases and their compositionality. <i>Advances in Neural Information Processing Systems</i>, 3111–3119.</span></li>
 <li><span id="jaderberg2016reinforcement">Jaderberg, M., Mnih, V., Czarnecki, W. M., Schaul, T., Leibo, J. Z., Silver, D., &amp; Kavukcuoglu, K. (2016). Reinforcement learning with unsupervised auxiliary tasks. <i>ArXiv Preprint ArXiv:1611.05397</i>.</span></li>
 <li><span id="burda2018large">Burda, Y., Edwards, H., Pathak, D., Storkey, A., Darrell, T., &amp; Efros, A. A. (2018). Large-scale study of curiosity-driven learning. <i>ArXiv Preprint ArXiv:1808.04355</i>.</span></li>
 <li><span id="du2018adapting">Du, Y., Czarnecki, W. M., Jayakumar, S. M., Pascanu, R., &amp; Lakshminarayanan, B. (2018). Adapting auxiliary losses using gradient similarity. <i>ArXiv Preprint ArXiv:1812.02224</i>.</span></li>
-<li><span id="liu2015faceattributes">Liu, Z., Luo, P., Wang, X., &amp; Tang, X. (2015). Deep Learning Face Attributes in the Wild. In <i>Proceedings of International Conference on Computer Vision (ICCV)</i>.</span></li>
+<li><span id="liu2015faceattributes">Liu, Z., Luo, P., Wang, X., &amp; Tang, X. (2015, December). Deep Learning Face Attributes in the Wild. <i>Proceedings of International Conference on Computer Vision (ICCV)</i>.</span></li>
 <li><span id="DBLP:conf/icml/ChenBLR18">Chen, Z., Badrinarayanan, V., Lee, C.-Y., &amp; Rabinovich, A. (2018). GradNorm: Gradient Normalization for Adaptive Loss Balancing in Deep
-               Multitask Networks. In <i>Proceedings of the 35th International Conference on Machine Learning,
+               Multitask Networks. <i>Proceedings of the 35th International Conference on Machine Learning,
                ICML 2018, Stockholmsmässan, Stockholm, Sweden, July
-               10-15, 2018</i> (pp. 793–802). Retrieved from http://proceedings.mlr.press/v80/chen18a.html</span></li></ol>
+               10-15, 2018</i>, 793–802. http://proceedings.mlr.press/v80/chen18a.html</span></li></ol>
 
 <hr />
 
@@ -496,9 +497,9 @@
 
 <div class="post-date">Feel free to share!</div>
   <div class="sharing-icons">
-    <a href="https://twitter.com/intent/tweet?text=Learning through Auxiliary Tasks&amp;url=https://vivien000.github.io/blog/journal/learning-though-auxiliary_tasks.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vivien000.github.io/blog/journal/learning-though-auxiliary_tasks.html&amp;title=Learning through Auxiliary Tasks" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-    <a href="https://plus.google.com/share?url=https://vivien000.github.io/blog/journal/learning-though-auxiliary_tasks.html" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+    <a href="https://twitter.com/intent/tweet?text=Learning through Auxiliary Tasks&amp;url=/journal/learning-though-auxiliary_tasks.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=/journal/learning-though-auxiliary_tasks.html&amp;title=Learning through Auxiliary Tasks" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+    <a href="https://plus.google.com/share?url=/journal/learning-though-auxiliary_tasks.html" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
   </div>
 </div>
 
@@ -545,7 +546,7 @@
     <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
   
 
-  <div class="post-date"><a href="https://vivien000.github.io/blog/menu/about.html">Unsupervised Thoughts | A blog on machine learning by Vivien</a></div>
+  <div class="post-date"><a href="/menu/about.html">Unsupervised Thoughts | A blog on machine learning by Vivien</a></div>
 </footer>
 
 
