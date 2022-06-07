@@ -7,6 +7,21 @@
 		<atom:link href="https://vivien000.github.io/blog/rss-feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Adding text (really) inside pictures and videos</title>
+				
+					<dc:creator>Vivien</dc:creator>
+				
+				
+					<description>&lt;p&gt;In the image above and the video below, the left character partially hides the text. In this post, I show how to automatically create such effect with a pretrained deep learning model and traditional computer vision techniques.&lt;/p&gt;
+
+</description>
+				
+				<pubDate>Wed, 08 Jun 2022 00:00:00 +0200</pubDate>
+				<link>https://vivien000.github.io/journal/adding-text-inside-pictures-and-videos.html</link>
+				<guid isPermaLink="true">https://vivien000.github.io/journal/adding-text-inside-pictures-and-videos.html</guid>
+			</item>
+		
+			<item>
 				<title>Simulating Depth Perception with Face Tracking</title>
 				
 					<dc:creator>Vivien</dc:creator>
@@ -17,8 +32,8 @@
 </description>
 				
 				<pubDate>Tue, 04 May 2021 00:00:00 +0200</pubDate>
-				<link>http://localhost:4000/journal/motion-parallax-with-face-tracking.html</link>
-				<guid isPermaLink="true">http://localhost:4000/journal/motion-parallax-with-face-tracking.html</guid>
+				<link>https://vivien000.github.io/journal/motion-parallax-with-face-tracking.html</link>
+				<guid isPermaLink="true">https://vivien000.github.io/journal/motion-parallax-with-face-tracking.html</guid>
 			</item>
 		
 			<item>
@@ -32,8 +47,8 @@
 </description>
 				
 				<pubDate>Fri, 20 Nov 2020 00:00:00 +0100</pubDate>
-				<link>http://localhost:4000/journal/ethical-risks-ai-project.html</link>
-				<guid isPermaLink="true">http://localhost:4000/journal/ethical-risks-ai-project.html</guid>
+				<link>https://vivien000.github.io/journal/ethical-risks-ai-project.html</link>
+				<guid isPermaLink="true">https://vivien000.github.io/journal/ethical-risks-ai-project.html</guid>
 			</item>
 		
 			<item>
@@ -47,8 +62,8 @@
 </description>
 				
 				<pubDate>Sun, 17 Feb 2019 00:00:00 +0100</pubDate>
-				<link>http://localhost:4000/journal/learning-though-auxiliary_tasks.html</link>
-				<guid isPermaLink="true">http://localhost:4000/journal/learning-though-auxiliary_tasks.html</guid>
+				<link>https://vivien000.github.io/journal/learning-though-auxiliary_tasks.html</link>
+				<guid isPermaLink="true">https://vivien000.github.io/journal/learning-though-auxiliary_tasks.html</guid>
 			</item>
 		
 	</channel>
