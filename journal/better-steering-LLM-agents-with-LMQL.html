@@ -149,7 +149,7 @@
   <li>If the substring detected at Step 3 is “Action: finish”, we extract and <strong>return the final answer</strong> <span style="border-radius: 50%; background-color: #B8E7BA; width: 10px">  G  </span>.</li>
 </ol>
 
-<p><img src="/assets/img/react.png" alt="ReAct example" /></p>
+<p><img src="https://vivien000.github.io/blog/assets/img/react.png" alt="ReAct example" /></p>
 
 <p>Although very simple and easy to implement, ReAct yields good results with large enough language models. However, <strong>this method relies on the LLM rigorously following the prescribed format</strong>. In practice, for example with <a href="https://python.langchain.com/en/latest/modules/agents/agents/examples/react.html">Langchain’s implementation of ReAct</a>, the LLM may deviate from it and even <em>hallucinate</em> imaginary tools, which prevents its output from being parsed. And this is where LMQL comes into play…</p>
 
@@ -157,7 +157,7 @@
 
 <p><strong><a href="https://lmql.ai/">LMQL</a></strong> is a declarative query language for LLMs. With LMQL queries, developers can concisely and intuitively specify the constraints applicable to a sequence of text generation steps. For example, the LMQL query below implements the ReAct method:</p>
 
-<p><img src="/assets/img/lmql-react.png" alt="LMQL ReAct query" /></p>
+<p><img src="https://vivien000.github.io/blog/assets/img/lmql-react.png" alt="LMQL ReAct query" /></p>
 
 <p>I invite you to learn about the LMQL syntax through the LMQL <a href="https://docs.lmql.ai/en/latest/">documentation</a> and <a href="https://lmql.ai/">examples</a>. In a nutshell:</p>
 <ul>
@@ -184,7 +184,7 @@
 
 <p>In all these cases, such restrictions can be specified with LMQL. For instance, the LMQL query below corresponds to the same ReAct agent as before but with the <code class="highlighter-rouge">lookup</code> tool not available for the first action (<span style="border-radius: 10%; padding: 2px; background-color: #B8E7BA; width: 10px">changes in green</span>).</p>
 
-<p><img src="/assets/img/lmql-react2.png" alt="LMQL ReAct query with a constraint on the choice of tools" /></p>
+<p><img src="https://vivien000.github.io/blog/assets/img/lmql-react2.png" alt="LMQL ReAct query with a constraint on the choice of tools" /></p>
 
 <h1 id="constraining-the-tools-inputs">Constraining the tools’ inputs</h1>
 
@@ -194,7 +194,7 @@
 
 <p>In the example below (<span style="border-radius: 10%; padding: 2px; background-color: #B8E7BA; width: 10px">changes in green</span>), we imagine that we have a new tool <code class="highlighter-rouge">search-lookup</code> that combines <code class="highlighter-rouge">search</code> and <code class="highlighter-rouge">lookup</code> in one function and takes two arguments (the entity of the Wikipedia page and the word to look up). In this case, we of course need to adjust the instructions or the few-shot examples so that the LLM considers the use of the new tool.</p>
 
-<p><img src="/assets/img/lmql-react3.png" alt="LMQL ReAct query with a constraint on the input of a tool" /></p>
+<p><img src="https://vivien000.github.io/blog/assets/img/lmql-react3.png" alt="LMQL ReAct query with a constraint on the input of a tool" /></p>
 
 <h1 id="defining-more-robust-action-plans">Defining more robust action plans</h1>
 
