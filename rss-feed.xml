@@ -7,6 +7,21 @@
 		<atom:link href="https://vivien000.github.io/blog/rss-feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Better steering LLM agents with LMQL</title>
+				
+					<dc:creator>Vivien</dc:creator>
+				
+				
+					<description>&lt;p&gt;One of the most fascinating aspects of autoregressive &lt;strong&gt;large language models&lt;/strong&gt; (LLMs) like GPT-3 is their ability to &lt;strong&gt;act through external tools&lt;/strong&gt;. In this post, I’ll illustrate how &lt;strong&gt;LMQL&lt;/strong&gt; &lt;a class=&quot;citation&quot; href=&quot;#beurer2022prompting&quot;&gt;(Beurer-Kellner et al., 2022)&lt;/a&gt;, a new &lt;em&gt;programming language for language model interaction&lt;/em&gt;, helps better steer such LLM agents. I’ll take &lt;strong&gt;ReAct&lt;/strong&gt; &lt;a class=&quot;citation&quot; href=&quot;#yao2022react&quot;&gt;(Yao et al., 2022)&lt;/a&gt; as an example and show how to enforce &lt;strong&gt;constraints on the task-solving trajectory, the choice of tools and the tools’ inputs&lt;/strong&gt;.&lt;/p&gt;
+
+</description>
+				
+				<pubDate>Fri, 28 Apr 2023 00:00:00 +0200</pubDate>
+				<link>https://vivien000.github.io/journal/better-steering-LLM-agents-with-LMQL.html</link>
+				<guid isPermaLink="true">https://vivien000.github.io/journal/better-steering-LLM-agents-with-LMQL.html</guid>
+			</item>
+		
+			<item>
 				<title>Adding text (really) inside pictures and videos</title>
 				
 					<dc:creator>Vivien</dc:creator>

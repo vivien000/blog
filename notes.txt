@@ -1,0 +1,4 @@
+Commands:
+- bundle exec jekyll serve
+
+{{ site.github.url }} removed in home.html and post.html

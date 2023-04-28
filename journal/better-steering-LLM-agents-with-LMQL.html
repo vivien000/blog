@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <title>
+    
+      Better steering LLM agents with LMQL | Unsupervised Thoughts
+    
+  </title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/main.css">
+  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/syntax.css">
+  <!-- Use Atom -->
+  <!-- <link type="application/atom+xml" rel="alternate" href="https://vivien000.github.io/blog/rss-feed.xml" title="Unsupervised Thoughts" /> -->
+  <!-- Use RSS-2.0 -->
+  <link href="https://vivien000.github.io/blog/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Unsupervised Thoughts | A blog on machine learning"/>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <!-- Google Analytics -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2723281-4', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <!-- Use Jekyll SEO plugin -->
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Better steering LLM agents with LMQL | Unsupervised Thoughts</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Better steering LLM agents with LMQL" />
+<meta name="author" content="Vivien" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="One of the most fascinating aspects of autoregressive large language models (LLMs) like GPT-3 is their ability to act through external tools. In this post, I’ll illustrate how LMQL (Beurer-Kellner et al., 2022), a new programming language for language model interaction, helps better steer such LLM agents. I’ll take ReAct (Yao et al., 2022) as an example and show how to enforce constraints on the task-solving trajectory, the choice of tools and the tools’ inputs." />
+<meta property="og:description" content="One of the most fascinating aspects of autoregressive large language models (LLMs) like GPT-3 is their ability to act through external tools. In this post, I’ll illustrate how LMQL (Beurer-Kellner et al., 2022), a new programming language for language model interaction, helps better steer such LLM agents. I’ll take ReAct (Yao et al., 2022) as an example and show how to enforce constraints on the task-solving trajectory, the choice of tools and the tools’ inputs." />
+<link rel="canonical" href="https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html" />
+<meta property="og:url" content="https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html" />
+<meta property="og:site_name" content="Unsupervised Thoughts" />
+<meta property="og:image" content="https://vivien000.github.io/blog/rudder.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-04-28T00:00:00+02:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://vivien000.github.io/blog/rudder.png" />
+<meta property="twitter:title" content="Better steering LLM agents with LMQL" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html"},"url":"https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html","image":"https://vivien000.github.io/blog/rudder.png","author":{"@type":"Person","name":"Vivien"},"headline":"Better steering LLM agents with LMQL","dateModified":"2023-04-28T00:00:00+02:00","datePublished":"2023-04-28T00:00:00+02:00","description":"One of the most fascinating aspects of autoregressive large language models (LLMs) like GPT-3 is their ability to act through external tools. In this post, I’ll illustrate how LMQL (Beurer-Kellner et al., 2022), a new programming language for language model interaction, helps better steer such LLM agents. I’ll take ReAct (Yao et al., 2022) as an example and show how to enforce constraints on the task-solving trajectory, the choice of tools and the tools’ inputs.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+</head>
+
+
+<body>
+
+  <div class="container">
+    <header class="masthead">
+  <h3 class="masthead-title">
+    <a href="https://vivien000.github.io/blog/">Unsupervised Thoughts</a>
+    <small class="masthead-subtitle">A blog on machine learning</small>
+    <div class="menu">
+  <nav class="menu-content">
+    
+      <a href="https://vivien000.github.io/blog/menu/about.html">About</a>
+    
+  </nav>
+  <nav class="social-icons">
+    
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  </nav>
+</div>
+
+  </h3>
+</header>
+
+
+    <div class="post-container">
+      <h1>
+  Better steering LLM agents with LMQL
+</h1>
+
+
+  <img src="/assets/img/rudder.png">
+
+
+<p>One of the most fascinating aspects of autoregressive <strong>large language models</strong> (LLMs) like GPT-3 is their ability to <strong>act through external tools</strong>. In this post, I’ll illustrate how <strong>LMQL</strong> <a class="citation" href="#beurer2022prompting">(Beurer-Kellner et al., 2022)</a>, a new <em>programming language for language model interaction</em>, helps better steer such LLM agents. I’ll take <strong>ReAct</strong> <a class="citation" href="#yao2022react">(Yao et al., 2022)</a> as an example and show how to enforce <strong>constraints on the task-solving trajectory, the choice of tools and the tools’ inputs</strong>.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#tool-augmented-llms-and-react" id="markdown-toc-tool-augmented-llms-and-react">Tool-augmented LLMs and ReAct</a></li>
+  <li><a href="#enforcing-the-react-structure-with-lmql" id="markdown-toc-enforcing-the-react-structure-with-lmql">Enforcing the ReAct structure with LMQL</a></li>
+  <li><a href="#restricting-the-choice-of-tools" id="markdown-toc-restricting-the-choice-of-tools">Restricting the choice of tools</a></li>
+  <li><a href="#constraining-the-tools-inputs" id="markdown-toc-constraining-the-tools-inputs">Constraining the tools’ inputs</a></li>
+  <li><a href="#defining-more-robust-action-plans" id="markdown-toc-defining-more-robust-action-plans">Defining more robust action plans</a></li>
+  <li><a href="#cost-considerations" id="markdown-toc-cost-considerations">Cost considerations</a></li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+  <li><a href="#references" id="markdown-toc-references">References</a></li>
+</ul>
+
+<h1 id="tool-augmented-llms-and-react">Tool-augmented LLMs and ReAct</h1>
+
+<p>Taken in isolation, LLMs <em>know</em> at most what they have been shown during their training and can <em>only</em> generate text. However, external <em>tools</em> can give them access to external knowledge sources and enable them to act in the real world. Such tools can be a web search engine, a calculator, a Python interpreter, an email client…</p>
+
+<p>Following the <a href="https://arxiv.org/abs/2210.03629">ReAct paper</a>, we’ll imagine in the following example that we try to answer questions thanks to two <em>tools</em>:</p>
+<ul>
+  <li><code class="highlighter-rouge">search(entity)</code> returns the first sentences of the Wikipedia page of <code class="highlighter-rouge">entity</code> (or suggests the most similar entities if <code class="highlighter-rouge">entity</code> doesn’t have a Wikipedia page);</li>
+  <li><code class="highlighter-rouge">lookup(string)</code> returns the next sentence containing <code class="highlighter-rouge">string</code> in the last page accessed with the <code class="highlighter-rouge">search</code> tool.</li>
+</ul>
+
+<p>Let’s now see how the ReAct prompting method works:</p>
+<ol>
+  <li>We <strong>initiate a prompt by showing the expected format</strong> of a task-solving trajectory through few-shot examples or explicit instructions <span style="border-radius: 50%; background-color: #C4E4FA; width: 10px">  A  </span>. This task-solving trajectory is composed of <strong>thoughts</strong> (paragraphs starting with “Thoughts: “), <strong>actions</strong> (“Action: “ followed by the name of the tool to use and its input or “Action: Finish” followed by the final answer in parentheses) and, just each non-final action, <strong>observations</strong> (“Observation: “ followed by the output of the preceding action);</li>
+  <li>We <strong>include the question</strong> in the prompt <span style="border-radius: 50%; background-color: #DFD1EB; width: 10px">  B  </span>;</li>
+  <li>We <strong>let the LLM generate the continuation of the prompt</strong> until we detect either the “Observation:” substring <span style="border-radius: 50%; background-color: #B8E7BA; width: 10px">  C  </span> <span style="border-radius: 50%; background-color: #B8E7BA; width: 10px">  E  </span> or the “Action: Finish” substring <span style="border-radius: 50%; background-color: #B8E7BA; width: 10px">  G  </span>;</li>
+  <li>If the substring detected at Step 3 is “Observation:”, we parse the generated text and extract the preceding action and its input. We then <strong>use the corresponding tool to generate the output, append it</strong> <span style="border-radius: 50%; background-color: #BECAF9; width: 10px">  D  </span> <span style="border-radius: 50%; background-color: #BECAF9; width: 10px">  F  </span> <strong>to the preceding text</strong> and go back to Step 3.</li>
+  <li>If the substring detected at Step 3 is “Action: finish”, we extract and <strong>return the final answer</strong> <span style="border-radius: 50%; background-color: #B8E7BA; width: 10px">  G  </span>.</li>
+</ol>
+
+<p><img src="/assets/img/react.png" alt="ReAct example" /></p>
+
+<p>Although very simple and easy to implement, ReAct yields good results with large enough language models. However, <strong>this method relies on the LLM rigorously following the prescribed format</strong>. In practice, for example with <a href="https://python.langchain.com/en/latest/modules/agents/agents/examples/react.html">Langchain’s implementation of ReAct</a>, the LLM may deviate from it and even <em>hallucinate</em> imaginary tools, which prevents its output from being parsed. And this is where LMQL comes into play…</p>
+
+<h1 id="enforcing-the-react-structure-with-lmql">Enforcing the ReAct structure with LMQL</h1>
+
+<p><strong><a href="https://lmql.ai/">LMQL</a></strong> is a declarative query language for LLMs. With LMQL queries, developers can concisely and intuitively specify the constraints applicable to a sequence of text generation steps. For example, the LMQL query below implements the ReAct method:</p>
+
+<p><img src="/assets/img/lmql-react.png" alt="LMQL ReAct query" /></p>
+
+<p>I invite you to learn about the LMQL syntax through the LMQL <a href="https://docs.lmql.ai/en/latest/">documentation</a> and <a href="https://lmql.ai/">examples</a>. In a nutshell:</p>
+<ul>
+  <li><code class="highlighter-rouge">argmax</code> denotes a greedy decoding strategy for the text generation;</li>
+  <li>The block between <code class="highlighter-rouge">argmax</code> and <code class="highlighter-rouge">from</code> specifies the structure of the text to create. It includes some Python code responsible for the control flow and top-level strings that are progressively added to the text as they appear;</li>
+  <li>The strings can include <span style="border-radius: 10%; padding: 2px; background-color: #B8E7BA; width: 10px">bracketed variables</span>, e.g. <code class="highlighter-rouge">[X]</code>. At this location, the LLM will generate some text that will be stored in a variable named <code class="highlighter-rouge">X</code>;</li>
+  <li>The strings can also include <span style="border-radius: 10%; padding: 2px; background-color: #BECAF9; width: 10px">Python statements in curly brackets</span>. These statements are replaced by their values when the corresponding string is added to the text;</li>
+  <li>The <code class="highlighter-rouge">from</code> clause specifies which <span style="border-radius: 10%; padding: 2px; background-color: #FCE9A5; width: 10px">model</span> to call;</li>
+  <li>The <code class="highlighter-rouge">where</code> clause defines <span style="border-radius: 10%; padding: 2px; background-color: #FCD1B9; width: 10px">constraints</span> on the variables fed by the LLM. For example, the <code class="highlighter-rouge">STOPS_BEFORE(X, c)</code> constraint interrupts the text generation for variable <code class="highlighter-rouge">X</code> when character <code class="highlighter-rouge">c</code> is generated. <code class="highlighter-rouge">c</code> is discarded so that <code class="highlighter-rouge">X</code> does not end with <code class="highlighter-rouge">c</code>.</li>
+</ul>
+
+<p>Assuming that you have previously defined the Python strings named <code class="highlighter-rouge">prompt_start</code> and <code class="highlighter-rouge">questions</code>, as well as a Python dictionary mapping the strings “Search” and “Lookup” to the corresponding functions, <strong>this LMQL query is all you need to run ReAct</strong>.</p>
+
+<p>It is <strong>concise and easy to understand</strong>. Furthermore, as opposed to the LangChain ReAct implementation, it <strong>guarantees that the output text follows the expected format</strong>. For example, the LLM cannot invent new actions.</p>
+
+<h1 id="restricting-the-choice-of-tools">Restricting the choice of tools</h1>
+
+<p>The <strong>tools</strong> of the ReAct agent may <strong>not</strong> be <strong>relevant or available at all times</strong>. For example:</p>
+<ul>
+  <li>Some tools may consume some resources and we may want to prevent their use if our resources are below a certain level;</li>
+  <li>Asking the user a question can also be a “<a href="https://python.langchain.com/en/latest/modules/agents/tools/examples/human_tools.html">tool</a>”. It would be reasonable to stop raising such questions if the user declined to answer a previous question or did not answer within a certain frame;</li>
+  <li>In the previous section, the <code class="highlighter-rouge">lookup</code> tool provides valid results only if the <code class="highlighter-rouge">search</code> tool has been used at least once.</li>
+</ul>
+
+<p>In all these cases, such restrictions can be specified with LMQL. For instance, the LMQL query below corresponds to the same ReAct agent as before but with the <code class="highlighter-rouge">lookup</code> tool not available for the first action (<span style="border-radius: 10%; padding: 2px; background-color: #B8E7BA; width: 10px">changes in green</span>).</p>
+
+<p><img src="/assets/img/lmql-react2.png" alt="LMQL ReAct query with a constraint on the choice of tools" /></p>
+
+<h1 id="constraining-the-tools-inputs">Constraining the tools’ inputs</h1>
+
+<p>A tool in <a href="https://python.langchain.com/en/latest/modules/agents/tools/custom_tools.html">Langchain</a> is implemented through a <strong>string-to-string function</strong> that computes the “observation” provided to the LLM. However, in many cases, the input should not be an arbitrary string. This string may be expected to take only one of a few predetermined values or to be formatted in a very specific way, for example following a JSON schema.</p>
+
+<p>Such constraints, which may not be satisfied in Langchain, can be enforced with LMQL. For this, we can simply condition on the value of the <code class="highlighter-rouge">ACTION</code> variable, specify the structure of the input string and add the right constraints on the corresponding variables.</p>
+
+<p>In the example below (<span style="border-radius: 10%; padding: 2px; background-color: #B8E7BA; width: 10px">changes in green</span>), we imagine that we have a new tool <code class="highlighter-rouge">search-lookup</code> that combines <code class="highlighter-rouge">search</code> and <code class="highlighter-rouge">lookup</code> in one function and takes two arguments (the entity of the Wikipedia page and the word to look up). In this case, we of course need to adjust the instructions or the few-shot examples so that the LLM considers the use of the new tool.</p>
+
+<p><img src="/assets/img/lmql-react3.png" alt="LMQL ReAct query with a constraint on the input of a tool" /></p>
+
+<h1 id="defining-more-robust-action-plans">Defining more robust action plans</h1>
+
+<p>The last example covered in this blog post concerns the <strong><a href="https://python.langchain.com/en/latest/modules/agents/toolkits/examples/openapi.html">OpenAPI hierarchical planning agent</a></strong> implemented in Langchain.</p>
+
+<p>This agent is designed to accomplish high-level tasks with multiple API calls in the context of many potential API endpoints. It combines a <em>planner</em> responsible for listing the endpoints to call in the right order and a <em>controller</em> responsible for calling these endpoints.</p>
+
+<p>In the <a href="https://python.langchain.com/en/latest/modules/agents/toolkits/examples/openapi.html">example</a> in the Langchain documentation, the user query is “make me a playlist with the first song from kind of blue. call it machine blues” and the planner is provided with the <a href="https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/spotify.com/1.0.0/openapi.yaml">Spotify OpenAPI specification</a>.</p>
+
+<p>In this situation, a planner based on <code class="highlighter-rouge">gpt-4</code> devised the correct plan below while a planner based on <code class="highlighter-rouge">text-davinci-003</code> includes invalid endpoints:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. GET /search to search for the album "Kind of Blue"
+2. GET /albums/{id}/tracks to get the tracks from the "Kind of Blue" album
+3. GET /me to get the current user's information
+4. POST /users/{user_id}/playlists to create a new playlist named "Machine Blues" for the current user
+5. POST /playlists/{playlist_id}/tracks to add the first song from "Kind of Blue" to the "Machine Blues" playlist
+</code></pre></div></div>
+
+<p>Here it is of course simple to create a planner with LMQL that only references valid endpoints and follows the expected format (in this case, this is however not enough to build a successful plan…), as demonstrated in this <a href="https://github.com/vivien000/react-lmql/blob/main/OpenAPI%20planner%20with%20LMQL%20and%20Langchain.ipynb">notebook</a>.</p>
+
+<h1 id="cost-considerations">Cost considerations</h1>
+
+<p>Constraining the text generation creates a <strong>computational overhead</strong>. This is negligible with locally-hosted models and simple constraints as those used in this blog post.</p>
+
+<p>This is unfortunately not true when calling the <strong>OpenAI API</strong>. <strong>Enforcing constraints</strong> leads to additional calls and all the tokens, even those previously fed to or generated by the LLM, are billed. This <strong>can significantly increase the API costs</strong>, as shown in this <a href="https://github.com/vivien000/react-lmql/blob/main/ReAct%20agents%20in%20LMQL%20and%20Langchain.ipynb">notebook</a>.</p>
+
+<p>Of course, guaranteeing that the constraints are satisfied may reduce costs. For example, it can help smaller, and less expensive, models achieve comparable performance. It may also prevent generating texts that are unparseable and thus useless.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p><strong>LMQL is a promising tool to easily develop more predictable LLM agents</strong> and potentially make them safer and more beneficial. However, with the way the OpenAI API is currently designed and billed, this increased robustness comes with higher inference costs. Hopefully, the LLM providers will adapt their offerings and new powerful open source models will be made available so that users can take full advantage of tools like LMQL.</p>
+
+<h1 id="references">References</h1>
+
+<ol class="bibliography"><li><span id="beurer2022prompting">Beurer-Kellner, L., Fischer, M., &amp; Vechev, M. (2022). Prompting Is Programming: A Query Language For Large Language Models. <i>PLDI ’23</i>.</span></li>
+<li><span id="yao2022react">Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., &amp; Cao, Y. (2022). ReAct: Synergizing Reasoning and Acting in Language Models. <i>ArXiv Preprint ArXiv:2210.03629</i>.</span></li></ol>
+
+
+
+<span class="post-date">
+  Written on
+  
+  April
+  28th,
+  2023
+  by
+  
+    Vivien
+  
+</span>
+
+<div class="post-date">Feel free to share!</div>
+  <div class="sharing-icons">
+    <a href="https://twitter.com/intent/tweet?text=Better steering LLM agents with LMQL&amp;url=https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html&amp;title=Better steering LLM agents with LMQL" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+    <a href="https://plus.google.com/share?url=https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+  </div>
+</div>
+
+
+
+  <section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = "unsupervisedthoughts";
+    var disqus_identifier = "/journal/better-steering-LLM-agents-with-LMQL.html";
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+    </div>
+
+    <footer class="footer">
+  
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  <div class="post-date"><a href="https://vivien000.github.io/blog/menu/about.html">Unsupervised Thoughts | A blog on machine learning by Vivien</a></div>
+</footer>
+
+
+  </div>
+
+</body>
+</html>
