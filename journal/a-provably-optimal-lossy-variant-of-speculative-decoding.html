@@ -1,0 +1,318 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <title>
+    
+      An optimal lossy variant of speculative decoding | Unsupervised Thoughts
+    
+  </title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/main.css">
+  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/syntax.css">
+  <!-- Use Atom -->
+  <!-- <link type="application/atom+xml" rel="alternate" href="https://vivien000.github.io/blog/rss-feed.xml" title="Unsupervised Thoughts" /> -->
+  <!-- Use RSS-2.0 -->
+  <link href="https://vivien000.github.io/blog/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Unsupervised Thoughts | A blog on machine learning"/>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <!-- Google Analytics -->
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SFFMKRY3GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SFFMKRY3GE');
+</script>
+
+
+  <!-- Use Jekyll SEO plugin -->
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>An optimal lossy variant of speculative decoding | Unsupervised Thoughts</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="An optimal lossy variant of speculative decoding" />
+<meta name="author" content="Vivien" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Speculative decoding (Leviathan et al., 2023; Chen et al., 2023) is an elegant decoding strategy for autoregressive language models. It accelerates text generation while preserving the target distribution. In this blog post, I introduce mentored decoding, a novel, provably optimal, lossy variant of speculative decoding. It further increases the decoding speed at the cost of a bounded deviation from the target distribution." />
+<meta property="og:description" content="Speculative decoding (Leviathan et al., 2023; Chen et al., 2023) is an elegant decoding strategy for autoregressive language models. It accelerates text generation while preserving the target distribution. In this blog post, I introduce mentored decoding, a novel, provably optimal, lossy variant of speculative decoding. It further increases the decoding speed at the cost of a bounded deviation from the target distribution." />
+<link rel="canonical" href="https://vivien000.github.io/blog/journal/a-provably-optimal-lossy-variant-of-speculative-decoding.html" />
+<meta property="og:url" content="https://vivien000.github.io/blog/journal/a-provably-optimal-lossy-variant-of-speculative-decoding.html" />
+<meta property="og:site_name" content="Unsupervised Thoughts" />
+<meta property="og:image" content="https://vivien000.github.io/blog/alice-and-bob.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-09-18T00:00:00+02:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://vivien000.github.io/blog/alice-and-bob.png" />
+<meta property="twitter:title" content="An optimal lossy variant of speculative decoding" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://vivien000.github.io/blog/journal/a-provably-optimal-lossy-variant-of-speculative-decoding.html"},"url":"https://vivien000.github.io/blog/journal/a-provably-optimal-lossy-variant-of-speculative-decoding.html","image":"https://vivien000.github.io/blog/alice-and-bob.png","author":{"@type":"Person","name":"Vivien"},"headline":"An optimal lossy variant of speculative decoding","dateModified":"2023-09-18T00:00:00+02:00","datePublished":"2023-09-18T00:00:00+02:00","description":"Speculative decoding (Leviathan et al., 2023; Chen et al., 2023) is an elegant decoding strategy for autoregressive language models. It accelerates text generation while preserving the target distribution. In this blog post, I introduce mentored decoding, a novel, provably optimal, lossy variant of speculative decoding. It further increases the decoding speed at the cost of a bounded deviation from the target distribution.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+</head>
+
+
+<body>
+
+  <div class="container">
+    <header class="masthead">
+  <h3 class="masthead-title">
+    <a href="https://vivien000.github.io/blog/">Unsupervised Thoughts</a>
+    <small class="masthead-subtitle">A blog on machine learning</small>
+    <div class="menu">
+  <nav class="menu-content">
+    
+      <a href="https://vivien000.github.io/blog/menu/about.html">About</a>
+    
+  </nav>
+  <nav class="social-icons">
+    
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  </nav>
+</div>
+
+  </h3>
+</header>
+
+
+    <div class="post-container">
+      <h1>
+  An optimal lossy variant of speculative decoding
+</h1>
+
+
+  <img src="https://vivien000.github.io/blog/assets/img/alice-and-bob.png">
+
+
+<p><strong>Speculative decoding</strong> <a class="citation" href="#leviathan2023fast">(Leviathan et al., 2023; Chen et al., 2023)</a> is an elegant decoding strategy for autoregressive language models. It <strong>accelerates text generation while preserving the target distribution</strong>. In this blog post, I introduce <strong>mentored decoding</strong>, a novel, provably optimal, lossy variant of speculative decoding. It <strong>further increases the decoding speed at the cost of a bounded deviation from the target distribution</strong>.</p>
+
+<p>I will first summarize the principle of speculative decoding. I will then present mentored decoding and explain in what sense it is optimal. I will finally comment some initial experimental results and suggest further explorations.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#speculative-decoding" id="markdown-toc-speculative-decoding">Speculative decoding</a></li>
+  <li><a href="#mentored-decoding" id="markdown-toc-mentored-decoding">Mentored decoding</a></li>
+  <li><a href="#solving-the-optimization-problem" id="markdown-toc-solving-the-optimization-problem">Solving the optimization problem</a></li>
+  <li><a href="#first-experimental-results" id="markdown-toc-first-experimental-results">First experimental results</a></li>
+  <li><a href="#conclusion-and-further-work" id="markdown-toc-conclusion-and-further-work">Conclusion and further work</a></li>
+  <li><a href="#references" id="markdown-toc-references">References</a></li>
+</ul>
+
+<h1 id="speculative-decoding">Speculative decoding</h1>
+
+<p>Let me first tell you a story which will hopefully help you understand speculative decoding and, in the subsequent section, mentored decoding. Alice is a talented <strong>writer</strong> who can only speak or write very slowly. Fortunately, her longtime <strong>assistant</strong>, Bob, has been helping her write books in the following manner:</p>
+<ol>
+  <li>Given the current manuscript and his knowledge of Alice’s works, Bob imagines what the next few words can be and writes down these candidate words;</li>
+  <li>Alice points to the last candidate word she could indeed have written herself;</li>
+  <li>Alice writes the next word;</li>
+  <li>All the words selected at Steps 2 and 3 are added to the manuscript, the other candidate words are discarded and we go back to Step 1.</li>
+</ol>
+
+<p>This can save a lot of time if Bob guesses Alice’s next words reasonably well and writes much faster than her. Moreover, the final manuscript would be indistinguishable from a book written by Alice alone.</p>
+
+<p>As it is probably clear for you now, Alice and Bob actually correspond to autoregressive language models. Similarly to blockwise parallel decoding <a class="citation" href="#stern2018blockwise">(Stern et al., 2018)</a> or assisted generation <a class="citation" href="#gante2023assisted">(Joao Gante, 2023)</a>, speculative decoding combines a large <strong>target model</strong> and a small <strong>draft model</strong> (typically ten times smaller than the target model).</p>
+
+<p>More precisely, assuming that:</p>
+
+<ul>
+  <li>the vocabulary of the tokenizer is <script type="math/tex">V</script>;</li>
+  <li>The next token probability distribution of the draft model is <script type="math/tex">p(.\mid.)</script>;</li>
+  <li>The next token probability distribution of the target model is <script type="math/tex">q(.\mid.)</script>;</li>
+  <li>The initial prompt and the text generated so far are <script type="math/tex">x_1, ..., x_n</script>;</li>
+</ul>
+
+<p>… speculative decoding would select the next tokens as follows:</p>
+
+<p><img src="https://vivien000.github.io/blog/assets/img/speculative-decoding.png" alt="Algorithm: speculative decoding" /></p>
+
+<p>Speculative decoding <strong>typically doubles the decoding rate</strong>. This speedup comes from the fact that estimating the next token probability distributions with the target model at Step 2 takes approximately as much time as generating one token with this target model. Moreover, the formulas for the acceptance probability <script type="math/tex">r_{x_{n+k}}</script> at Step 3 and the replacement token probability distribution <script type="math/tex">(s_i)_{i \in V}</script> at Step 4 are such that <strong>the generated text provably follows the target distribution</strong>.</p>
+
+<p>Under this condition, these formulas actually maximize the probability to accept the draft token: <script type="math/tex">\sum_{i \in V} p_i r_i</script>. This means that we need to deviate from the target distribution if we want to further increase this probability. But let’s return first to the story of Alice and Bob…</p>
+
+<h1 id="mentored-decoding">Mentored decoding</h1>
+
+<p>Alice has decided to stop writing after her final masterpiece. She now focuses on <strong>mentoring</strong> Bob who aspires to be an author as well. Their way of working has remained the same with one major difference: Alice evaluates differently the sequence of candidate words suggested by Bob. In the past, Alice used to discard any word that she would not have written herself. She now wants Bob to find his own voice and only reject a word if it is clearly inadequate. For example, she can reject a spelling mistake, an awkward turn of phrase or a plot hole.</p>
+
+<p>Compared to the previous situation, Alice interrupts Bob less frequently and their manuscript is progressing faster. The resulting book will not have the same style as Alice’s books but it will be of high quality thanks to her mentoring.</p>
+
+<p>In a similar fashion, we are now ready to <strong>diverge from the target distribution in a controlled manner to increase the probability to accept draft tokens</strong>. More specifically, we want to find the values of <script type="math/tex">(r_i)_{i \in V}</script> or <script type="math/tex">(s_i)_{i \in V}</script> that <strong>maximally increase the probability to accept <script type="math/tex">i</script> while maintaining the Kullback-Leibler divergence between the resulting distribution and the target distribution</strong> under a certain constant <script type="math/tex">D</script>.</p>
+
+<p>Since we only focus on one token, we can simplify our notations:</p>
+<ul>
+  <li><script type="math/tex">p_i = p(i\mid x_1...x_{n+k-1})</script>;</li>
+  <li><script type="math/tex">q_i = q(i\mid x_1...x_{n+k-1})</script>;</li>
+  <li>When dummy variables are not specified explicitly, e.g. in  <script type="math/tex">(r_i)_i</script>, <script type="math/tex">\sum_i</script> and <script type="math/tex">\forall i</script>, they correspond the whole vocabulary: <script type="math/tex">(r_i)_{i \in V}</script>, <script type="math/tex">\sum_{i \in V}</script> and <script type="math/tex">\forall i \in V</script>.</li>
+</ul>
+
+<p>The probability to obtain token <script type="math/tex">i</script> with the speculative approach is then <script type="math/tex">\pi_i = p_ir_i + s_i (1 - \sum_j p_jr_j)</script> <a class="citation" href="#chen2023accelerating">(Chen et al., 2023)</a> and <script type="math/tex">(r_i)_i</script> or <script type="math/tex">(s_i)_i</script> are the solutions of the following optimization problem:</p>
+
+<p><img src="https://vivien000.github.io/blog/assets/img/mentored-decoding-optimization.png" alt="Optimization problem solved with mentored decoding" /></p>
+
+<h1 id="solving-the-optimization-problem">Solving the optimization problem</h1>
+
+<p>Fortunately, solving this non-linear optimization problem with close to <script type="math/tex">10^5</script> decision variables is <strong>feasible with limited computational overhead</strong>. In the <a href="https://github.com/vivien000/mentored_decoding/blob/ace0902c48e9d6aa6c7823a71d6831c3d106ff19/proof.pdf">attached proof</a> which is mainly based on the <strong>Karush-Kuhn-Tucker conditions</strong> <a class="citation" href="#kuhn2013nonlinear">(Kuhn &amp; Tucker, 2013)</a>, we show that:</p>
+<ul>
+  <li>a unique solution exists in non-trivial cases;</li>
+  <li>for this solution, <script type="math/tex">(r_i)_i</script> or <script type="math/tex">(s_i)_i</script> verify:
+    <ul>
+      <li><script type="math/tex">r_i = \min(1, \frac{q_i}{\alpha p_i})</script> for a certain <script type="math/tex">\alpha</script></li>
+      <li><script type="math/tex">s_i = \frac{1}{1-\sum_jp_jr_j}\max(0, \frac{q_i}{\beta}-p_i)</script> for a certain <script type="math/tex">\beta</script></li>
+    </ul>
+  </li>
+  <li>there is a one-to-one relationship between <script type="math/tex">\alpha</script> and <script type="math/tex">\beta</script> in non-trivial cases so choosing <script type="math/tex">\alpha \in ]0, 1]</script> is enough to find the solution of the optimization problem for a certain <script type="math/tex">D</script>;</li>
+  <li>the objective function and the Kullback-Leibler divergence in the first inequality constraint are decreasing functions of <script type="math/tex">\alpha</script>.</li>
+</ul>
+
+<p>These findings imply that <strong>computing the solution to the optimization problem is straightforward using a binary search</strong> on <script type="math/tex">\alpha</script>. More precisely, the diagram below presents the mentored decoding algorithm:</p>
+
+<p><img src="https://vivien000.github.io/blog/assets/img/mentored-decoding.png" alt="Algorithm: mentored decoding" /></p>
+
+<p>Furthermore, the following facts reduce the computational overhead of mentored decoding:</p>
+<ul>
+  <li>Since we know that <script type="math/tex">r_i \geq \min(1, \frac{q_i}{p_i})</script>, we can compute <script type="math/tex">r_i</script> and <script type="math/tex">(s_j)_j</script> only when the value <script type="math/tex">u \sim U([0, 1])</script> drawn at random to accept or reject the draft token is greater than <script type="math/tex">\min(1, \frac{q_i}{p_i})</script>;</li>
+  <li>When the Kullback-Leibler divergence between the target distribution <script type="math/tex">(q_i)_i</script> and the draft distribution <script type="math/tex">(p_i)_i</script> for a given token is less than <script type="math/tex">D</script>, we can directly accept the draft token;</li>
+  <li>All the values for <script type="math/tex">(\sum_{i \leq j} q_i)_j</script>, <script type="math/tex">(\sum_{i \leq j} p_i)_j</script>, <script type="math/tex">(\sum_{i \geq j} q_i)_j</script>, <script type="math/tex">(\sum_{i \geq j} p_i)_j</script>, <script type="math/tex">(\sum_{i \leq j} q_i \ln\frac{q_i}{p_i})_j</script> and <script type="math/tex">(\frac{p_j}{q_j} \sum_{i \geq j} q_i - \sum_{i \geq j} p_i)_j</script> can be computed in a vectorized manner before the loop to save time.</li>
+</ul>
+
+<h1 id="first-experimental-results">First experimental results</h1>
+
+<p>As a first experiment (<a href="https://github.com/vivien000/mentored_decoding/blob/ace0902c48e9d6aa6c7823a71d6831c3d106ff19/notebook.ipynb">full code here</a>), I tested mentored decoding on an <strong>English-to-French translation task</strong> with a subset of the <a href="https://huggingface.co/datasets/wmt15">WMT15 dataset</a> and <a href="https://huggingface.co/t5-large">T5-large</a> and <a href="https://huggingface.co/t5-small">T5-small</a> as the target and draft models.</p>
+
+<p>If we first look at <strong>a single token</strong>, we can visualize the <strong>solutions of our optimization problem for various values of the Kullback-Leibler divergence</strong>. The following chart illustrates the balance between the probability to accept the draft token (<script type="math/tex">\sum_i p_ir_i</script>) and the fidelity to the target distribution.</p>
+
+<p><img src="https://vivien000.github.io/blog/assets/img/mentored_decoding_pareto_front.png" alt="Pareto front for a single token" /></p>
+
+<p>Evaluating mentored decoding requires measuring both the <strong>decoding speed</strong> and a <strong>performance metric for the downstream task</strong>, for example the BLEU score here. The latter is important: since we allow a deviation from the target distribution, we need to assess the potential impacts on the task of interest. The next chart compares <strong>multinomial sampling</strong>, <strong>speculative decoding</strong> and <strong>mentored decoding</strong> for various draft lengths and values of the Kullback-Leibler divergence (only for mentored decoding). We can see that:</p>
+<ul>
+  <li>Speculative decoding significantly improves the decoding speed in comparison with multinomial sampling;</li>
+  <li><strong>Mentored decoding further increases the number of tokens generated per second</strong>;</li>
+  <li>Compared with multinomial sampling, speculative decoding and mentored decoding with the smallest value of the Kullback-Leibler divergence do not appear to significantly differ in BLEU scores (which is expected for speculative decoding since the target distribution is preserved);</li>
+  <li>Unsurprisingly, <strong>increasing the Kullback-Leibler divergence both accelerates the text generation and degrades the BLEU score</strong>.</li>
+</ul>
+
+<p><img src="https://vivien000.github.io/blog/assets/img/mentored_decoding_translation_task.png" alt="Experimental results for the translation task" /></p>
+
+<h1 id="conclusion-and-further-work">Conclusion and further work</h1>
+
+<p>In this blog post, I introduced a lossy variant of speculative decoding. It maximizes the probability to accept draft tokens for a given bound on the Kullback-Leibler divergence between the target distribution and the resulting distribution. The initial experimental results above suggest that <strong>mentored decoding can increase the decoding rate</strong>, either moderately with limited impact on the performance of a downstream task or more strongly at the cost of a noticeable degration of this performance.</p>
+
+<p>Extensive experiments are needed to <strong>explore the spectrum of tasks and models</strong> for which mentored decoding is relevant. In particular, it would be interesting to empirically test the following intuitions:</p>
+<ul>
+  <li><strong>Tasks for which valid answers can be written in various ways</strong> (e.g. translation, summarization or chain-of-thought question answering) would benefit more from mentored decoding than tasks with a narrow range of valid answers (e.g. speech-to-text);</li>
+  <li>Mentored decoding would work better with a <strong>highly capable target model</strong>, capable not only to perform the downstream task but also to assess alternatively worded valid answers.</li>
+</ul>
+
+<p><em>Many thanks to the authors of the articles mentioned below and to the maintainers of the various software libraries used for this work, in particular <a href="https://huggingface.co/docs/transformers/index">Transformers</a>, <a href="https://pytorch.org/">PyTorch</a>, <a href="https://www.ctan.org/pkg/pgf">TikZ</a> and <a href="https://github.com/st--/annotate-equations">annotate-equations</a>. Cover image created with <a href="https://www.instagram.com/artout_app/">ArtOut</a></em></p>
+
+<h1 id="references">References</h1>
+
+<ol class="bibliography"><li><span id="leviathan2023fast">Leviathan, Y., Kalman, M., &amp; Matias, Y. (2023). <i>Fast Inference from Transformers via Speculative Decoding</i>.</span></li>
+<li><span id="chen2023accelerating">Chen, C., Borgeaud, S., Irving, G., Lespiau, J.-B., Sifre, L., &amp; Jumper, J. (2023). <i>Accelerating Large Language Model Decoding with Speculative Sampling</i>.</span></li>
+<li><span id="stern2018blockwise">Stern, M., Shazeer, N., &amp; Uszkoreit, J. (2018). <i>Blockwise Parallel Decoding for Deep Autoregressive Models</i>.</span></li>
+<li><span id="gante2023assisted">Joao Gante. (2023). <i>Assisted Generation: a new direction toward low-latency text generation</i>. Hugging Face Blog. https://doi.org/10.57967/hf/0638</span></li>
+<li><span id="kuhn2013nonlinear">Kuhn, H. W., &amp; Tucker, A. W. (2013). Nonlinear programming. In <i>Traces and emergence of nonlinear programming</i> (pp. 247–258). Springer.</span></li></ol>
+
+
+<span class="post-date">
+  Written on
+  
+  September
+  18th,
+  2023
+  by
+  
+    Vivien
+  
+</span>
+
+<div class="post-date">Feel free to share!</div>
+  <div class="sharing-icons">
+    <a href="https://twitter.com/intent/tweet?text=An optimal lossy variant of speculative decoding&amp;url=https://vivien000.github.io/blog/journal/a-provably-optimal-lossy-variant-of-speculative-decoding.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vivien000.github.io/blog/journal/a-provably-optimal-lossy-variant-of-speculative-decoding.html&amp;title=An optimal lossy variant of speculative decoding" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+    <a href="https://plus.google.com/share?url=https://vivien000.github.io/blog/journal/a-provably-optimal-lossy-variant-of-speculative-decoding.html" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+  </div>
+</div>
+
+
+
+  <section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = "unsupervisedthoughts";
+    var disqus_identifier = "/journal/a-provably-optimal-lossy-variant-of-speculative-decoding.html";
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+    </div>
+
+    <footer class="footer">
+  
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  <div class="post-date"><a href="https://vivien000.github.io/blog/menu/about.html">Unsupervised Thoughts | A blog on machine learning by Vivien</a></div>
+</footer>
+
+
+  </div>
+
+</body>
+</html>

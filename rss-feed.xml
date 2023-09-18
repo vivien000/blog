@@ -7,6 +7,21 @@
 		<atom:link href="https://vivien000.github.io/blog/rss-feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>An optimal lossy variant of speculative decoding</title>
+				
+					<dc:creator>Vivien</dc:creator>
+				
+				
+					<description>&lt;p&gt;&lt;strong&gt;Speculative decoding&lt;/strong&gt; &lt;a class=&quot;citation&quot; href=&quot;#leviathan2023fast&quot;&gt;(Leviathan et al., 2023; Chen et al., 2023)&lt;/a&gt; is an elegant decoding strategy for autoregressive language models. It &lt;strong&gt;accelerates text generation while preserving the target distribution&lt;/strong&gt;. In this blog post, I introduce &lt;strong&gt;mentored decoding&lt;/strong&gt;, a novel, provably optimal, lossy variant of speculative decoding. It &lt;strong&gt;further increases the decoding speed at the cost of a bounded deviation from the target distribution&lt;/strong&gt;.&lt;/p&gt;
+
+</description>
+				
+				<pubDate>Mon, 18 Sep 2023 00:00:00 +0200</pubDate>
+				<link>https://vivien000.github.io/journal/a-provably-optimal-lossy-variant-of-speculative-decoding.html</link>
+				<guid isPermaLink="true">https://vivien000.github.io/journal/a-provably-optimal-lossy-variant-of-speculative-decoding.html</guid>
+			</item>
+		
+			<item>
 				<title>Better steering LLM agents with LMQL</title>
 				
 					<dc:creator>Vivien</dc:creator>
