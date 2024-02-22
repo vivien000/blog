@@ -124,21 +124,21 @@
 <p>In this post, I’d like to illustrate how <strong>auxiliary tasks</strong> can be beneficial for <strong>machine learning</strong>. I’ll first define this notion, provide examples and show how these tasks are usually incorporated in the mathematical formulation of <strong>deep learning</strong> problems. I’ll then propose an alternative approach and present first experimental results for this approach.</p>
 
 <ul id="markdown-toc">
-  <li><a href="#auxiliary-tasks-in-machine-learning" id="markdown-toc-auxiliary-tasks-in-machine-learning">Auxiliary tasks in machine learning</a></li>
-  <li><a href="#standard-approach-for-deep-auxiliary-learning" id="markdown-toc-standard-approach-for-deep-auxiliary-learning">Standard approach for deep auxiliary learning</a></li>
-  <li><a href="#an-alternative-approach" id="markdown-toc-an-alternative-approach">An alternative approach</a></li>
-  <li><a href="#comparison-to-unweighted-and-weighted-cosine" id="markdown-toc-comparison-to-unweighted-and-weighted-cosine">Comparison to unweighted and weighted cosine</a></li>
+  <li><a href="#auxiliary-tasks-in-machine-learning" id="markdown-toc-auxiliary-tasks-in-machine-learning">Auxiliary Tasks in Machine Learning</a></li>
+  <li><a href="#standard-approach-for-deep-auxiliary-learning" id="markdown-toc-standard-approach-for-deep-auxiliary-learning">Standard Approach for Deep Auxiliary Learning</a></li>
+  <li><a href="#an-alternative-approach" id="markdown-toc-an-alternative-approach">An Alternative Approach</a></li>
+  <li><a href="#comparison-to-uweighted-and-weighted-cosine" id="markdown-toc-comparison-to-uweighted-and-weighted-cosine">Comparison to Uweighted and Weighted Cosine</a></li>
   <li><a href="#experiments" id="markdown-toc-experiments">Experiments</a>    <ul>
-      <li><a href="#toy-experiments" id="markdown-toc-toy-experiments">Toy experiments</a></li>
-      <li><a href="#experiments-on-a-real-dataset" id="markdown-toc-experiments-on-a-real-dataset">Experiments on a real dataset</a></li>
-      <li><a href="#experiments-on-a-synthetic-dataset" id="markdown-toc-experiments-on-a-synthetic-dataset">Experiments on a synthetic dataset</a></li>
+      <li><a href="#toy-experiments" id="markdown-toc-toy-experiments">Toy Experiments</a></li>
+      <li><a href="#experiments-on-a-real-dataset" id="markdown-toc-experiments-on-a-real-dataset">Experiments on a Real Dataset</a></li>
+      <li><a href="#experiments-on-a-synthetic-dataset" id="markdown-toc-experiments-on-a-synthetic-dataset">Experiments on a Synthetic Dataset</a></li>
     </ul>
   </li>
   <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
   <li><a href="#references" id="markdown-toc-references">References</a></li>
 </ul>
 
-<h1 id="auxiliary-tasks-in-machine-learning">Auxiliary tasks in machine learning</h1>
+<h1 id="auxiliary-tasks-in-machine-learning">Auxiliary Tasks in Machine Learning</h1>
 
 <p>In machine learning, <strong>auxiliary tasks</strong> are tasks we try to accomplish with the sole objective of better performing one or several <strong>primary tasks</strong>. This situation, referred to here as <strong>auxiliary learning</strong>, contrasts with <strong>multitask learning</strong><sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>, for which we are genuinely interested in accomplishing well all tasks, and <strong>single task learning</strong>, for which only one task is considered.</p>
 
@@ -231,7 +231,7 @@
 
 <div class="caption">Table 2. Auxiliary learning has been successfully used in a variety of settings</div>
 
-<h1 id="standard-approach-for-deep-auxiliary-learning">Standard approach for deep auxiliary learning</h1>
+<h1 id="standard-approach-for-deep-auxiliary-learning">Standard Approach for Deep Auxiliary Learning</h1>
 
 <p>For the sake of clarity, let’s consider only the case of a single primary task and a single auxiliary task (generalizing to an arbitrary number of primary and auxiliary tasks is straightforward). Let’s suppose further that these tasks correspond to the minimization of a <strong>primary loss</strong> <script type="math/tex">\mathcal{L}_{\text{primary}}</script> and an <strong>auxiliary loss</strong> <script type="math/tex">\mathcal{L}_{\text{auxiliary}}</script>.</p>
 
@@ -243,7 +243,7 @@
 
 <p>In the standard multitask approach, <script type="math/tex">\lambda</script> is a constant value<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>. Its purpose is to <strong>balance the primary task and the auxiliary task</strong>. <script type="math/tex">\lambda = 0</script> corresponds to single task learning whereas increasing <script type="math/tex">\lambda</script> gives more and more influence to the auxiliary task.</p>
 
-<h1 id="an-alternative-approach">An alternative approach</h1>
+<h1 id="an-alternative-approach">An Alternative Approach</h1>
 
 <p>The approach described above has provided very good empirical results. However, an auxiliary task may be unhelpful or even harmful for the primary task. The latter case, which is called <strong>negative transfer</strong>, is a central challenge of auxiliary learning.</p>
 
@@ -267,7 +267,7 @@
 <p><img src="https://vivien000.github.io/blog/assets/img/projection.png" alt="Projection of the auxiliary loss gradient" /></p>
 <div class="caption">Figure 2. If \(\nabla\mathcal{L}_{\text{primary}}\) and \(\nabla\mathcal{L}_{\text{auxiliary}}\) form an obtuse angle, the component of \(\nabla\mathcal{L}_{\text{auxiliary}}\) parallel to \(\nabla\mathcal{L}_{\text{primary}}\) is cancelled to avoid increasing \(\mathcal{L}_{\text{primary}}\). If not, \(\nabla\mathcal{L}_{\text{auxiliary}}\) is kept as it is</div>
 
-<h1 id="comparison-to-unweighted-and-weighted-cosine">Comparison to unweighted and weighted cosine</h1>
+<h1 id="comparison-to-uweighted-and-weighted-cosine">Comparison to Uweighted and Weighted Cosine</h1>
 
 <p>This approach, referred below as <strong>projection</strong>, is analogous to two methods, <strong>unweighted cosine</strong> and <strong>weighted cosine</strong>, recently proposed for the same purpose <a class="citation" href="#du2018adapting">(Du et al., 2018)</a>. Yunshu Du,  Wojciech Czarnecki and their colleagues also suggest to adjust <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script>:</p>
 
@@ -317,7 +317,7 @@
 
 <p>Let’s now look at some experiments. They were performed with Tensorflow and you can find the corresponding notebooks and additional results on <a href="https://github.com/vivien000/auxiliary-learning">GitHub</a>.</p>
 
-<h2 id="toy-experiments">Toy experiments</h2>
+<h2 id="toy-experiments">Toy Experiments</h2>
 
 <p>We start with a minimalistic example to illustrate how substituting <script type="math/tex">\nabla\mathcal{L}_{\text{auxiliary}}</script> with <script type="math/tex">G_{\text{auxiliary}}</script> gives priority to the primary task while still allowing progress on the auxiliary task.</p>
 
@@ -358,7 +358,7 @@
 
 <p>In summary, the proposed method works as intended with these toy examples: it helps accomplish both the primary task and the auxiliary task while giving precedence to the former.</p>
 
-<h2 id="experiments-on-a-real-dataset">Experiments on a real dataset</h2>
+<h2 id="experiments-on-a-real-dataset">Experiments on a Real Dataset</h2>
 
 <p>The following experiments are based on the <strong><em>CelebA (or large-scale CelebFaces attributes) dataset</em></strong> <a class="citation" href="#liu2015faceattributes">(Liu et al., 2015)</a> and inspired by <a class="citation" href="#Zhang14faciallandmark">(Zhang et al., 2014)</a>. The CelebA dataset contains many face images annotated with 40 binary attributes such as <em>Attractive</em>, <em>Young</em>, <em>Eyeglasses</em> or <em>Black Hair</em>, and the locations of 5 facial landmarks : <em>left eye</em>, <em>right eye</em>, <em>left mouth corner</em>, <em>right mouth corner</em> and <em>nose</em>.</p>
 
@@ -388,7 +388,7 @@
 
 <p>We can compare these results with those for <em>unweighted cosine</em> and <em>weighted cosine</em> on Figure 9. The <em>unweighted cosine</em> curve and the <em>weighted cosine</em> curve are very close to respectively the <em>projection</em> curve and the <em>single task</em> curve for <script type="math/tex">\lambda \leq 10000</script>. However, their testing AUC drops for <script type="math/tex">\lambda = 30000</script>. We can note that the <em>weighted cosine</em> curve falls between the <em>single task</em> curve and the <em>unweighted cosine</em> curve, which comes as no surprise.</p>
 
-<h2 id="experiments-on-a-synthetic-dataset">Experiments on a synthetic dataset</h2>
+<h2 id="experiments-on-a-synthetic-dataset">Experiments on a Synthetic Dataset</h2>
 
 <p>The last series of experiments follows <a class="citation" href="#DBLP:conf/icml/ChenBLR18">(Chen et al., 2018)</a> and uses a <strong>synthetic dataset to control the adequacy of the auxiliary task</strong>.</p>
 

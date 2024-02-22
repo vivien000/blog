@@ -5,7 +5,7 @@
 
   <title>
     
-      Better steering LLM agents with LMQL | Unsupervised Thoughts
+      Better Steering LLM Agents with LMQL | Unsupervised Thoughts
     
   </title>
 
@@ -42,9 +42,9 @@
 
   <!-- Use Jekyll SEO plugin -->
   <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Better steering LLM agents with LMQL | Unsupervised Thoughts</title>
+<title>Better Steering LLM Agents with LMQL | Unsupervised Thoughts</title>
 <meta name="generator" content="Jekyll v3.8.7" />
-<meta property="og:title" content="Better steering LLM agents with LMQL" />
+<meta property="og:title" content="Better Steering LLM Agents with LMQL" />
 <meta name="author" content="Vivien" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="One of the most fascinating aspects of autoregressive large language models (LLMs) like GPT-3 is their ability to act through external tools. In this post, I’ll illustrate how LMQL (Beurer-Kellner et al., 2022), a new programming language for language model interaction, helps better steer such LLM agents. I’ll take ReAct (Yao et al., 2022) as an example and show how to enforce constraints on the task-solving trajectory, the choice of tools and the tools’ inputs." />
@@ -57,9 +57,9 @@
 <meta property="article:published_time" content="2023-04-28T00:00:00+02:00" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:image" content="https://vivien000.github.io/blog/rudder.png" />
-<meta property="twitter:title" content="Better steering LLM agents with LMQL" />
+<meta property="twitter:title" content="Better Steering LLM Agents with LMQL" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html"},"url":"https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html","image":"https://vivien000.github.io/blog/rudder.png","author":{"@type":"Person","name":"Vivien"},"headline":"Better steering LLM agents with LMQL","dateModified":"2023-04-28T00:00:00+02:00","datePublished":"2023-04-28T00:00:00+02:00","description":"One of the most fascinating aspects of autoregressive large language models (LLMs) like GPT-3 is their ability to act through external tools. In this post, I’ll illustrate how LMQL (Beurer-Kellner et al., 2022), a new programming language for language model interaction, helps better steer such LLM agents. I’ll take ReAct (Yao et al., 2022) as an example and show how to enforce constraints on the task-solving trajectory, the choice of tools and the tools’ inputs.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html"},"url":"https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html","image":"https://vivien000.github.io/blog/rudder.png","author":{"@type":"Person","name":"Vivien"},"headline":"Better Steering LLM Agents with LMQL","dateModified":"2023-04-28T00:00:00+02:00","datePublished":"2023-04-28T00:00:00+02:00","description":"One of the most fascinating aspects of autoregressive large language models (LLMs) like GPT-3 is their ability to act through external tools. In this post, I’ll illustrate how LMQL (Beurer-Kellner et al., 2022), a new programming language for language model interaction, helps better steer such LLM agents. I’ll take ReAct (Yao et al., 2022) as an example and show how to enforce constraints on the task-solving trajectory, the choice of tools and the tools’ inputs.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -110,7 +110,7 @@
 
     <div class="post-container">
       <h1>
-  Better steering LLM agents with LMQL
+  Better Steering LLM Agents with LMQL
 </h1>
 
 
@@ -121,11 +121,11 @@
 
 <ul id="markdown-toc">
   <li><a href="#tool-augmented-llms-and-react" id="markdown-toc-tool-augmented-llms-and-react">Tool-augmented LLMs and ReAct</a></li>
-  <li><a href="#enforcing-the-react-structure-with-lmql" id="markdown-toc-enforcing-the-react-structure-with-lmql">Enforcing the ReAct structure with LMQL</a></li>
-  <li><a href="#restricting-the-choice-of-tools" id="markdown-toc-restricting-the-choice-of-tools">Restricting the choice of tools</a></li>
-  <li><a href="#constraining-the-tools-inputs" id="markdown-toc-constraining-the-tools-inputs">Constraining the tools’ inputs</a></li>
-  <li><a href="#defining-more-robust-action-plans" id="markdown-toc-defining-more-robust-action-plans">Defining more robust action plans</a></li>
-  <li><a href="#cost-considerations" id="markdown-toc-cost-considerations">Cost considerations</a></li>
+  <li><a href="#enforcing-the-react-structure-with-lmql" id="markdown-toc-enforcing-the-react-structure-with-lmql">Enforcing the ReAct Structure with LMQL</a></li>
+  <li><a href="#restricting-the-choice-of-tools" id="markdown-toc-restricting-the-choice-of-tools">Restricting the Choice of Tools</a></li>
+  <li><a href="#constraining-the-tools-inputs" id="markdown-toc-constraining-the-tools-inputs">Constraining the Tools’ Inputs</a></li>
+  <li><a href="#defining-more-robust-action-plans" id="markdown-toc-defining-more-robust-action-plans">Defining more Robust Action Plans</a></li>
+  <li><a href="#cost-considerations" id="markdown-toc-cost-considerations">Cost Considerations</a></li>
   <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
   <li><a href="#references" id="markdown-toc-references">References</a></li>
 </ul>
@@ -153,7 +153,7 @@
 
 <p>Although very simple and easy to implement, ReAct yields good results with large enough language models. However, <strong>this method relies on the LLM rigorously following the prescribed format</strong>. In practice, for example with <a href="https://python.langchain.com/en/latest/modules/agents/agents/examples/react.html">Langchain’s implementation of ReAct</a>, the LLM may deviate from it and even <em>hallucinate</em> imaginary tools, which prevents its output from being parsed. And this is where LMQL comes into play…</p>
 
-<h1 id="enforcing-the-react-structure-with-lmql">Enforcing the ReAct structure with LMQL</h1>
+<h1 id="enforcing-the-react-structure-with-lmql">Enforcing the ReAct Structure with LMQL</h1>
 
 <p><strong><a href="https://lmql.ai/">LMQL</a></strong> is a declarative query language for LLMs. With LMQL queries, developers can concisely and intuitively specify the constraints applicable to a sequence of text generation steps. For example, the LMQL query below implements the ReAct method:</p>
 
@@ -173,7 +173,7 @@
 
 <p>It is <strong>concise and easy to understand</strong>. Furthermore, as opposed to the LangChain ReAct implementation, it <strong>guarantees that the output text follows the expected format</strong>. For example, the LLM cannot invent new actions.</p>
 
-<h1 id="restricting-the-choice-of-tools">Restricting the choice of tools</h1>
+<h1 id="restricting-the-choice-of-tools">Restricting the Choice of Tools</h1>
 
 <p>The <strong>tools</strong> of the ReAct agent may <strong>not</strong> be <strong>relevant or available at all times</strong>. For example:</p>
 <ul>
@@ -186,7 +186,7 @@
 
 <p><img src="https://vivien000.github.io/blog/assets/img/lmql-react2.png" alt="LMQL ReAct query with a constraint on the choice of tools" /></p>
 
-<h1 id="constraining-the-tools-inputs">Constraining the tools’ inputs</h1>
+<h1 id="constraining-the-tools-inputs">Constraining the Tools’ Inputs</h1>
 
 <p>A tool in <a href="https://python.langchain.com/en/latest/modules/agents/tools/custom_tools.html">Langchain</a> is implemented through a <strong>string-to-string function</strong> that computes the “observation” provided to the LLM. However, in many cases, the input should not be an arbitrary string. This string may be expected to take only one of a few predetermined values or to be formatted in a very specific way, for example following a JSON schema.</p>
 
@@ -196,7 +196,7 @@
 
 <p><img src="https://vivien000.github.io/blog/assets/img/lmql-react3.png" alt="LMQL ReAct query with a constraint on the input of a tool" /></p>
 
-<h1 id="defining-more-robust-action-plans">Defining more robust action plans</h1>
+<h1 id="defining-more-robust-action-plans">Defining more Robust Action Plans</h1>
 
 <p>The last example covered in this blog post concerns the <strong><a href="https://python.langchain.com/en/latest/modules/agents/toolkits/examples/openapi.html">OpenAPI hierarchical planning agent</a></strong> implemented in Langchain.</p>
 
@@ -215,7 +215,7 @@
 
 <p>Here it is of course simple to create a planner with LMQL that only references valid endpoints and follows the expected format (in this case, this is however not enough to build a successful plan…), as demonstrated in this <a href="https://github.com/vivien000/react-lmql/blob/main/OpenAPI%20planner%20with%20LMQL%20and%20Langchain.ipynb">notebook</a>.</p>
 
-<h1 id="cost-considerations">Cost considerations</h1>
+<h1 id="cost-considerations">Cost Considerations</h1>
 
 <p>Constraining the text generation creates a <strong>computational overhead</strong>. This is negligible with locally-hosted models and simple constraints as those used in this blog post.</p>
 
@@ -250,8 +250,8 @@
 
 <div class="post-date">Feel free to share!</div>
   <div class="sharing-icons">
-    <a href="https://twitter.com/intent/tweet?text=Better steering LLM agents with LMQL&amp;url=https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html&amp;title=Better steering LLM agents with LMQL" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+    <a href="https://twitter.com/intent/tweet?text=Better Steering LLM Agents with LMQL&amp;url=https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html&amp;title=Better Steering LLM Agents with LMQL" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
     <a href="https://plus.google.com/share?url=https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
   </div>
 </div>
