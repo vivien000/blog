@@ -148,11 +148,13 @@
 
 <h1 id="deterministic-finite-automata-and-constrained-decoding">Deterministic Finite Automata and Constrained Decoding</h1>
 
+<p>I now briefly explain the principle of <script type="math/tex">\texttt{Outlines}</script>. Please read the original paper <a class="citation" href="#willard2023efficient">(Willard &amp; Louf, 2023)</a> or this <a href="https://blog.dottxt.co/coalescence.html">blog post</a> for a more comprehensive overview.</p>
+
 <p>As a <strong>preprocessing step</strong>, <script type="math/tex">\texttt{Outlines}</script> converts a <strong>character-level deterministic finite automaton (DFA)</strong> testing whether a string matches a regex (cf. Figure 1a) into a <strong>token-level DFA testing whether a token sequence is decoded in a string matching the regex</strong> (cf. Figure 1b):</p>
 <ul>
-  <li>the states, including the start state and the accept states, remain the same;</li>
-  <li>the alphabet of the token-level DFA is the tokenizer’s vocabulary;</li>
-  <li>the transition function of the token-level DFA is the extended transition function of the character-level DFA restricted to the tokenizer’s vocabulary. For example with the example of Figure 1b, there is an <script type="math/tex">\texttt{abb}</script> transition from <script type="math/tex">\texttt{0}</script> to <script type="math/tex">\texttt{1}</script> because if we start from <script type="math/tex">\texttt{0}</script> on the character-level DFA and successively see <script type="math/tex">\texttt{a}</script>, <script type="math/tex">\texttt{b}</script> and <script type="math/tex">\texttt{b}</script>, we’ll end up in state <script type="math/tex">\texttt{1}</script>.</li>
+  <li>the <strong>states</strong>, including the start state and the accept states, remain the same;</li>
+  <li>the <strong>alphabet</strong> of the token-level DFA is the tokenizer’s vocabulary;</li>
+  <li>the <strong>transition function</strong> of the token-level DFA is the extended transition function of the character-level DFA restricted to the tokenizer’s vocabulary. For example with the example of Figure 1b, there is an <script type="math/tex">\texttt{abb}</script> transition from <script type="math/tex">\texttt{0}</script> to <script type="math/tex">\texttt{1}</script> because if we start from <script type="math/tex">\texttt{0}</script> on the character-level DFA and successively see <script type="math/tex">\texttt{a}</script>, <script type="math/tex">\texttt{b}</script> and <script type="math/tex">\texttt{b}</script>, we’ll end up in state <script type="math/tex">\texttt{1}</script>.</li>
 </ul>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/directmerge-outlines.png" alt="`&quot;a*b*&quot;` DFA" /></p>
