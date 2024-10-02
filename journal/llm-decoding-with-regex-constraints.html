@@ -168,7 +168,7 @@
 
 <p>The token sequences potentially generated with <script type="math/tex">\texttt{Outlines}</script> are exactly those that are decoded into a string matching the regex. This includes <strong>token sequences that do not result from the tokenization of a string</strong>. We call them <strong>improper token sequences</strong> below.</p>
 
-<p>Consider the regex: <script type="math/tex">\texttt{"boolean: ((true)}\mid\texttt{(false))"}</script>. While there are only two strings matching this regex, the corresponding DFA returned by <script type="math/tex">\texttt{Outlines}</script> has 16 states and 48 transitions (Figure 2). For example, the first token is chosen among <script type="math/tex">\texttt{boolean}</script>, <script type="math/tex">\texttt{bool}</script>, <script type="math/tex">\texttt{bo}</script> and <script type="math/tex">\texttt{b}</script>.</p>
+<p>Consider the regex: <script type="math/tex">\texttt{"boolean: ((true)}\mid\texttt{(false))"}</script>. While there are only two strings matching this regex, the corresponding DFA returned by <script type="math/tex">\texttt{Outlines}</script> has 17 states and 48 transitions (Figure 2). For example, the first token is chosen among <script type="math/tex">\texttt{boolean}</script>, <script type="math/tex">\texttt{bool}</script>, <script type="math/tex">\texttt{bo}</script> and <script type="math/tex">\texttt{b}</script>.</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/directmerge-outlines-example.png" alt="DFA built by Outlines for `&quot;boolean: ((true)|(false))&quot;`" /></p>
 <div class="caption">Figure 2. DFA built by \(\texttt{Outlines}\) for the \(\texttt{"boolean: ((true)|(false))"}\) regex</div>
