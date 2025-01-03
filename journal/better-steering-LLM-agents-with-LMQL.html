@@ -41,9 +41,9 @@
 
 
   <!-- Use Jekyll SEO plugin -->
-  <!-- Begin Jekyll SEO tag v2.7.1 -->
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Better Steering LLM Agents with LMQL | Unsupervised Thoughts</title>
-<meta name="generator" content="Jekyll v3.8.7" />
+<meta name="generator" content="Jekyll v4.3.4" />
 <meta property="og:title" content="Better Steering LLM Agents with LMQL" />
 <meta name="author" content="Vivien" />
 <meta property="og:locale" content="en_US" />
@@ -59,7 +59,7 @@
 <meta property="twitter:image" content="https://vivien000.github.io/blog/rudder.png" />
 <meta property="twitter:title" content="Better Steering LLM Agents with LMQL" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html"},"url":"https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html","image":"https://vivien000.github.io/blog/rudder.png","author":{"@type":"Person","name":"Vivien"},"headline":"Better Steering LLM Agents with LMQL","dateModified":"2023-04-28T00:00:00+02:00","datePublished":"2023-04-28T00:00:00+02:00","description":"One of the most fascinating aspects of autoregressive large language models (LLMs) like GPT-3 is their ability to act through external tools. In this post, I’ll illustrate how LMQL (Beurer-Kellner et al., 2022), a new programming language for language model interaction, helps better steer such LLM agents. I’ll take ReAct (Yao et al., 2022) as an example and show how to enforce constraints on the task-solving trajectory, the choice of tools and the tools’ inputs.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Vivien"},"dateModified":"2023-04-28T00:00:00+02:00","datePublished":"2023-04-28T00:00:00+02:00","description":"One of the most fascinating aspects of autoregressive large language models (LLMs) like GPT-3 is their ability to act through external tools. In this post, I’ll illustrate how LMQL (Beurer-Kellner et al., 2022), a new programming language for language model interaction, helps better steer such LLM agents. I’ll take ReAct (Yao et al., 2022) as an example and show how to enforce constraints on the task-solving trajectory, the choice of tools and the tools’ inputs.","headline":"Better Steering LLM Agents with LMQL","image":"https://vivien000.github.io/blog/rudder.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html"},"url":"https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -136,8 +136,8 @@
 
 <p>Following the <a href="https://arxiv.org/abs/2210.03629">ReAct paper</a>, we’ll imagine in the following example that we try to answer questions thanks to two <em>tools</em>:</p>
 <ul>
-  <li><code class="highlighter-rouge">search(entity)</code> returns the first sentences of the Wikipedia page of <code class="highlighter-rouge">entity</code> (or suggests the most similar entities if <code class="highlighter-rouge">entity</code> doesn’t have a Wikipedia page);</li>
-  <li><code class="highlighter-rouge">lookup(string)</code> returns the next sentence containing <code class="highlighter-rouge">string</code> in the last page accessed with the <code class="highlighter-rouge">search</code> tool.</li>
+  <li><code class="language-plaintext highlighter-rouge">search(entity)</code> returns the first sentences of the Wikipedia page of <code class="language-plaintext highlighter-rouge">entity</code> (or suggests the most similar entities if <code class="language-plaintext highlighter-rouge">entity</code> doesn’t have a Wikipedia page);</li>
+  <li><code class="language-plaintext highlighter-rouge">lookup(string)</code> returns the next sentence containing <code class="language-plaintext highlighter-rouge">string</code> in the last page accessed with the <code class="language-plaintext highlighter-rouge">search</code> tool.</li>
 </ul>
 
 <p>Let’s now see how the ReAct prompting method works:</p>
@@ -161,15 +161,15 @@
 
 <p>I invite you to learn about the LMQL syntax through the LMQL <a href="https://docs.lmql.ai/en/latest/">documentation</a> and <a href="https://lmql.ai/">examples</a>. In a nutshell:</p>
 <ul>
-  <li><code class="highlighter-rouge">argmax</code> denotes a greedy decoding strategy for the text generation;</li>
-  <li>The block between <code class="highlighter-rouge">argmax</code> and <code class="highlighter-rouge">from</code> specifies the structure of the text to create. It includes some Python code responsible for the control flow and top-level strings that are progressively added to the text as they appear;</li>
-  <li>The strings can include <span style="border-radius: 10%; padding: 2px; background-color: #B8E7BA; width: 10px">bracketed variables</span>, e.g. <code class="highlighter-rouge">[X]</code>. At this location, the LLM will generate some text that will be stored in a variable named <code class="highlighter-rouge">X</code>;</li>
+  <li><code class="language-plaintext highlighter-rouge">argmax</code> denotes a greedy decoding strategy for the text generation;</li>
+  <li>The block between <code class="language-plaintext highlighter-rouge">argmax</code> and <code class="language-plaintext highlighter-rouge">from</code> specifies the structure of the text to create. It includes some Python code responsible for the control flow and top-level strings that are progressively added to the text as they appear;</li>
+  <li>The strings can include <span style="border-radius: 10%; padding: 2px; background-color: #B8E7BA; width: 10px">bracketed variables</span>, e.g. <code class="language-plaintext highlighter-rouge">[X]</code>. At this location, the LLM will generate some text that will be stored in a variable named <code class="language-plaintext highlighter-rouge">X</code>;</li>
   <li>The strings can also include <span style="border-radius: 10%; padding: 2px; background-color: #BECAF9; width: 10px">Python statements in curly brackets</span>. These statements are replaced by their values when the corresponding string is added to the text;</li>
-  <li>The <code class="highlighter-rouge">from</code> clause specifies which <span style="border-radius: 10%; padding: 2px; background-color: #FCE9A5; width: 10px">model</span> to call;</li>
-  <li>The <code class="highlighter-rouge">where</code> clause defines <span style="border-radius: 10%; padding: 2px; background-color: #FCD1B9; width: 10px">constraints</span> on the variables fed by the LLM. For example, the <code class="highlighter-rouge">STOPS_BEFORE(X, c)</code> constraint interrupts the text generation for variable <code class="highlighter-rouge">X</code> when character <code class="highlighter-rouge">c</code> is generated. <code class="highlighter-rouge">c</code> is discarded so that <code class="highlighter-rouge">X</code> does not end with <code class="highlighter-rouge">c</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">from</code> clause specifies which <span style="border-radius: 10%; padding: 2px; background-color: #FCE9A5; width: 10px">model</span> to call;</li>
+  <li>The <code class="language-plaintext highlighter-rouge">where</code> clause defines <span style="border-radius: 10%; padding: 2px; background-color: #FCD1B9; width: 10px">constraints</span> on the variables fed by the LLM. For example, the <code class="language-plaintext highlighter-rouge">STOPS_BEFORE(X, c)</code> constraint interrupts the text generation for variable <code class="language-plaintext highlighter-rouge">X</code> when character <code class="language-plaintext highlighter-rouge">c</code> is generated. <code class="language-plaintext highlighter-rouge">c</code> is discarded so that <code class="language-plaintext highlighter-rouge">X</code> does not end with <code class="language-plaintext highlighter-rouge">c</code>.</li>
 </ul>
 
-<p>Assuming that you have previously defined the Python strings named <code class="highlighter-rouge">prompt_start</code> and <code class="highlighter-rouge">questions</code>, as well as a Python dictionary mapping the strings “Search” and “Lookup” to the corresponding functions, <strong>this LMQL query is all you need to run ReAct</strong>.</p>
+<p>Assuming that you have previously defined the Python strings named <code class="language-plaintext highlighter-rouge">prompt_start</code> and <code class="language-plaintext highlighter-rouge">questions</code>, as well as a Python dictionary mapping the strings “Search” and “Lookup” to the corresponding functions, <strong>this LMQL query is all you need to run ReAct</strong>.</p>
 
 <p>It is <strong>concise and easy to understand</strong>. Furthermore, as opposed to the LangChain ReAct implementation, it <strong>guarantees that the output text follows the expected format</strong>. For example, the LLM cannot invent new actions.</p>
 
@@ -179,10 +179,10 @@
 <ul>
   <li>Some tools may consume some resources and we may want to prevent their use if our resources are below a certain level;</li>
   <li>Asking the user a question can also be a “<a href="https://python.langchain.com/en/latest/modules/agents/tools/examples/human_tools.html">tool</a>”. It would be reasonable to stop raising such questions if the user declined to answer a previous question or did not answer within a certain frame;</li>
-  <li>In the previous section, the <code class="highlighter-rouge">lookup</code> tool provides valid results only if the <code class="highlighter-rouge">search</code> tool has been used at least once.</li>
+  <li>In the previous section, the <code class="language-plaintext highlighter-rouge">lookup</code> tool provides valid results only if the <code class="language-plaintext highlighter-rouge">search</code> tool has been used at least once.</li>
 </ul>
 
-<p>In all these cases, such restrictions can be specified with LMQL. For instance, the LMQL query below corresponds to the same ReAct agent as before but with the <code class="highlighter-rouge">lookup</code> tool not available for the first action (<span style="border-radius: 10%; padding: 2px; background-color: #B8E7BA; width: 10px">changes in green</span>).</p>
+<p>In all these cases, such restrictions can be specified with LMQL. For instance, the LMQL query below corresponds to the same ReAct agent as before but with the <code class="language-plaintext highlighter-rouge">lookup</code> tool not available for the first action (<span style="border-radius: 10%; padding: 2px; background-color: #B8E7BA; width: 10px">changes in green</span>).</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/lmql-react2.png" alt="LMQL ReAct query with a constraint on the choice of tools" /></p>
 
@@ -190,9 +190,9 @@
 
 <p>A tool in <a href="https://python.langchain.com/en/latest/modules/agents/tools/custom_tools.html">Langchain</a> is implemented through a <strong>string-to-string function</strong> that computes the “observation” provided to the LLM. However, in many cases, the input should not be an arbitrary string. This string may be expected to take only one of a few predetermined values or to be formatted in a very specific way, for example following a JSON schema.</p>
 
-<p>Such constraints, which may not be satisfied in Langchain, can be enforced with LMQL. For this, we can simply condition on the value of the <code class="highlighter-rouge">ACTION</code> variable, specify the structure of the input string and add the right constraints on the corresponding variables.</p>
+<p>Such constraints, which may not be satisfied in Langchain, can be enforced with LMQL. For this, we can simply condition on the value of the <code class="language-plaintext highlighter-rouge">ACTION</code> variable, specify the structure of the input string and add the right constraints on the corresponding variables.</p>
 
-<p>In the example below (<span style="border-radius: 10%; padding: 2px; background-color: #B8E7BA; width: 10px">changes in green</span>), we imagine that we have a new tool <code class="highlighter-rouge">search-lookup</code> that combines <code class="highlighter-rouge">search</code> and <code class="highlighter-rouge">lookup</code> in one function and takes two arguments (the entity of the Wikipedia page and the word to look up). In this case, we of course need to adjust the instructions or the few-shot examples so that the LLM considers the use of the new tool.</p>
+<p>In the example below (<span style="border-radius: 10%; padding: 2px; background-color: #B8E7BA; width: 10px">changes in green</span>), we imagine that we have a new tool <code class="language-plaintext highlighter-rouge">search-lookup</code> that combines <code class="language-plaintext highlighter-rouge">search</code> and <code class="language-plaintext highlighter-rouge">lookup</code> in one function and takes two arguments (the entity of the Wikipedia page and the word to look up). In this case, we of course need to adjust the instructions or the few-shot examples so that the LLM considers the use of the new tool.</p>
 
 <p><img src="https://vivien000.github.io/blog/assets/img/lmql-react3.png" alt="LMQL ReAct query with a constraint on the input of a tool" /></p>
 
@@ -204,9 +204,9 @@
 
 <p>In the <a href="https://python.langchain.com/en/latest/modules/agents/toolkits/examples/openapi.html">example</a> in the Langchain documentation, the user query is “make me a playlist with the first song from kind of blue. call it machine blues” and the planner is provided with the <a href="https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/spotify.com/1.0.0/openapi.yaml">Spotify OpenAPI specification</a>.</p>
 
-<p>In this situation, a planner based on <code class="highlighter-rouge">gpt-4</code> devised the correct plan below while a planner based on <code class="highlighter-rouge">text-davinci-003</code> includes invalid endpoints:</p>
+<p>In this situation, a planner based on <code class="language-plaintext highlighter-rouge">gpt-4</code> devised the correct plan below while a planner based on <code class="language-plaintext highlighter-rouge">text-davinci-003</code> includes invalid endpoints:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. GET /search to search for the album "Kind of Blue"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. GET /search to search for the album "Kind of Blue"
 2. GET /albums/{id}/tracks to get the tracks from the "Kind of Blue" album
 3. GET /me to get the current user's information
 4. POST /users/{user_id}/playlists to create a new playlist named "Machine Blues" for the current user
@@ -252,7 +252,6 @@
   <div class="sharing-icons">
     <a href="https://twitter.com/intent/tweet?text=Better Steering LLM Agents with LMQL&amp;url=https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
     <a href="https://www.facebook.com/sharer/sharer.php?u=https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html&amp;title=Better Steering LLM Agents with LMQL" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-    <a href="https://plus.google.com/share?url=https://vivien000.github.io/blog/journal/better-steering-LLM-agents-with-LMQL.html" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
   </div>
 </div>
 

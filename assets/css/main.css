@@ -306,16 +306,37 @@ pre {
   font-size: .8rem;
   line-height: 1.4;
   white-space: pre;
-  white-space: pre-wrap;
   word-break: break-all;
   word-wrap: break-word;
   background-color: #f5f5f5;
+  overflow-x: scroll;
 }
+
 pre code {
   padding: 0;
   font-size: 100%;
   color: inherit;
   background-color: transparent;
+}
+
+figure.highlight, .rouge-table{
+  margin: 0;
+}
+
+figure.highlight>pre, td.code, td.gutter {
+  padding: 0;
+}
+
+td.gutter, td.code {
+  border: 0;
+}
+
+td.code {
+  text-align: left;
+}
+
+.lineno {
+  padding-right: 0;
 }
 
 /* Pygments via Jekyll */

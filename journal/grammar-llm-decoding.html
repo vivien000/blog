@@ -1,0 +1,625 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <title>
+    
+      Accelerating LLM Code Generation Through Mask Store Streamlining | Unsupervised Thoughts
+    
+  </title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/main.css">
+  <link rel="stylesheet" href="https://vivien000.github.io/blog/assets/css/syntax.css">
+  <!-- Use Atom -->
+  <!-- <link type="application/atom+xml" rel="alternate" href="https://vivien000.github.io/blog/rss-feed.xml" title="Unsupervised Thoughts" /> -->
+  <!-- Use RSS-2.0 -->
+  <link href="https://vivien000.github.io/blog/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Unsupervised Thoughts | A blog on machine learning"/>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <!-- Google Analytics -->
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SFFMKRY3GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SFFMKRY3GE');
+</script>
+
+
+  <!-- Use Jekyll SEO plugin -->
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Accelerating LLM Code Generation Through Mask Store Streamlining | Unsupervised Thoughts</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="Accelerating LLM Code Generation Through Mask Store Streamlining" />
+<meta name="author" content="Vivien" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Structured text generation techniques enforcing context-free grammar (CFG) constraints (Willard &amp; Louf, 2023; Gerganov &amp; et. al., 2024; Lundberg &amp; Ribeiro, 2023; Geng et al., 2024; Beurer-Kellner et al., 2024; Ugare et al., 2024; Dong et al., 2024) are particularly useful to generate syntatically correct computer code in the context of LLM-based coding tools. These techniques guarantee full compliance but introduce computational overhead at inference time." />
+<meta property="og:description" content="Structured text generation techniques enforcing context-free grammar (CFG) constraints (Willard &amp; Louf, 2023; Gerganov &amp; et. al., 2024; Lundberg &amp; Ribeiro, 2023; Geng et al., 2024; Beurer-Kellner et al., 2024; Ugare et al., 2024; Dong et al., 2024) are particularly useful to generate syntatically correct computer code in the context of LLM-based coding tools. These techniques guarantee full compliance but introduce computational overhead at inference time." />
+<link rel="canonical" href="https://vivien000.github.io/blog/journal/grammar-llm-decoding.html" />
+<meta property="og:url" content="https://vivien000.github.io/blog/journal/grammar-llm-decoding.html" />
+<meta property="og:site_name" content="Unsupervised Thoughts" />
+<meta property="og:image" content="https://vivien000.github.io/blog/masks.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-01-03T00:00:00+01:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://vivien000.github.io/blog/masks.jpg" />
+<meta property="twitter:title" content="Accelerating LLM Code Generation Through Mask Store Streamlining" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Vivien"},"dateModified":"2025-01-03T00:00:00+01:00","datePublished":"2025-01-03T00:00:00+01:00","description":"Structured text generation techniques enforcing context-free grammar (CFG) constraints (Willard &amp; Louf, 2023; Gerganov &amp; et. al., 2024; Lundberg &amp; Ribeiro, 2023; Geng et al., 2024; Beurer-Kellner et al., 2024; Ugare et al., 2024; Dong et al., 2024) are particularly useful to generate syntatically correct computer code in the context of LLM-based coding tools. These techniques guarantee full compliance but introduce computational overhead at inference time.","headline":"Accelerating LLM Code Generation Through Mask Store Streamlining","image":"https://vivien000.github.io/blog/masks.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://vivien000.github.io/blog/journal/grammar-llm-decoding.html"},"url":"https://vivien000.github.io/blog/journal/grammar-llm-decoding.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+</head>
+
+
+<body>
+
+  <div class="container">
+    <header class="masthead">
+  <h3 class="masthead-title">
+    <a href="https://vivien000.github.io/blog/">Unsupervised Thoughts</a>
+    <small class="masthead-subtitle">A blog on machine learning</small>
+    <div class="menu">
+  <nav class="menu-content">
+    
+      <a href="https://vivien000.github.io/blog/menu/about.html">About</a>
+    
+  </nav>
+  <nav class="social-icons">
+    
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  </nav>
+</div>
+
+  </h3>
+</header>
+
+
+    <div class="post-container">
+      <h1>
+  Accelerating LLM Code Generation Through Mask Store Streamlining
+</h1>
+
+
+  <img src="https://vivien000.github.io/blog/assets/img/masks.jpg">
+
+
+<p><strong>Structured text generation techniques enforcing context-free grammar (CFG) constraints</strong> <a class="citation" href="#willard2023efficient">(Willard &amp; Louf, 2023; Gerganov &amp; et. al., 2024; Lundberg &amp; Ribeiro, 2023; Geng et al., 2024; Beurer-Kellner et al., 2024; Ugare et al., 2024; Dong et al., 2024)</a> are particularly useful to generate syntatically correct computer code in the context of LLM-based coding tools. These techniques guarantee full compliance but introduce computational overhead at inference time.</p>
+
+<p><strong>Minimizing inference overhead</strong> is essential for a productive developer experience, especially when suggesting generated code in real time. This is challenging because the CFG of programming languages are complex and CFG constraints are harder to impose than regex constraints.</p>
+
+<p>In this blog post, I propose to <strong>accelerate</strong> <em>some</em> <strong>CFG-constrained decoding techniques</strong>. More precisely, I will:</p>
+<ul>
+  <li>Briefly describe the principle of such techniques;</li>
+  <li>Provide examples of patterns of the input CFG that can be used to reduce the inference overhead;</li>
+  <li>Describe algorithms to automatically detect such patterns;</li>
+  <li>Present first experimental results.</li>
+</ul>
+
+<p><em>The code to reproduce the experimental results and the proofs of the algorithms are provided in a <a href="https://github.com/vivien000/grammar-constrained-decoding/blob/main/grammar-constrained%20decoding.ipynb">Python notebook</a> and a <a href="https://github.com/vivien000/grammar-constrained-decoding/blob/main/technical_appendix.pdf">technical appendix</a>.</em></p>
+
+<ul id="markdown-toc">
+  <li><a href="#cfg-constrained-llm-decoding" id="markdown-toc-cfg-constrained-llm-decoding">CFG-Constrained LLM Decoding</a>    <ul>
+      <li><a href="#producing-a-string-that-can-be-converted-into-a-sequence-of-terminals" id="markdown-toc-producing-a-string-that-can-be-converted-into-a-sequence-of-terminals">Producing a string that can be converted into a sequence of terminals</a></li>
+      <li><a href="#checking-that-the-generated-sequences-of-terminals-comply-with-the-grammar" id="markdown-toc-checking-that-the-generated-sequences-of-terminals-comply-with-the-grammar">Checking that the generated sequences of terminals comply with the grammar</a></li>
+    </ul>
+  </li>
+  <li><a href="#patterns-of-interest-to-accelerate-decoding" id="markdown-toc-patterns-of-interest-to-accelerate-decoding">Patterns of Interest to Accelerate Decoding</a></li>
+  <li><a href="#always-illegal-continuations" id="markdown-toc-always-illegal-continuations">Always Illegal Continuations</a></li>
+  <li><a href="#always-legal-continuations" id="markdown-toc-always-legal-continuations">Always Legal Continuations</a></li>
+  <li><a href="#jointly-legal-continuations" id="markdown-toc-jointly-legal-continuations">Jointly Legal Continuations</a></li>
+  <li><a href="#experimental-results" id="markdown-toc-experimental-results">Experimental Results</a></li>
+  <li><a href="#conclusion-and-potential-future-work" id="markdown-toc-conclusion-and-potential-future-work">Conclusion and Potential Future Work</a></li>
+  <li><a href="#references" id="markdown-toc-references">References</a></li>
+</ul>
+
+<h1 id="cfg-constrained-llm-decoding">CFG-Constrained LLM Decoding</h1>
+
+<p>This blog post focuses on <strong>CFG-constrained decoding techniques</strong> <a class="citation" href="#beurerkellner2024guidingllmsrightway">(Beurer-Kellner et al., 2024; Willard &amp; Louf, 2023)</a> that leverage:</p>
+<ul>
+  <li>an <strong>automaton-based lexer</strong> to ensure that the generated string can be converted into a sequence of terminals;</li>
+  <li>an <strong>incremental parser</strong> to guarantee that the resulting sequence of terminals complies with the grammar.</li>
+</ul>
+
+<p>In this section, I will illustrate how these two components can be used, using the Python grammar as an example. I will only give a high-level overview, without covering secondary technical details (ignored terminals, terminal priorities, indentations). I invite you to read the papers referenced above, as well as the associated <a href="https://github.com/vivien000/grammar-constrained-decoding/blob/main/grammar-constrained%20decoding.ipynb">Python notebook</a>, for a more comprehensive introduction.</p>
+
+<p>The Python grammar as <a href="https://github.com/lark-parser/lark/blob/master/lark/grammars/python.lark">specified</a> in the <code class="language-plaintext highlighter-rouge">lark</code> package includes:</p>
+<ul>
+  <li>100 <strong>terminals</strong> (e.g. <code class="language-plaintext highlighter-rouge">DEF</code>, <code class="language-plaintext highlighter-rouge">NAME</code>, <code class="language-plaintext highlighter-rouge">LPAR</code>, <code class="language-plaintext highlighter-rouge">RPAR</code>), each of which is described by a regular expression (e.g. <code class="language-plaintext highlighter-rouge">def</code> for <code class="language-plaintext highlighter-rouge">DEF</code> or <code class="language-plaintext highlighter-rouge">[^\W\d]\w*]</code> for <code class="language-plaintext highlighter-rouge">NAME</code>);</li>
+  <li>176 <strong>nonterminals</strong> (e.g. <code class="language-plaintext highlighter-rouge">funcdef</code>, <code class="language-plaintext highlighter-rouge">parameters</code>, <code class="language-plaintext highlighter-rouge">test</code>);</li>
+  <li>536 <strong>rules</strong> such as <code class="language-plaintext highlighter-rouge">funcdef: "def" name "(" parameters ")" "-&gt;" test ":" suite</code> or <code class="language-plaintext highlighter-rouge">name: NAME</code>.</li>
+</ul>
+
+<h2 id="producing-a-string-that-can-be-converted-into-a-sequence-of-terminals">Producing a string that can be converted into a sequence of terminals</h2>
+
+<p>When leveraging an incremental parser, a first step to ensure syntactically correct Python code generation is constructing a <strong>non-deterministic finite automaton</strong> (NFA) <strong>that recognizes strings convertible into terminal sequences</strong>. For this, we can simply connect the deterministic finite automata (DFA) corresponding to the regular expression of each terminal with \(\epsilon\) transitions and two additional nodes, as shown on Figure 1 for a few terminals.</p>
+
+<p><img src="https://vivien000.github.io/blog/assets/img/nfa.png" alt="NFA used to identify potential sequences of terminals" /></p>
+<div class="caption">Figure 1. Part of a non-deterministic finite automaton used to identify potential sequences of terminals for the Python grammar (the full NFA has 410 states and 2,398 transitions).</div>
+
+<p>Since LLMs manipulate tokens and not characters, we need to convert this character-based NFA into the equivalent token-based NFA. This is done by simply seeing each token as a sequence of characters and applying the corresponding transitions <a class="citation" href="#willard2023efficient">(Willard &amp; Louf, 2023; Beurer-Kellner et al., 2024)</a>. For example, if <code class="language-plaintext highlighter-rouge">()</code> is a token, the token-based NFA will include <code class="language-plaintext highlighter-rouge">()</code> transitions from \(q_0, q_4, q_6, q_8, q_{10}\) and \(q_{11}\) to \(q_{10}\).</p>
+
+<p>While following the character transitions, we keep track of the DFAs traversed to annotate the transitions of the token-based NFA with the corresponding sequences of new terminals. For example, the <code class="language-plaintext highlighter-rouge">()</code> transitions would be annotated with <code class="language-plaintext highlighter-rouge">[LPAR, RPAR]</code>. Otherwise said, we create <code class="language-plaintext highlighter-rouge">nfa_transition</code>, an annotated transition function of the token-based NFA from \(S \times V\) to \((S \times \Sigma^*)^*\) where \(S\) is the set of states of the NFA, \(V\) is the set of tokens and \(\Sigma\) is the set of terminals:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">...</span>
+<span class="n">nfa_transition</span><span class="p">[</span><span class="n">q4</span><span class="p">][</span><span class="mi">1270</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">q4</span><span class="p">,</span> <span class="p">(</span><span class="sh">"</span><span class="s">DEF</span><span class="sh">"</span><span class="p">,)),</span> <span class="p">(</span><span class="n">q6</span><span class="p">,</span> <span class="p">(</span><span class="sh">"</span><span class="s">NAME</span><span class="sh">"</span><span class="p">,))]</span> <span class="c1"># 1270 is the token id for `def`
+</span><span class="p">...</span> 
+<span class="n">nfa_transition</span><span class="p">[</span><span class="n">q4</span><span class="p">][</span><span class="mi">470</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">q10</span><span class="p">,</span> <span class="p">(</span><span class="sh">"</span><span class="s">LPAR</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">RPAR</span><span class="sh">"</span><span class="p">))]</span> <span class="c1"># 470 is the token id for `()`
+</span><span class="bp">...</span>
+<span class="c1"># For the Python grammar, `nfa_transitions` is defined with 2,837,801 rows.
+</span></code></pre></div></div>
+
+<h2 id="checking-that-the-generated-sequences-of-terminals-comply-with-the-grammar">Checking that the generated sequences of terminals comply with the grammar</h2>
+
+<p>At each step of the decoding process, <code class="language-plaintext highlighter-rouge">nfa_transitions</code> shows which tokens can eventually lead to a sequence of terminals. Of course, not all sequences of terminals are syntatically valid. We then need to use an <strong>incremental parser</strong> to only keep sequences of terminals that are compatible with the CFG. In the context of this blog post, we can see such an incremental parser as an object <code class="language-plaintext highlighter-rouge">incremental_parser</code> with an internal state <code class="language-plaintext highlighter-rouge">incremental_parser.state</code> and two methods:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">incremental_parser.accepts(new_terminals) -&gt; bool</code> that takes a sequence of terminals as an input and returns <code class="language-plaintext highlighter-rouge">True</code> or <code class="language-plaintext highlighter-rouge">False</code> depending on whether the terminals consumed so far and <code class="language-plaintext highlighter-rouge">new_terminals</code> form the prefix of a valid sequence of terminals;</li>
+  <li><code class="language-plaintext highlighter-rouge">incremental_parser.consumes(new_terminals) -&gt; None</code> that updates the internal state with <code class="language-plaintext highlighter-rouge">new_terminals</code>.</li>
+</ul>
+
+<p>The incremental parser is used to check whether the terminals that would be added with a certain new token would be acceptable. Instead of assessing this compliance token by token, we can group together tokens that lead to the same additional terminals, check only once this sequence of terminals and mark all these tokens as acceptable if the result is positive. Following <a class="citation" href="#ugare2024syncodellmgenerationgrammar">(Ugare et al., 2024)</a> and <a class="citation" href="#beurerkellner2024guidingllmsrightway">(Beurer-Kellner et al., 2024)</a><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, we can build a <code class="language-plaintext highlighter-rouge">mask_store</code> function that maps \((S \times \Sigma^*)\) to \(\{0, 1 \}^{\mid V \mid}\):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">...</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q4</span><span class="p">][(</span><span class="sh">"</span><span class="s">NAME</span><span class="sh">"</span><span class="p">,)]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">...</span> <span class="mi">1</span><span class="p">,</span> <span class="p">...,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">...,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="c1">#                            ↑      ↑       ↑       ↑
+#                            0    1,270   18,641  |V|-1
+</span><span class="p">...</span> 
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q4</span><span class="p">][(</span><span class="sh">"</span><span class="s">LPAR</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">RPAR</span><span class="sh">"</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">...</span> <span class="mi">1</span><span class="p">,</span> <span class="p">...,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="c1">#                                   ↑      ↑       ↑
+#                                   0     470    |V|-1
+</span><span class="bp">...</span>
+<span class="c1"># For the Python grammar, `mask_store` is defined with 112,283 rows.
+</span></code></pre></div></div>
+
+<p>The overall constrained decoding algorithm can then be expressed in pseudo Python code as follows.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">grammar</span><span class="p">):</span>
+
+    <span class="n">token_ids</span> <span class="o">=</span> <span class="nf">tokenize</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+    <span class="n">new_token_id</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="c1"># Initialize the states of the lexer and the incremental parser
+</span>    <span class="n">lexer_states</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[])]</span> <span class="c1"># list of (nfa_state, terminals) tuples
+</span>    <span class="n">incremental_parser</span> <span class="o">=</span> <span class="nc">IncrementalParser</span><span class="p">(</span><span class="n">grammar</span><span class="p">)</span>
+
+    <span class="c1"># Generate one token for each iteration of the while loop
+</span>    <span class="k">while</span> <span class="n">new_token_id</span> <span class="o">!=</span> <span class="n">eos_token_id</span><span class="p">:</span>
+        
+        <span class="c1"># Initialize an empty mask
+</span>        <span class="n">mask</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nf">len</span><span class="p">(</span><span class="n">tokenizer_vocabulary</span><span class="p">)</span>
+        
+        <span class="c1"># Filter the potential next tokens with the incremental parser
+</span>        <span class="k">for</span> <span class="n">nfa_state</span><span class="p">,</span> <span class="n">terminals</span> <span class="ow">in</span> <span class="n">lexer_states</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">new_terminals</span> <span class="ow">in</span> <span class="n">mask_store</span><span class="p">[</span><span class="n">nfa_state</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">incremental_parser</span><span class="p">.</span><span class="nf">accepts</span><span class="p">(</span><span class="n">terminals</span> <span class="o">+</span> <span class="n">new_terminals</span><span class="p">):</span>
+                    <span class="n">mask</span> <span class="o">=</span> <span class="nf">element_wise_binary_or</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">mask</span><span class="p">[</span><span class="n">nfa_state</span><span class="p">][</span><span class="n">new_terminals</span><span class="p">])</span>
+        
+        <span class="c1"># Sample a new token with the LLM and the mask
+</span>        <span class="c1"># Cf. algorithm 2 of arxiv.org/abs/2307.09702
+</span>        <span class="n">new_token_id</span> <span class="o">=</span> <span class="n">llm</span><span class="p">.</span><span class="nf">sample</span><span class="p">(</span><span class="n">token_ids</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+        <span class="n">token_ids</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">new_token_id</span><span class="p">)</span>
+        
+        <span class="c1"># Update the states of the lexer and the incremental parser
+</span>        <span class="n">new_states</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">new_nfa_state</span><span class="p">,</span> <span class="n">terminals</span> <span class="o">+</span> <span class="n">new_terminals</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">new_nfa_state</span><span class="p">,</span> <span class="n">new_terminals</span> <span class="ow">in</span> <span class="n">nfa_transition</span><span class="p">[</span><span class="n">nfa_state</span><span class="p">][</span><span class="n">token_id</span><span class="p">]</span>
+        <span class="p">]</span>
+        <span class="n">length_common_prefix</span> <span class="o">=</span> <span class="nf">get_length_common_prefix</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">terminals</span> <span class="k">for</span> <span class="n">new_nfa_state</span><span class="p">,</span> <span class="n">terminals</span> <span class="ow">in</span> <span class="n">new_states</span><span class="p">[</span><span class="n">new_token_id</span><span class="p">]]</span>
+        <span class="p">)</span>
+        <span class="n">incremental_parser</span><span class="p">.</span><span class="nf">consumes</span><span class="p">(</span><span class="n">length_common_prefix</span><span class="p">)</span>
+        <span class="n">lexer_states</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">new_nfa_state</span><span class="p">,</span> <span class="n">terminals</span><span class="p">[</span><span class="nf">len</span><span class="p">(</span><span class="n">length_common_prefix</span><span class="p">):])</span>
+            <span class="k">for</span> <span class="n">new_nfa_state</span><span class="p">,</span> <span class="n">terminals</span> <span class="ow">in</span> <span class="n">new_states</span><span class="p">[</span><span class="n">new_token_id</span><span class="p">]</span>
+        <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">token_ids</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h1 id="patterns-of-interest-to-accelerate-decoding">Patterns of Interest to Accelerate Decoding</h1>
+
+<p>The reason why constrained decoding is much slower for CFG constraints than for regex constraints is that, at each decoding step, <strong>the incremental parser may be called once for each mask of the current NFA states</strong>, as shown on lines 17-19 above. In the following, we will see how to significantly reduce the number of calls to the incremental parser.</p>
+
+<p>Consider state \(q_4\) from Figure 1. The mask store contains 1,036 sequences of terminals for this state, which corresponds to the <code class="language-plaintext highlighter-rouge">DEF</code> terminal. However, <code class="language-plaintext highlighter-rouge">DEF</code> appears only once in the <a href="https://github.com/lark-parser/lark/blob/master/lark/grammars/python.lark">EBNF formalization of the Python grammar</a> – <code class="language-plaintext highlighter-rouge">funcdef: "def" name "(" [parameters] ")" ["-&gt;" test] ":" suite</code> – and <code class="language-plaintext highlighter-rouge">name</code> is defined as <code class="language-plaintext highlighter-rouge">name: NAME | "match" | "case"</code>. Consequently, only the <code class="language-plaintext highlighter-rouge">NAME</code>, <code class="language-plaintext highlighter-rouge">"match"</code> and <code class="language-plaintext highlighter-rouge">"case"</code> terminals can follow <code class="language-plaintext highlighter-rouge">DEF</code>. As a result, <code class="language-plaintext highlighter-rouge">DEF</code>followed by <code class="language-plaintext highlighter-rouge">NAME</code> (or <code class="language-plaintext highlighter-rouge">"match"</code> or <code class="language-plaintext highlighter-rouge">"case"</code>) is always accepted whenever <code class="language-plaintext highlighter-rouge">DEF</code> is accepted while <code class="language-plaintext highlighter-rouge">DEF</code> followed by <code class="language-plaintext highlighter-rouge">ASYNC</code>, <code class="language-plaintext highlighter-rouge">CLASS</code> or any other terminal is never accepted, whatever the current parser state is. This means that we can streamline the mask store to avoid superfluous calls to the incremental parser.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">...</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q4</span><span class="p">][()]</span> <span class="o">=</span> <span class="n">m1</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q4</span><span class="p">][(</span><span class="sh">"</span><span class="s">NAME</span><span class="sh">"</span><span class="p">,)]</span> <span class="o">=</span> <span class="n">m2</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q4</span><span class="p">][(</span><span class="sh">"</span><span class="s">MATCH</span><span class="sh">"</span><span class="p">,)]</span> <span class="o">=</span> <span class="n">m3</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q4</span><span class="p">][(</span><span class="sh">"</span><span class="s">CASE</span><span class="sh">"</span><span class="p">,)]</span> <span class="o">=</span> <span class="n">m4</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q4</span><span class="p">][(</span><span class="sh">"</span><span class="s">ASYNC</span><span class="sh">"</span><span class="p">,)]</span> <span class="o">=</span> <span class="n">m5</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q4</span><span class="p">][(</span><span class="sh">"</span><span class="s">CLASS</span><span class="sh">"</span><span class="p">,)]</span> <span class="o">=</span> <span class="n">m6</span>
+<span class="bp">...</span>
+</code></pre></div></div>
+<p>… should be simplified as:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">...</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q4</span><span class="p">][()]</span> <span class="o">=</span> <span class="nf">element_wise_binary_or</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">m3</span><span class="p">,</span> <span class="n">m4</span><span class="p">)</span>
+<span class="bp">...</span>
+</code></pre></div></div>
+<p>Let us now consider another interesting pattern of the Python grammar. The <code class="language-plaintext highlighter-rouge">MINUS</code> and <code class="language-plaintext highlighter-rouge">PLUS</code> terminals only appear in two rules:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!_unary_op: "+"|"-"|"~"
+!_add_op: "+"|"-"
+</code></pre></div></div>
+<p>Given that <code class="language-plaintext highlighter-rouge">MINUS</code> and <code class="language-plaintext highlighter-rouge">PLUS</code> are interchangeable in these rules, replacing one with the other does not affect the syntatic correctness of a string. This is another opportunity to streamline the mask store by merging the entries with <code class="language-plaintext highlighter-rouge">PLUS</code> and those with <code class="language-plaintext highlighter-rouge">MINUS</code>. For example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">...</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q6</span><span class="p">][(</span><span class="sh">"</span><span class="s">MINUS</span><span class="sh">"</span><span class="p">,)]</span> <span class="o">=</span> <span class="n">m1</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q6</span><span class="p">][(</span><span class="sh">"</span><span class="s">MINUS</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">MINUS</span><span class="sh">"</span><span class="p">)]</span> <span class="o">=</span> <span class="n">m2</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q6</span><span class="p">][(</span><span class="sh">"</span><span class="s">PLUS</span><span class="sh">"</span><span class="p">,)]</span> <span class="o">=</span> <span class="n">m3</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q6</span><span class="p">][(</span><span class="sh">"</span><span class="s">PLUS</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">PLUS</span><span class="sh">"</span><span class="p">)]</span> <span class="o">=</span> <span class="n">m4</span>
+<span class="bp">...</span>
+</code></pre></div></div>
+<p>… should be simplified as:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">...</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q6</span><span class="p">][(</span><span class="sh">"</span><span class="s">MINUS</span><span class="sh">"</span><span class="p">,)]</span> <span class="o">=</span> <span class="nf">element_wise_binary_or</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m3</span><span class="p">)</span>
+<span class="n">mask_store</span><span class="p">[</span><span class="n">q6</span><span class="p">][(</span><span class="sh">"</span><span class="s">MINUS</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">MINUS</span><span class="sh">"</span><span class="p">)]</span> <span class="o">=</span> <span class="nf">element_wise_binary_or</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="n">m4</span><span class="p">)</span>
+<span class="bp">...</span>
+</code></pre></div></div>
+
+<p>We could systematically identify similar patterns if we had access to the following functions:</p>
+
+\[\begin{alignat}{10}
+  \texttt{is_always_legal} \colon\quad &amp;\Sigma\times \Sigma^* \quad&amp;\to&amp;\quad \{\texttt{True}, \texttt{False}\}\\
+  &amp;(X, S) &amp;\mapsto&amp;\quad (\forall P \in \Sigma^*, PX \in L_p \implies PXS \in L_p)\\
+  &amp;&amp;&amp;\\
+  \texttt{is_never_legal} \colon\quad &amp;\Sigma\times \Sigma^* \quad&amp;\to&amp;\quad \{\texttt{True}, \texttt{False}\}\\
+  &amp;(X, S) &amp;\mapsto&amp;\quad (\forall P \in \Sigma^*, PXS \notin L_p)\\
+  &amp;&amp;&amp;\\
+  \texttt{are_jointly_legal} \colon\quad &amp; \Sigma\times \Sigma^*\times \Sigma^* \quad&amp;\to&amp;\quad \{\texttt{True}, \texttt{False}\}\\
+  &amp;(X, S_1, S_2)  &amp;\mapsto&amp;\quad (\forall P \in \Sigma^*, PXS_1 \in L_p \iff PXS_2 \in L_p)\\
+\end{alignat}\]
+
+<p>… where \(L\), \(L_p\) and \(\Sigma\) denote the context-free language corresponding to the grammar, the set of prefixes of \(L\) and the set of terminals of \(L\).</p>
+
+<p>The mask store can be streamlined on the basis of these three functions:</p>
+<ul>
+  <li>If \(\texttt{is_always_legal}(X, S) = \texttt{True}\), we can replace <code class="language-plaintext highlighter-rouge">mask_store(q, ())</code> with <code class="language-plaintext highlighter-rouge">termwise_binary_or(mask_store(q, ()), mask_store(q, S))</code> and remove <code class="language-plaintext highlighter-rouge">mask_store(q, S)</code> for all NFA state <code class="language-plaintext highlighter-rouge">q</code> corresponding to the \(X\) terminal;</li>
+  <li>If \(\texttt{is_never_legal}(X, S) = \texttt{True}\), we can remove <code class="language-plaintext highlighter-rouge">mask_store(q, S)</code> for all NFA state <code class="language-plaintext highlighter-rouge">q</code> corresponding to the \(X\) terminal;</li>
+  <li>If \(\texttt{are_jointly_legal}(X, S_1, S_2) = \texttt{True}\), we can replace <code class="language-plaintext highlighter-rouge">mask_store(q, S1)</code> with <code class="language-plaintext highlighter-rouge">termwise_binary_or(mask_store(q, S1), mask_store(q, S2))</code> and remove <code class="language-plaintext highlighter-rouge">mask_store(q, S2)</code> for all NFA state <code class="language-plaintext highlighter-rouge">q</code> corresponding to the \(X\) terminal.</li>
+</ul>
+
+<p>We now examine whether it is actually possible to compute \(\texttt{is_always_legal}\), \(\texttt{is_never_legal}\) and \(\texttt{are_jointly_legal}\).</p>
+
+<h1 id="always-illegal-continuations">Always Illegal Continuations</h1>
+
+<p>The definition of \(\texttt{is_never_legal}\) entails that:</p>
+
+\[\forall X\in \Sigma, S\in \Sigma^*, \texttt{is_never_legal}(X, S) = (L \cap \Sigma^*XS\Sigma^*  =  \emptyset)\]
+
+<p>Given that \(\Sigma^*XS\Sigma^*\) is a regular language over \(\Sigma\), computing \(\texttt{is_never_legal}\) is equivalent to determining the intersection of a context-free language and a regular language and testing whether this new context-free language is empty. As there are standard algorithms for these two operations, this suggests a straightforward way to obtain \(\texttt{is_never_legal}\):</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">is_never_legal</span><span class="p">(</span><span class="n">current_terminal</span><span class="p">,</span> <span class="n">new_terminals</span><span class="p">,</span> <span class="n">grammar</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    Return True if `new_terminals` can never follow `current_terminal` given the grammar
+    </span><span class="sh">"""</span>
+
+    <span class="c1"># We create a regular expression defined over the set of terminals, that recognizes
+</span>    <span class="c1"># any sequence of terminals including `current_terminal` immediately followed by
+</span>    <span class="c1"># `new_terminals`.
+</span>    <span class="n">regex</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="s">.*</span><span class="si">{</span><span class="n">current_terminal</span><span class="si">}{</span><span class="sh">''</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">new_terminals</span><span class="p">)</span><span class="si">}</span><span class="s">.*</span><span class="sh">"</span>
+
+    <span class="c1"># The intersection of a context-free grammar and a regular language is a
+</span>    <span class="c1"># context-free grammar which can be efficiently computed with the Bar-Hillel
+</span>    <span class="c1"># construction. We can then test its emptiness with a standard CFG algorithm.
+</span>    <span class="k">return</span> <span class="nf">is_empty</span><span class="p">(</span><span class="nf">intersection</span><span class="p">(</span><span class="n">grammar</span><span class="p">,</span> <span class="n">regex</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h1 id="always-legal-continuations">Always Legal Continuations</h1>
+
+<p>In contrast, \(\texttt{is_always_legal}\) is not computable as proven in the <a href="https://github.com/vivien000/grammar-constrained-decoding/blob/main/technical_appendix.pdf">technical appendix</a> of this blog post. A general algorithm is then out of reach but I outline below \(\texttt{Unlimited credit exploration}\), a method to obtain some values of this function. For the sake of brevity, I restrict myself to a very simple example and focus on conveying the main intuitions, without formalizing the method or proving its correctness. I invite you to read the <a href="https://github.com/vivien000/grammar-constrained-decoding/blob/main/technical_appendix.pdf">technical appendix</a> if you are interested in such details.</p>
+
+<p>Let us take the example of the context free grammar corresponding to the \(S::=aSb\mid\epsilon\) rule. The associated context free language is obviously \(\{a^nb^n \mid n\in \mathbb{N}\}\). If we want to determine some values of \(\texttt{is_always_legal}\), it is useful to understand which symbols can follow another symbol. We can describe these relationships with a directed graph, as illustrated in Figure 2.</p>
+
+<p><img src="https://vivien000.github.io/blog/assets/img/directed_graph.png" alt="Directed graph showing the direct successor relationship for a grammar" /></p>
+<div class="caption">Figure 2. A directed graph showing the direct successor relationship for the grammar corresponding to the \(S::=aSb\mid\epsilon\) rule. \(•S\) and \(S•\) respectively represent the start and the end of nonterminal S.</div>
+
+<p>However, such a directed graph is generally not rich enough to draw conclusions about the values of \(\texttt{is_always_legal}\). To go further, we extend this representation to not only track the successor relationships among symbols but also the rules from which these relationships arise. More precisely, we use the pushdown automaton shown in Figure 3, with \(\bullet S\) and \(Z_0\) as the initial state and stack symbol and \(\texttt{\$END}\) as the only accepting state. In this pushdown automaton, the states represent terminal or nonterminal symbols that are being generated while the stack symbols represent specific locations in the rules of G and serve as “return addresses” to follow once a symbol has been generated.</p>
+
+<p><img src="https://vivien000.github.io/blog/assets/img/pda.png" alt="Pushdown automaton for a grammar" /></p>
+<div class="caption">Figure 3. A pushdown automaton for the grammar corresponding to the \(S::=aSb\mid\epsilon\) rule. The labels of the edges should be interpreted as a triplet combining the character to read, the stack symbol to pop and the stack symbol to push.</div>
+
+<p>This pushdown automaton has interesting properties for our purpose:</p>
+<ul>
+  <li>The words accepted by the pushdown automaton are exactly the words generated by the grammar;</li>
+  <li>A valid path for an accepted word corresponds to the depth-first traversal of the syntax tree of this word (cf. Figure 4);</li>
+  <li>A sequence of valid steps can always be completed so that the resulting path corresponds to an accepted word.</li>
+</ul>
+
+<p><img src="https://vivien000.github.io/blog/assets/img/path.png" alt="Path of an accepted word" /></p>
+<div class="caption">Figure 4. (Left) The pushdown automaton in Figure 3 accepts the word \(aabb\) through the path displayed in the table. (Right) This path corresponds to a left-to-right depth-first traversal of the syntax tree of \(aabb\).</div>
+
+<p>If we want to determine the value of \(\texttt{is_always_legal}(X, Y)\) with \(X, Y \in \Sigma\), the <strong>first step</strong> is to start at the \(X\) state with an empty stack and list all the paths reading \(Y\) through the pushdown automaton. For this, we follow the step relation of the pushdown automaton, except that, if the stack is empty and we need to pop a stack symbol, we still proceed with the transition and take note of the missing stack symbol. It is as if we had an <strong>unlimited line of credit to borrow stack symbols when the stack is empty</strong>. We also define a maximum stack size during the search so that it is guaranteed to terminate.</p>
+
+<p>The <strong>second step</strong> is to represent all these paths as a non-deterministic finite automaton (NFA) as shown in Figure 5: the nodes correspond to the combination of a state of the pushdown automaton and the associated stack, the start node is \((X, \epsilon)\), the accepting nodes are \(Y\) with any stack and the transitions are either \(\epsilon\) or a missing stack symbol identified along a path.</p>
+
+<p>The third and <strong>last step</strong> is to identify the \(\epsilon\)-coaccessible nodes of the NFA, i.e. the nodes that satisfy one of the following properties:</p>
+<ul>
+  <li>the node is a final node but not an initial node;</li>
+  <li>there is an \(\epsilon\) transition from this node to an \(\epsilon\)-coaccessible node;</li>
+  <li>for each stack symbol that can be popped from the pushdown automaton state of the node, there is a transition with this stack symbol from this node to an \(\epsilon\)-coaccessible node.</li>
+</ul>
+
+<p>A sufficient condition for \(\texttt{is_always_legal}(X, Y) = \texttt{True}\) is then that \((X, \epsilon)\) is \(\epsilon\)-coaccessible. Figure 5 shows the NFAs obtained for \(X = a, Y = a\), \(X = a, Y = b\), \(X = b, Y = a\), \(X = b, Y = b\). Since \(S::=a\) is the only stack symbol that can be popped from \(a\) in the pushdown automaton, we can conclude that \(\texttt{is_always_legal}(a, a) = \texttt{is_always_legal}(a, b) = \texttt{True}\). This is not the case for \(X = b, Y = a\) and \(X = b, Y = b\) and it is indeed easy to show that \(\texttt{is_always_legal}(b, a) = \texttt{is_always_legal}(b, b) = \texttt{False}\).</p>
+
+<p>The intuition behind this approach is that the NFA captures the stack symbols needed to move from \(X\) to \(Y\). Along such a trajectory, the conditions defined above ensure that we can always move one step closer to \(Y\), either because we can move forward with an \(\epsilon\) transition or because there is a relevant transition for each possible stack symbol on top of the stack.</p>
+
+<p><img src="https://vivien000.github.io/blog/assets/img/debt_nfa.png" alt="Non-deterministic finite automata" /></p>
+<div class="caption">Figure 5. The non-deterministic finite automata corresponding to \(\texttt{is_always_legal}(a, a)\), \(\texttt{is_always_legal}(a, b)\), \(\texttt{is_always_legal}(b, a)\) and \(\texttt{is_always_legal}(b, b)\).</div>
+
+<h1 id="jointly-legal-continuations">Jointly Legal Continuations</h1>
+
+<p>Like \(\texttt{is_always_legal}\), \(\texttt{are_jointly_legal}\) is not computable because the values of \(\texttt{is_always_legal}\) can directly be derived from those of \(\texttt{are_jointly_legal}\). Indeed, for all \(X\in\Sigma, Y\in\Sigma^*\):</p>
+
+\[\texttt{is_always_legal}(X, Y) = \texttt{are_jointly_legal}(X, Y, \epsilon)\]
+
+<p>There are however simple ways to get some values of \(\texttt{are_jointly_legal}\). First we can use known values of \(\texttt{is_always_legal}\), e.g. \(\texttt{is_always_legal}(Y_1, Y_2) = \texttt{True}\), to conclude that:</p>
+
+\[\texttt{are_jointly_legal}(X, X_1...X_nY_1Y_2, X_1...X_nY_1) = \texttt{True} \text{ for all } X, X_1,..., X_n \in \Sigma\]
+
+<p>For example, using the method described in the previous section, we can show that  \(\texttt{is_always_legal}(\texttt{MINUS}, (\texttt{MINUS},)) = \texttt{True}\) for the Python grammar. As a consequence:</p>
+
+\[\texttt{are_jointly_legal}(\texttt{NAME}, (\texttt{MINUS},), (\texttt{MINUS}, \texttt{MINUS})) = \texttt{True}\]
+
+\[\texttt{are_jointly_legal}(\texttt{NAME}, (\texttt{MINUS},), (\texttt{MINUS}, \texttt{MINUS}, \texttt{MINUS})) = \texttt{True}\]
+
+\[...\]
+
+<p>Furthermore, we can take advantage of the fact that some terminals are interchangeable in the rules of the grammar. For example, the only rules of the Python grammar with the \(\texttt{PLUS}\) and \(\texttt{MINUS}\) terminals are:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!_unary_op: "+"|"-"|"~"
+!_add_op: "+"|"-"
+</code></pre></div></div>
+<p>This means that it is always possible to replace one \(\texttt{PLUS}\) terminal with a \(\texttt{MINUS}\) terminal (and vice versa), without affecting the syntactical correctness of a sequence of terminals. If we can determine that terminals \(Y_1\) and \(Y_2\) are interchangeable, we can conclude that:</p>
+
+\[\texttt{are_jointly_legal}(X, X_1...X_n, \phi(X_1)...\phi(X_n)) = \texttt{True} \text{ for all } X, X_1,..., X_n \in \Sigma\]
+
+<p>… where \(\phi(Y_1) = Y_2\) and \(\phi(X) = X\) if \(X\neq Y_1\).</p>
+
+<p>With the Python grammar, there are seven sets of mutually interchangeable terminals, containing 35 terminals in total:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span><span class="p">:</span> <span class="sh">"</span><span class="s">/=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">%=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">^=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">**=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">*=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">&gt;&gt;=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">|=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">-=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">+=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">//=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">&lt;&lt;=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">@=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">&amp;=</span><span class="sh">"</span>
+<span class="mi">2</span><span class="p">:</span> <span class="n">FALSE</span><span class="p">,</span> <span class="n">NONE</span><span class="p">,</span> <span class="n">TRUE</span>
+<span class="mi">3</span><span class="p">:</span> <span class="n">PLUS</span><span class="p">,</span> <span class="n">MINUS</span>
+<span class="mi">4</span><span class="p">:</span> <span class="sh">"</span><span class="s">&lt;&lt;</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">&gt;&gt;</span><span class="sh">"</span>
+<span class="mi">5</span><span class="p">:</span> <span class="sh">"</span><span class="s">//</span><span class="sh">"</span><span class="p">,</span> <span class="n">PERCENT</span>
+<span class="mi">6</span><span class="p">:</span> <span class="sh">"</span><span class="s">!=</span><span class="sh">"</span><span class="p">,</span> <span class="n">LESSTHAN</span><span class="p">,</span> <span class="sh">"</span><span class="s">&gt;=</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">==</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">&lt;=</span><span class="sh">"</span><span class="p">,</span> <span class="n">MORETHAN</span><span class="p">,</span> <span class="sh">"</span><span class="s">&lt;&gt;</span><span class="sh">"</span>
+<span class="mi">7</span><span class="p">:</span> <span class="n">HEX_NUMBER</span><span class="p">,</span> <span class="n">FLOAT_NUMBER</span><span class="p">,</span> <span class="n">BIN_NUMBER</span><span class="p">,</span> <span class="n">OCT_NUMBER</span><span class="p">,</span> <span class="n">DEC_NUMBER</span><span class="p">,</span> <span class="n">IMAG_NUMBER</span>
+</code></pre></div></div>
+
+<h1 id="experimental-results">Experimental Results</h1>
+
+<p>The accompanying <a href="https://github.com/vivien000/grammar-constrained-decoding/blob/main/grammar-constrained%20decoding.ipynb">Python notebook</a> evaluates the effectiveness of mask store streamlining. Since some of the operations are time-computing, in particular the computation of \(\texttt{is_never_legal}\) (because it requires taking into account the whole grammar whereas using \(\texttt{Unlimited credit exploration}\) only leverages local relationships in the pushdown automaton), I proceeded in the following way:</p>
+
+<ul>
+  <li><strong>Step 1</strong>: identify sets of mutually interchangeable terminals to merge the mask store entries corresponding to these terminals;</li>
+  <li><strong>Step 2</strong>: use the directed graph mentionned above (cf. Figure 2) to identify which terminal can possibly follow another terminal and remove the mask store entries that do not comply with these constraints;</li>
+  <li><strong>Step 3</strong>: identify terminals \(X, Y\in \Sigma\) so that \(\texttt{is_always_legal(X, Y)} = \texttt{True}\) or \(\texttt{is_never_legal(X, Y)} = \texttt{True}\) and merge or remove mask store entries on this basis;</li>
+  <li><strong>Step 4</strong>: compute the values of \(\texttt{is_always_legal}\) (whenever possible) and \(\texttt{is_never_legal}\) for the remaining entries of the mask store and remove and merge these entries on this basis.</li>
+</ul>
+
+<p>Figure 6 shows that these steps combined result in a <strong>ten-fold reduction of the size of the mask store</strong>.</p>
+
+<p><img src="https://vivien000.github.io/blog/assets/img/mask_store_chart.png" alt="Number of mask store entries according to the streamlining method" /></p>
+<div class="caption">Figure 6. (Left) Number of mask store entries according to the streamlining method. (Right) Cumulative distribution of the number of mask store entries per NFA state, according to the streamlining method.</div>
+
+<p>Furthermore, I performed three experiments to confirm that <strong>streamlining the mask store yields valid results</strong>:</p>
+<ul>
+  <li><strong>Experiment 1</strong>: I tokenized a series of Python files from four GitHub repositories (more than one million tokens in total) and for each token, I computed the masks thanks to the streamlined mask store and I checked that the next token was indeed allowed by the mask;</li>
+  <li><strong>Experiment 2</strong>: I checked that 400 strings (more than one million characters in total) generated using the streamlined mask store were syntatically correct Python code;</li>
+  <li><strong>Experiment 3</strong>: For more than 100,000 tokens extracted from the same Python files as before, I computed the masks using both the original mask store and the streamlined mask store and I checked that the resulting masks were systematically identical.</li>
+</ul>
+
+<p>These three experiments were successful, which suggests, as expected, that <strong>the masks computed are adequate</strong> (i.e. neither excessively restrictive nor excessively permissive) and that <strong>streamlining the mask store does not alter the masks computed at decoding time</strong>.</p>
+
+<h1 id="conclusion-and-potential-future-work">Conclusion and Potential Future Work</h1>
+
+<p>This post introduces a novel method for streamlining mask stores in CFG-constrained decoding techniques that leverage an automaton-based lexer and an incremental parser. This method significantly reduces the inference overhead at the cost of modest additional computations performed once for a given grammar and a given tokenizer.</p>
+
+<p>Potential areas for improvement of this method are as follows:</p>
+<ul>
+  <li>We can modify the definitions of \(\texttt{is_always_legal}\), \(\texttt{is_never_legal}\) and \(\texttt{are_jointly_legal}\) so that their first argument is a sequence of terminals rather than a single terminal. This adjustment could increase the frequency of these functions returning \(\texttt{True}\), creating more opportunities to streamline the mask store. This would also likely increase the computation time of the pre-processing steps but this could be controlled by limiting the size of the input sequence of terminals. In the case of the Python grammar, just switching the first argument from a terminal to a pair of terminals would probably be very helpful. For example, a <code class="language-plaintext highlighter-rouge">NAME</code> terminal can be used in various contexts but if we know it is preceded by a <code class="language-plaintext highlighter-rouge">DEF</code> terminal or an <code class="language-plaintext highlighter-rouge">IMPORT</code> terminal, it considerably narrows down the options for the next terminal;</li>
+  <li>The \(\texttt{Unlimited credit exploration}\) method to obtain \(\texttt{is_always_legal}(X, Y)\) amounts to checking whether it is possible to go from state \(X\) to state \(Y\) through the pushdown automaton, whatever the initial stack is. We could use a similar approach to tentatively compute \(\texttt{are_jointly_legal}(X, Y, Z)\): we would need to determine whether the NFAs created from paths going from \(X\) to \(Y\) or from \(X\) to \(Z\) are equivalent;</li>
+  <li>We can attempt to enforce both CFG constraints and <em>proper</em> tokenization, as in the <a href="https://vivien000.github.io/blog/journal/llm-decoding-with-regex-constraints.html">previous blog post</a> for regex constraints. This could yield the same benefits as with regex constraints: faster decoding and fewer risks of distortions of the language model distribution;</li>
+  <li>In practical cases, we can consider altering the definition of the input grammar to enforce semantic or stylistic constraints on top the syntactic ones. This could both accelerate decoding and result in a code more suited to our needs. For example, with the Python grammar:
+    <ul>
+      <li>we can replace the <code class="language-plaintext highlighter-rouge">NAME</code> terminal by several terminals (<code class="language-plaintext highlighter-rouge">FUNCTION_NAME</code>, <code class="language-plaintext highlighter-rouge">CLASS_NAME</code>, <code class="language-plaintext highlighter-rouge">VARIABLE_NAME</code>…) so that it is possible to apply naming conventions (e.g. lowercase for function names, CamelCase for class names…). Additionally, the lesser ambiguity would lead to a simpler mask store;</li>
+      <li>we can specify an allowlist of modules that can be imported, which is interesting to control the dependencies of the code. This can also increase the likelihood that only a one token would be allowed, in which case there is no need to call the LLM;</li>
+      <li>we can impose a docstring for each function (or class or method). This would help developers better understand the code generated but this could also accelerate decoding: if we also exclude comments at the end of the first line of a function, we know that a closing parenthesis should be followed by a colon, a linebreak an indentation and a long string. We can then add the corresponding tokens without calling the LLM;</li>
+    </ul>
+  </li>
+  <li>We can try to dynamically adjust the constraints in light of the code already generated. For example, after <code class="language-plaintext highlighter-rouge">from collections import</code>, we may allow only the classes contained in the <code class="language-plaintext highlighter-rouge">collections</code> module or after <code class="language-plaintext highlighter-rouge">object.</code>, we may allow only the name of an attribute or method of <code class="language-plaintext highlighter-rouge">object</code>. This is a significant departure from the situation discussed in this blog post as it becomes crucial to control the pre-processing time.</li>
+  <li>In the context of this blog post, I computed the number of entries of the mask store, before and after its streamlining, and checked that the masks computed were correct but I did not measure the actual inference overhead. A follow-up work would be to rigorously compare the inference overhead with those of existing packages.</li>
+</ul>
+
+<hr />
+
+<p><em>Thanks to the authors of the papers mentioned below and to the contributors of the various packages used in this project (inter alia, \(\texttt{outlines}\), \(\texttt{interegular}\), \(\texttt{lark}\) and \(\texttt{pyformlang}\)). I am also particularly grateful to Martin Berglund who right away suggested a potential undecidability problem when I let him know of my investigations.</em></p>
+
+<p><em>If you want to cite this blog post, you are welcome to use the following BibTeX entry:</em></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@misc{Tran-Thien_2025,
+title={Accelerating LLM Code Generation Through Mask Store Streamlining},
+url={https://vivien000.github.io/blog/journal/grammar-llm-decoding.html},
+journal={Unsupervised Thoughts (blog)},
+author={Tran-Thien, Vivien},
+year={2025}
+}
+</code></pre></div></div>
+
+<h1 id="references">References</h1>
+
+<ol class="bibliography"><li><span id="willard2023efficient">Willard, B. T., &amp; Louf, R. (2023). <i>Efficient Guided Generation for Large Language Models</i>.</span></li>
+<li><span id="llamacpp">Gerganov, G., &amp; et. al. (2024). <i>llama.cpp: Inference of Meta’s LLaMA model (and others) in pure C/C++</i>. https://github.com/ggerganov/llama.cpp</span></li>
+<li><span id="guidance">Lundberg, S., &amp; Ribeiro, M. T. C. et al. (2023). <i>Guidanceai/guidance: A guidance language for controlling large language models</i>. https://github.com/guidance-ai/guidance</span></li>
+<li><span id="geng2024grammarconstraineddecodingstructurednlp">Geng, S., Josifoski, M., Peyrard, M., &amp; West, R. (2024). <i>Grammar-Constrained Decoding for Structured NLP Tasks without Finetuning</i>. https://arxiv.org/abs/2305.13971</span></li>
+<li><span id="beurerkellner2024guidingllmsrightway">Beurer-Kellner, L., Fischer, M., &amp; Vechev, M. (2024). <i>Guiding LLMs The Right Way: Fast, Non-Invasive Constrained Generation</i>. https://arxiv.org/abs/2403.06988</span></li>
+<li><span id="ugare2024syncodellmgenerationgrammar">Ugare, S., Suresh, T., Kang, H., Misailovic, S., &amp; Singh, G. (2024). <i>SynCode: LLM Generation with Grammar Augmentation</i>. https://arxiv.org/abs/2403.01632</span></li>
+<li><span id="dong2024xgrammarflexibleefficientstructured">Dong, Y., Ruan, C. F., Cai, Y., Lai, R., Xu, Z., Zhao, Y., &amp; Chen, T. (2024). <i>XGrammar: Flexible and Efficient Structured Generation Engine for Large Language Models</i>. https://arxiv.org/abs/2411.15100</span></li></ol>
+
+<hr />
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>The Domino algorithm <a class="citation" href="#beurerkellner2024guidingllmsrightway">(Beurer-Kellner et al., 2024)</a> introduces <em>subterminal trees</em> which are analogous to mask stores organized as prefix trees. Using a prefix tree helps avoid unnecessary calls to the incremental parser but this distinction is not essential in the context of this blog post. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+<span class="post-date">
+  Written on
+  
+  January
+  3rd
+    ,
+  2025
+  by
+  
+    Vivien
+  
+</span>
+
+<div class="post-date">Feel free to share!</div>
+  <div class="sharing-icons">
+    <a href="https://twitter.com/intent/tweet?text=Accelerating LLM Code Generation Through Mask Store Streamlining&amp;url=https://vivien000.github.io/blog/journal/grammar-llm-decoding.html" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vivien000.github.io/blog/journal/grammar-llm-decoding.html&amp;title=Accelerating LLM Code Generation Through Mask Store Streamlining" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+  </div>
+</div>
+
+
+
+  <section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = "unsupervisedthoughts";
+    var disqus_identifier = "/journal/grammar-llm-decoding.html";
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+    </div>
+
+    <footer class="footer">
+  
+  
+  
+    <a href="https://www.github.com/vivien000" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/vivien000000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://vivien000.github.io/blog/rss-feed.xml" target="_blank"><i class="fa fa-rss-square" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:vivien@melix.net" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  <div class="post-date"><a href="https://vivien000.github.io/blog/menu/about.html">Unsupervised Thoughts | A blog on machine learning by Vivien</a></div>
+</footer>
+
+
+  </div>
+
+</body>
+</html>
